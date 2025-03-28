@@ -1,13 +1,8 @@
 import {defineField, defineType} from 'sanity'
 
-/**
- * Post schema.  Define and edit the fields for the 'post' content type.
- * Learn more: https://www.sanity.io/docs/schema-types
- */
-
 export default defineType({
-  name: 'post',
-  title: 'Post',
+  name: 'article',
+  title: 'Articles',
   type: 'document',
   fields: [
     defineField({
@@ -19,17 +14,10 @@ export default defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      validation: (Rule) => Rule.required(),
       options: {
         source: 'title',
         maxLength: 96,
       },
-    }),
-    defineField({
-      name: 'excerpt',
-      title: 'Excerpt',
-      type: 'text',
-      rows: 4,
     }),
     defineField({
       name: 'mainImage',
@@ -38,29 +26,35 @@ export default defineType({
       options: {
         hotspot: true,
       },
-			fields: [
-				defineField({
-					name: 'alt',
-					title: 'Alternative text',
-					type: 'string',
-				}),
-			],
     }),
     defineField({
       name: 'body',
       title: 'Body',
       type: 'blockContent',
     }),
+    defineField({
+      name: 'categories',
+      title: 'Categories',
+      type: 'array',
+      of: [{type: 'reference', to: {type: 'category'}}],
+    }),
+    defineField({
+      name: 'legacy_urls',
+      title: 'Legacy Links',
+      type: 'array',
+      of: [{type: 'string'}],
+    }),
+    defineField({
+      name: 'views',
+      title: 'Article Views',
+      type: 'number',
+      readOnly: true,
+    }),
   ],
   preview: {
     select: {
       title: 'title',
-      author: 'author.name',
       media: 'mainImage',
-    },
-    prepare(selection) {
-      const {author} = selection
-      return {...selection, subtitle: author && `by ${author}`}
     },
   },
 })
