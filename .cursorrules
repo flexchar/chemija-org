@@ -1,0 +1,127 @@
+# Chemija.org Development Plan
+
+## Stack
+
+- Astro
+- Sanity
+- TailwindCSS (version 4 is used, css enabled in `astro-app/src/assets/app.css`)
+- DaisyUI (always prefer daisyui classes over tailwind for built-in dark mode)
+- React
+
+## Project Overview
+
+- Website name: chemija.org
+- Platform: Astro with Sanity CMS
+- Language: Lithuanian
+- Goal: Migrate from Gridsome to Astro
+
+## Site Structure
+
+1. Home Page
+
+    - Latest articles section
+    - Latest chemistry exams section
+    - Navigation menu
+
+2. Articles Page
+
+    - Index with pagination
+    - Article cards with:
+        - Title
+        - Excerpt
+        - View count
+        - Category hashtag
+    - Static rendering
+
+3. Article Detail Page
+
+    - Rich content rendering
+
+4. Exams Page ("Egzaminai")
+
+    - Table layout with 5 columns
+    - Each row contains exam PDFs (questions and answers)
+    - Download functionality
+
+5. Calculator Page
+    - Chemistry calculation tools (to be specified later)
+
+## Development Phases
+
+### Phase 1: Setup & Configuration
+
+- [x] Clone Sanity Astro Clean Starter
+- [x] Setup Sanity schema for Lithuanian content
+    - [x] Create Article schema (enhance existing Post schema)
+        - [x] Add viewCount field
+        - [x] Add category/hashtag field
+    - [x] Create Exam schema
+        - [x] Question PDF field
+        - [x] Answer PDF field
+        - [x] Date, title, and other metadata
+- [x] Configure Astro for Lithuanian language
+    - [x] Set Lithuanian as default language
+
+### Phase 2: Home Page Development
+
+- [x] Enhance Layout.astro with navigation menu
+    - [x] Articles ("Straipsniai")
+    - [x] Exams ("Egzaminai")
+    - [x] Calculator ("Skaičiuotuvas")
+- [x] Modify index.astro to display:
+    - [x] Latest articles section
+    - [x] Latest exams section
+- [x] Create components:
+    - [x] ArticleCard.astro
+    - [x] ExamCard.astro
+
+### Phase 3: Articles Implementation
+
+- [x] Create /straipsniai/ page with:
+    - [x] Article listing with pagination
+    - [x] Filter by category
+- [x] Enhance /straipsniai/[slug].astro page
+    - [x] Add view counter functionality
+    - [x] Styling for Lithuanian content
+
+### Phase 4: Exams Page
+
+- [x] Create /egzaminai/ page with:
+    - [x] Table layout (5 columns)
+    - [x] PDF download links
+    - [x] Sorting/filtering options
+
+### Phase 5: Calculator Page
+
+- [x] Create /skaiciuotuvas/ page
+    - [x] Basic layout (placeholder)
+    - [ ] Later: chemistry calculation tools
+
+### Phase 6: Testing & Deployment
+
+- [ ] Test all pages and functionality
+- [ ] Optimize for performance
+- [ ] Deploy to production
+
+## Next Steps
+
+1. [x] Create Sanity schemas for:
+    - [x] Enhanced Article (based on Post)
+    - [x] Exam
+2. [x] Setup utility functions to fetch content from Sanity
+    - [x] Update existing sanity.ts with new content types
+3. [x] Create navigation menu component
+4. [x] Implement home page layout
+
+5. [ ] Implement API route for updating view counts
+
+6. [ ] Add metadata for SEO optimization
+
+7. [ ] Setup proper error pages (404, 500)
+
+## Technical Considerations
+
+- Static site generation for optimal performance
+- Schema design for Sanity CMS
+- PDF handling for exam files
+- Rich content rendering

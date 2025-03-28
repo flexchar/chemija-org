@@ -5,90 +5,104 @@ import Layout from "../layouts/Layout.astro";
 import { getLatestArticles, getLatestExams, type Article, type Exam } from "../utils/sanity";
 
 // Fetch data
-const articles = await getLatestArticles(4);
-const exams = await getLatestExams(4);
+const articles = await getLatestArticles(5);
+const exams = await getLatestExams(3);
+
+// Format date helper
+const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleString('lt');
+};
 ---
 
 <Layout title="Chemijos portalas">
-  <div class="home-page">
-    <section class="hero-section">
-      <div class="hero-content">
-        <h1 class="hero-title">chemija.org</h1>
-        <p class="hero-subtitle">Atraskite chemijos pasaulį ir egzaminų medžiagą</p>
-      </div>
-    </section>
+  <!-- Welcome hero -->
+  <section class="flex flex-col sm:flex-row justify-between py-16">
+    <h1 class="text-3xl font-light self-center text-center sm:text-left w-full sm:w-1/2 pb-20 sm:pb-0">
+      Chemijos bei kitų gamtos mokslų mėgėjų svetainė
+    </h1>
 
-    <section class="latest-articles">
-      <div class="section-header">
-        <h2 class="section-title">Naujausi straipsniai</h2>
-        <a href="/straipsniai" class="section-link">Visi straipsniai →</a>
+    <div class="flex justify-center w-full sm:w-1/2">
+      <img 
+        src="/images/science.svg" 
+        class="w-64" 
+        alt="Woman scientist taking notes next to chemistry flasks"
+        title="Chemija tavo draugas"
+      />
+    </div>
+  </section>
+
+  <!-- Articles -->
+  <section>
+    <div class="border-b py-1 my-4 flex justify-between items-end">
+      <h2 class="text-3xl">Straipsniai</h2>
+      <a href="/straipsniai" class="link-hover">Visi straipsniai</a>
+    </div>
+
+    {articles.length > 0 ? (
+      articles.map((article: Article) => (
+        <article class="flex flex-col md:flex-row justify-between pb-4 mb-6 sm:mb-10 md:mb-16">
+          <p class="text-base-content/70 py-2 md:py-0 text-sm tracking-wide">
+            <time 
+              datetime={article.publishedAt || article._createdAt} 
+              title={`Atnaujinta ${formatDate(article.publishedAt || article._createdAt)}`}
+            >
+              {formatDate(article.publishedAt || article._createdAt)}
+            </time>
+          </p>
+          <div class="md:w-3/4">
+            {article.category && (
+              <p class="text-base-content/70 text-sm tracking-wide pb-2">
+                {article.category}
+              </p>
+            )}
+            <a 
+              href={`/straipsniai/${article.slug.current}`} 
+              class="text-2xl break-words hover:text-accent hover:underline"
+            >
+              {article.title}
+            </a>
+          </div>
+        </article>
+      ))
+    ) : (
+      <p class="text-base-content/70 italic py-4">Nėra straipsnių.</p>
+    )}
+  </section>
+
+  <!-- Exams -->
+  <section>
+    <div class="border-b py-1 my-4 flex justify-between items-end">
+      <h2 class="text-3xl">Egzaminai</h2>
+      <a href="/egzaminai" class="link-hover">Visi egzaminai</a>
+    </div>
+
+    <p class="mb-16">
+      Didžiausias chemijos egzaminų archyvas padės tau
+      <mark class="px-1 py-0.5 bg-accent text-accent-content font-medium">PASIRUOŠTI EGZAMINUI</mark>
+      ir gliaudyti užduotis it riešutus!
+    </p>
+
+    <div class="flex flex-col sm:flex-row pb-8">
+      <div class="hidden sm:flex w-1/2 items-center">
+        <img 
+          src="/images/exams.svg" 
+          alt="Students writting an exam" 
+          title="Pasiruošk egzaminams"
+          class="px-10 lg:px-16 xl:px-32"
+        />
       </div>
-      
-      <div class="articles-grid">
-        {articles.length ? (
-          articles.map((article: Article) => <ArticleCard article={article} />)
+
+      <div class="w-full sm:w-1/2">
+        {exams.length > 0 ? (
+          exams.map((exam: Exam) => (
+            <div class="mb-8">
+              <ExamCard exam={exam} />
+            </div>
+          ))
         ) : (
-          <p class="empty-message">Nėra straipsnių.</p>
+          <p class="text-base-content/70 italic py-4">Nėra egzaminų.</p>
         )}
       </div>
-    </section>
-
-    <section class="latest-exams">
-      <div class="section-header">
-        <h2 class="section-title">Naujausi egzaminai</h2>
-        <a href="/egzaminai" class="section-link">Visi egzaminai →</a>
-      </div>
-      
-      <div class="exams-grid">
-        {exams.length ? (
-          exams.map((exam: Exam) => <ExamCard exam={exam} />)
-        ) : (
-          <p class="empty-message">Nėra egzaminų.</p>
-        )}
-      </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </Layout>
-
-<style>
-  .home-page {
-    @apply max-w-6xl mx-auto px-4 py-8;
-  }
-
-  .hero-section {
-    @apply bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-xl p-8 mb-12 text-center;
-  }
-
-  .hero-content {
-    @apply max-w-3xl mx-auto;
-  }
-
-  .hero-title {
-    @apply text-4xl md:text-5xl font-bold mb-4;
-  }
-
-  .hero-subtitle {
-    @apply text-xl opacity-90;
-  }
-
-  .section-header {
-    @apply flex justify-between items-center mb-6;
-  }
-
-  .section-title {
-    @apply text-2xl font-bold;
-  }
-
-  .section-link {
-    @apply text-blue-600 hover:underline;
-  }
-
-  .articles-grid, .exams-grid {
-    @apply grid gap-6 mb-12;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  }
-
-  .empty-message {
-    @apply text-gray-500 italic py-4;
-  }
-</style>

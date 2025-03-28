@@ -7,29 +7,39 @@ interface Props {
 }
 
 const { article } = Astro.props;
+
+// Format date to Lithuanian format
+const formattedDate = article.publishedAt 
+  ? new Date(article.publishedAt).toLocaleDateString('lt-LT')
+  : new Date(article._createdAt).toLocaleDateString('lt-LT');
 ---
 
-<article class="article-card">
-  <a href={`/straipsniai/${article.slug.current}`} class="article-card__link">
+<div class="card bg-base-100 shadow-sm hover:shadow transition-all duration-200">
+  <a href={`/straipsniai/${article.slug.current}`} class="block h-full">
     {article.mainImage && (
-      <div class="article-card__image">
+      <figure class="h-48">
         <img
           src={urlFor(article.mainImage).width(400).height(300).url()}
-          alt={article.mainImage.alt || article.title || 'Article thumbnail'}
+          alt={article.mainImage.alt || article.title || 'Straipsnio nuotrauka'}
+          class="w-full h-full object-cover"
           loading="lazy"
         />
-      </div>
+      </figure>
     )}
     
-    <div class="article-card__content">
-      {article.category && <span class="article-card__category">{article.category}</span>}
+    <div class="card-body p-4">
+      {article.category && (
+        <div class="badge badge-primary badge-sm mb-2">{article.category}</div>
+      )}
       
-      <h2 class="article-card__title">{article.title}</h2>
+      <h2 class="card-title text-lg line-clamp-2">{article.title}</h2>
       
-      {article.excerpt && <p class="article-card__excerpt">{article.excerpt}</p>}
+      {article.excerpt && (
+        <p class="text-sm text-base-content/70 line-clamp-2 mb-3">{article.excerpt}</p>
+      )}
       
-      <div class="article-card__meta">
-        <span class="article-card__views">
+      <div class="flex justify-between text-xs text-base-content/60 mt-auto">
+        <span class="flex items-center gap-1">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
             <circle cx="12" cy="12" r="3"></circle>
@@ -37,54 +47,10 @@ const { article } = Astro.props;
           {article.viewCount || 0}
         </span>
         
-        {article.publishedAt && (
-          <time class="article-card__date" datetime={article.publishedAt}>
-            {new Date(article.publishedAt).toLocaleDateString('lt-LT')}
-          </time>
-        )}
+        <time datetime={article.publishedAt || article._createdAt}>
+          {formattedDate}
+        </time>
       </div>
     </div>
   </a>
-</article>
-
-<style>
-  .article-card {
-    @apply bg-white rounded-lg shadow overflow-hidden transition-transform duration-200 hover:shadow-md hover:-translate-y-1;
-  }
-  
-  .article-card__link {
-    @apply block no-underline text-inherit;
-  }
-  
-  .article-card__image {
-    @apply w-full h-48 overflow-hidden;
-  }
-  
-  .article-card__image img {
-    @apply w-full h-full object-cover;
-  }
-  
-  .article-card__content {
-    @apply p-4;
-  }
-  
-  .article-card__category {
-    @apply inline-block text-xs font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded mb-2;
-  }
-  
-  .article-card__title {
-    @apply text-lg font-bold mb-2 line-clamp-2;
-  }
-  
-  .article-card__excerpt {
-    @apply text-sm text-gray-600 mb-3 line-clamp-2;
-  }
-  
-  .article-card__meta {
-    @apply flex justify-between text-xs text-gray-500;
-  }
-  
-  .article-card__views {
-    @apply flex items-center gap-1;
-  }
-</style> 
+</div> 
