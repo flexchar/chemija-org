@@ -1,0 +1,179 @@
+---
+import { getArticle, getArticles, updateArticleViewCount, type Article } from "../../utils/sanity";
+import { urlFor } from "../../utils/image";
+import Layout from "../../layouts/Layout.astro";
+import { PortableText } from "astro-portabletext";
+
+// Define getStaticPaths to generate all article routes at build time
+export async function getStaticPaths() {
+  const articles = await getArticles(100); // Get up to 100 articles, adjust if needed
+  
+  return articles.map((article: Article) => ({
+    params: { slug: article.slug.current },
+    props: { article },
+  }));
+}
+
+// Get the article from props or fetch if needed
+const { slug } = Astro.params;
+const { article } = Astro.props;
+
+// Fallback in case article wasn't in props
+if (!article && slug) {
+  const fetchedArticle = await getArticle(slug);
+  if (!fetchedArticle) {
+    return Astro.redirect("/404");
+  }
+}
+
+const articleData = article || await getArticle(slug);
+
+// Increment view count
+// Only do this on the client-side to prevent double counting during development
+---
+
+<Layout title={articleData.title || "Straipsnis"}>
+  <article class="article">
+    <header class="article-header">
+      {articleData.category && (
+        <span class="article-category">{articleData.category}</span>
+      )}
+      <h1 class="article-title">{articleData.title}</h1>
+      
+      <div class="article-meta">
+        {articleData.publishedAt && (
+          <time class="article-date" datetime={articleData.publishedAt}>
+            {new Date(articleData.publishedAt).toLocaleDateString("lt-LT")}
+          </time>
+        )}
+        
+        <span class="article-views">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          <span id="viewCount">{articleData.viewCount || 0}</span> peržiūrų
+        </span>
+      </div>
+    </header>
+
+    {articleData.mainImage && (
+      <div class="article-image">
+        <img
+          src={urlFor(articleData.mainImage).width(800).url()}
+          alt={articleData.mainImage.alt || articleData.title || "Article image"}
+        />
+      </div>
+    )}
+
+    <div class="article-content">
+      <PortableText value={articleData.body} />
+    </div>
+  </article>
+</Layout>
+
+<script define:vars={{ articleId: articleData._id }}>
+  // Increment view count on client-side only
+  const incrementViewCount = async () => {
+    try {
+      // Make a fetch request to a serverless function or API endpoint
+      // For now, we'll just update the display client-side
+      const currentCount = parseInt(document.getElementById('viewCount').textContent) || 0;
+      document.getElementById('viewCount').textContent = currentCount + 1;
+      
+      // In a real implementation, you would call an API endpoint to update the count in Sanity
+      // await fetch('/api/increment-views', {
+      //   method: 'POST',
+      //   body: JSON.stringify({ id: articleId }),
+      //   headers: { 'Content-Type': 'application/json' }
+      // });
+    } catch (error) {
+      console.error('Failed to update view count', error);
+    }
+  };
+
+  // Only increment once per session
+  const key = `viewed-${articleId}`;
+  if (!sessionStorage.getItem(key)) {
+    incrementViewCount();
+    sessionStorage.setItem(key, 'true');
+  }
+</script>
+
+<style>
+  .article {
+    @apply max-w-3xl mx-auto px-4 py-8;
+  }
+
+  .article-header {
+    @apply mb-8;
+  }
+
+  .article-category {
+    @apply inline-block text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-3;
+  }
+
+  .article-title {
+    @apply text-3xl md:text-4xl font-bold mb-4;
+  }
+
+  .article-meta {
+    @apply flex items-center gap-4 text-sm text-gray-600;
+  }
+
+  .article-views {
+    @apply flex items-center gap-1;
+  }
+
+  .article-image {
+    @apply mb-8 rounded-lg overflow-hidden;
+  }
+
+  .article-image img {
+    @apply w-full h-auto;
+  }
+
+  .article-content {
+    @apply prose prose-lg max-w-none;
+  }
+
+  .article-content :global(h2) {
+    @apply text-2xl font-bold mt-8 mb-4;
+  }
+
+  .article-content :global(h3) {
+    @apply text-xl font-bold mt-6 mb-3;
+  }
+
+  .article-content :global(p) {
+    @apply mb-4;
+  }
+
+  .article-content :global(ul), .article-content :global(ol) {
+    @apply mb-4 ml-6;
+  }
+
+  .article-content :global(li) {
+    @apply mb-2;
+  }
+
+  .article-content :global(blockquote) {
+    @apply border-l-4 border-gray-300 pl-4 italic my-4;
+  }
+
+  .article-content :global(pre) {
+    @apply bg-gray-50 p-4 rounded-lg overflow-x-auto my-4;
+  }
+
+  .article-content :global(code) {
+    @apply bg-gray-50 px-1 py-0.5 rounded;
+  }
+
+  .article-content :global(img) {
+    @apply rounded-lg my-6;
+  }
+
+  .article-content :global(a) {
+    @apply text-blue-600 hover:underline;
+  }
+</style> 

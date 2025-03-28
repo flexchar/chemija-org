@@ -1,0 +1,85 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import { getArticles, type Article } from "../../utils/sanity";
+
+// Pagination parameters
+const page = Number(Astro.url.searchParams.get('page') || 1);
+const limit = 8;
+const offset = (page - 1) * limit;
+
+// Fetch articles for the current page
+const articles = await getArticles(limit, offset);
+
+// We would need a separate query to get the total count for accurate pagination
+// For now, we'll show next page button if we have a full page of results
+const hasNextPage = articles.length === limit;
+---
+
+<Layout title="Straipsniai">
+  <div class="articles-page">
+    <header class="page-header">
+      <h1 class="page-title">Straipsniai</h1>
+      <p class="page-description">
+        Naujausi chemijos mokslo straipsniai ir mokomoji medžiaga
+      </p>
+    </header>
+
+    <div class="articles-grid">
+      {articles.length ? (
+        articles.map((article: Article) => <ArticleCard article={article} />)
+      ) : (
+        <p class="empty-message">Nėra straipsnių.</p>
+      )}
+    </div>
+
+    <div class="pagination">
+      {page > 1 && (
+        <a href={`/straipsniai?page=${page - 1}`} class="pagination-button">
+          ← Ankstesnis puslapis
+        </a>
+      )}
+      
+      {hasNextPage && (
+        <a href={`/straipsniai?page=${page + 1}`} class="pagination-button">
+          Kitas puslapis →
+        </a>
+      )}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .articles-page {
+    @apply max-w-6xl mx-auto px-4 py-8;
+  }
+
+  .page-header {
+    @apply mb-8 text-center;
+  }
+
+  .page-title {
+    @apply text-3xl font-bold mb-2;
+  }
+
+  .page-description {
+    @apply text-gray-600;
+  }
+
+  .articles-grid {
+    @apply grid gap-6 mb-8;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+
+  .empty-message {
+    @apply text-gray-500 italic py-4 text-center;
+  }
+
+  .pagination {
+    @apply flex justify-center gap-4 mt-8;
+  }
+
+  .pagination-button {
+    @apply px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors;
+  }
+</style> 

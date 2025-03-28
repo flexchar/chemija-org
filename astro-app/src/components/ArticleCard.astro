@@ -1,0 +1,90 @@
+---
+import type { Article } from '../utils/sanity';
+import { urlFor } from '../utils/image';
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+---
+
+<article class="article-card">
+  <a href={`/straipsniai/${article.slug.current}`} class="article-card__link">
+    {article.mainImage && (
+      <div class="article-card__image">
+        <img
+          src={urlFor(article.mainImage).width(400).height(300).url()}
+          alt={article.mainImage.alt || article.title || 'Article thumbnail'}
+          loading="lazy"
+        />
+      </div>
+    )}
+    
+    <div class="article-card__content">
+      {article.category && <span class="article-card__category">{article.category}</span>}
+      
+      <h2 class="article-card__title">{article.title}</h2>
+      
+      {article.excerpt && <p class="article-card__excerpt">{article.excerpt}</p>}
+      
+      <div class="article-card__meta">
+        <span class="article-card__views">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          {article.viewCount || 0}
+        </span>
+        
+        {article.publishedAt && (
+          <time class="article-card__date" datetime={article.publishedAt}>
+            {new Date(article.publishedAt).toLocaleDateString('lt-LT')}
+          </time>
+        )}
+      </div>
+    </div>
+  </a>
+</article>
+
+<style>
+  .article-card {
+    @apply bg-white rounded-lg shadow overflow-hidden transition-transform duration-200 hover:shadow-md hover:-translate-y-1;
+  }
+  
+  .article-card__link {
+    @apply block no-underline text-inherit;
+  }
+  
+  .article-card__image {
+    @apply w-full h-48 overflow-hidden;
+  }
+  
+  .article-card__image img {
+    @apply w-full h-full object-cover;
+  }
+  
+  .article-card__content {
+    @apply p-4;
+  }
+  
+  .article-card__category {
+    @apply inline-block text-xs font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded mb-2;
+  }
+  
+  .article-card__title {
+    @apply text-lg font-bold mb-2 line-clamp-2;
+  }
+  
+  .article-card__excerpt {
+    @apply text-sm text-gray-600 mb-3 line-clamp-2;
+  }
+  
+  .article-card__meta {
+    @apply flex justify-between text-xs text-gray-500;
+  }
+  
+  .article-card__views {
+    @apply flex items-center gap-1;
+  }
+</style> 

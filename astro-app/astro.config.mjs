@@ -8,6 +8,7 @@ const {
     PUBLIC_SANITY_DATASET,
 } = loadEnv(import.meta.env.MODE, process.cwd(), '');
 import { defineConfig } from 'astro/config';
+import tailwindcss from '@tailwindcss/vite';
 
 // Different environments use different variables
 const projectId = PUBLIC_SANITY_STUDIO_PROJECT_ID || PUBLIC_SANITY_PROJECT_ID;
@@ -36,4 +37,5 @@ export default defineConfig({
         }),
         react(), // Required for Sanity Studio
     ],
+    plugins: [tailwindcss()],
 });

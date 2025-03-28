@@ -1,0 +1,168 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getExams } from "../../utils/sanity";
+
+// Pagination parameters
+const page = Number(Astro.url.searchParams.get('page') || 1);
+const limit = 20;
+const offset = (page - 1) * limit;
+
+// Fetch exams for the current page
+const exams = await getExams(limit, offset);
+
+// We would need a separate query to get the total count for accurate pagination
+// For now, we'll show next page button if we have a full page of results
+const hasNextPage = exams.length === limit;
+
+// Exam type map for display
+const examTypeMap = {
+  vbe: 'Valstybinis brandos egzaminas',
+  mbe: 'Mokyklinis brandos egzaminas',
+  trial: 'Bandomasis egzaminas',
+  other: 'Kitas egzaminas'
+};
+---
+
+<Layout title="Egzaminai">
+  <div class="exams-page">
+    <header class="page-header">
+      <h1 class="page-title">Chemijos egzaminai</h1>
+      <p class="page-description">
+        Brandos egzaminų užduotys ir atsakymai. Ruoškitės egzaminams efektyviai!
+      </p>
+    </header>
+
+    <div class="table-container">
+      <table class="exams-table">
+        <thead>
+          <tr>
+            <th>Pavadinimas</th>
+            <th>Tipas</th>
+            <th>Data</th>
+            <th>Užduotys</th>
+            <th>Atsakymai</th>
+          </tr>
+        </thead>
+        <tbody>
+          {exams.length ? (
+            exams.map((exam) => (
+              <tr>
+                <td class="exam-title">{exam.title}</td>
+                <td>{examTypeMap[exam.examType as keyof typeof examTypeMap] || exam.examType}</td>
+                <td>
+                  {exam.examDate
+                    ? new Date(exam.examDate).toLocaleDateString('lt-LT')
+                    : ''}
+                </td>
+                <td>
+                  {exam.questionsFile && (
+                    <a
+                      href={exam.questionsFile.asset.url}
+                      class="download-button download-button--questions"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Užduotys
+                    </a>
+                  )}
+                </td>
+                <td>
+                  {exam.answersFile && (
+                    <a
+                      href={exam.answersFile.asset.url}
+                      class="download-button download-button--answers"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Atsakymai
+                    </a>
+                  )}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colspan="5" class="empty-message">Nėra egzaminų.</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      {page > 1 && (
+        <a href={`/egzaminai?page=${page - 1}`} class="pagination-button">
+          ← Ankstesnis puslapis
+        </a>
+      )}
+      
+      {hasNextPage && (
+        <a href={`/egzaminai?page=${page + 1}`} class="pagination-button">
+          Kitas puslapis →
+        </a>
+      )}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .exams-page {
+    @apply max-w-6xl mx-auto px-4 py-8;
+  }
+
+  .page-header {
+    @apply mb-8 text-center;
+  }
+
+  .page-title {
+    @apply text-3xl font-bold mb-2;
+  }
+
+  .page-description {
+    @apply text-gray-600 mb-6;
+  }
+
+  .table-container {
+    @apply overflow-x-auto bg-white rounded-lg shadow;
+  }
+
+  .exams-table {
+    @apply w-full border-collapse;
+  }
+
+  .exams-table th {
+    @apply bg-gray-50 text-left p-4 font-medium text-gray-700 border-b;
+  }
+
+  .exams-table td {
+    @apply p-4 border-b border-gray-100;
+  }
+
+  .exam-title {
+    @apply font-medium;
+  }
+
+  .download-button {
+    @apply inline-block px-3 py-1.5 text-xs font-medium rounded transition-colors duration-200;
+  }
+
+  .download-button--questions {
+    @apply bg-blue-600 text-white hover:bg-blue-700;
+  }
+
+  .download-button--answers {
+    @apply bg-emerald-600 text-white hover:bg-emerald-700;
+  }
+
+  .empty-message {
+    @apply text-gray-500 italic py-4 text-center;
+  }
+
+  .pagination {
+    @apply flex justify-center gap-4 mt-8;
+  }
+
+  .pagination-button {
+    @apply px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors;
+  }
+</style> 

@@ -1,0 +1,68 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Chemijos skaičiuotuvas">
+  <div class="calculator-page">
+    <header class="page-header">
+      <h1 class="page-title">Chemijos skaičiuotuvas</h1>
+      <p class="page-description">
+        Naudokite mūsų įrankius chemijos uždaviniams spręsti.
+      </p>
+    </header>
+
+    <div class="calculator-container">
+      <div class="placeholder-content">
+        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="placeholder-icon">
+          <rect x="4" y="2" width="16" height="20" rx="2" />
+          <line x1="8" x2="16" y1="6" y2="6" />
+          <line x1="8" x2="16" y1="10" y2="10" />
+          <line x1="8" x2="16" y1="14" y2="14" />
+          <line x1="8" x2="16" y1="18" y2="18" />
+        </svg>
+        <h2 class="placeholder-title">Skaičiuotuvas kuriamas</h2>
+        <p class="placeholder-message">
+          Šiuo metu skaičiuotuvas dar kuriamas. Greitai čia atsiras įrankiai, padėsiantys spręsti chemijos uždavinius.
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .calculator-page {
+    @apply max-w-6xl mx-auto px-4 py-8;
+  }
+
+  .page-header {
+    @apply mb-8 text-center;
+  }
+
+  .page-title {
+    @apply text-3xl font-bold mb-2;
+  }
+
+  .page-description {
+    @apply text-gray-600 mb-8;
+  }
+
+  .calculator-container {
+    @apply bg-white rounded-lg shadow p-8;
+  }
+
+  .placeholder-content {
+    @apply text-center py-16;
+  }
+
+  .placeholder-icon {
+    @apply text-blue-600 mx-auto mb-6 opacity-50;
+  }
+
+  .placeholder-title {
+    @apply text-2xl font-bold mb-2;
+  }
+
+  .placeholder-message {
+    @apply text-gray-600 max-w-md mx-auto;
+  }
+</style> 

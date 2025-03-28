@@ -1,14 +1,94 @@
 ---
-import Card from "../components/Card.astro";
-import Welcome from "../components/Welcome.astro";
+import ArticleCard from "../components/ArticleCard.astro";
+import ExamCard from "../components/ExamCard.astro";
 import Layout from "../layouts/Layout.astro";
-import { getPosts } from "../utils/sanity";
+import { getLatestArticles, getLatestExams, type Article, type Exam } from "../utils/sanity";
 
-const posts = await getPosts();
+// Fetch data
+const articles = await getLatestArticles(4);
+const exams = await getLatestExams(4);
 ---
 
-<Layout title="Welcome to Astro.">
-  <section>
-    {posts.length ? posts.map((post) => <Card post={post} />) : <Welcome />}
-  </section>
+<Layout title="Chemijos portalas">
+  <div class="home-page">
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1 class="hero-title">chemija.org</h1>
+        <p class="hero-subtitle">Atraskite chemijos pasaulį ir egzaminų medžiagą</p>
+      </div>
+    </section>
+
+    <section class="latest-articles">
+      <div class="section-header">
+        <h2 class="section-title">Naujausi straipsniai</h2>
+        <a href="/straipsniai" class="section-link">Visi straipsniai →</a>
+      </div>
+      
+      <div class="articles-grid">
+        {articles.length ? (
+          articles.map((article: Article) => <ArticleCard article={article} />)
+        ) : (
+          <p class="empty-message">Nėra straipsnių.</p>
+        )}
+      </div>
+    </section>
+
+    <section class="latest-exams">
+      <div class="section-header">
+        <h2 class="section-title">Naujausi egzaminai</h2>
+        <a href="/egzaminai" class="section-link">Visi egzaminai →</a>
+      </div>
+      
+      <div class="exams-grid">
+        {exams.length ? (
+          exams.map((exam: Exam) => <ExamCard exam={exam} />)
+        ) : (
+          <p class="empty-message">Nėra egzaminų.</p>
+        )}
+      </div>
+    </section>
+  </div>
 </Layout>
+
+<style>
+  .home-page {
+    @apply max-w-6xl mx-auto px-4 py-8;
+  }
+
+  .hero-section {
+    @apply bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-xl p-8 mb-12 text-center;
+  }
+
+  .hero-content {
+    @apply max-w-3xl mx-auto;
+  }
+
+  .hero-title {
+    @apply text-4xl md:text-5xl font-bold mb-4;
+  }
+
+  .hero-subtitle {
+    @apply text-xl opacity-90;
+  }
+
+  .section-header {
+    @apply flex justify-between items-center mb-6;
+  }
+
+  .section-title {
+    @apply text-2xl font-bold;
+  }
+
+  .section-link {
+    @apply text-blue-600 hover:underline;
+  }
+
+  .articles-grid, .exams-grid {
+    @apply grid gap-6 mb-12;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+
+  .empty-message {
+    @apply text-gray-500 italic py-4;
+  }
+</style>
