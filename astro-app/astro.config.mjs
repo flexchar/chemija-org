@@ -15,7 +15,7 @@ const projectId = PUBLIC_SANITY_STUDIO_PROJECT_ID || PUBLIC_SANITY_PROJECT_ID;
 const dataset = PUBLIC_SANITY_STUDIO_DATASET || PUBLIC_SANITY_DATASET;
 
 import sanity from '@sanity/astro';
-import react from '@astrojs/react';
+// import react from '@astrojs/react';
 
 // Change this depending on your hosting provider (Vercel, Netlify etc)
 // https://docs.astro.build/en/guides/server-side-rendering/#adding-an-adapter
@@ -35,7 +35,7 @@ export default defineConfig({
             // `false` if you want to ensure fresh data
             apiVersion: '2025-03-28', // Set to date of setup to use the latest API version
         }),
-        react(), // Required for Sanity Studio
+        // react(), // Required for Sanity Studio
     ],
     plugins: [tailwindcss()],
 });
