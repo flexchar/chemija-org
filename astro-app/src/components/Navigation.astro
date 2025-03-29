@@ -2,18 +2,20 @@
 // Navigation component for chemija.org
 ---
 
-<nav class="navbar bg-base-100 shadow">
-  <div class="container mx-auto px-4">
-    <div class="flex-1">
-      <a href="/" class="text-2xl font-bold">chemija.org</a>
+<nav class="bg-base-100 shadow">
+    <div class="container mx-auto navbar">
+        <a href="/" class="text-2xl font-bold">chemija.org</a>
+
+        <span class="flex-grow"></span>
+
+        <ul class="menu menu-horizontal px-1 gap-2">
+            <li>
+                <a href="/straipsniai" class="font-medium">Straipsniai</a>
+            </li>
+            <li><a href="/egzaminai" class="font-medium">Egzaminai</a></li>
+            <li>
+                <a href="/skaiciuotuvas" class="font-medium">Skaičiuoklė</a>
+            </li>
+        </ul>
     </div>
-    
-    <div class="flex-none">
-      <ul class="menu menu-horizontal px-1 gap-2">
-        <li><a href="/straipsniai" class="font-medium">Straipsniai</a></li>
-        <li><a href="/egzaminai" class="font-medium">Egzaminai</a></li>
-        <li><a href="/skaiciuotuvas" class="font-medium">Skaičiuoklė</a></li>
-      </ul>
-    </div>
-  </div>
 </nav>

@@ -1,56 +1,90 @@
 ---
 import type { Article } from '../utils/sanity';
 import { urlFor } from '../utils/image';
+import { formatDate } from '../utils/index';
+import { toPlainText } from 'astro-portabletext';
 
 interface Props {
-  article: Article;
+    article: Article;
 }
 
 const { article } = Astro.props;
 
-// Format date to Lithuanian format
-const formattedDate = article.publishedAt 
-  ? new Date(article.publishedAt).toLocaleDateString('lt-LT')
-  : new Date(article._createdAt).toLocaleDateString('lt-LT');
+// We need to augment the Article type to match what's returned from the GROQ query
+type ExtendedCategory = {
+    _id: string;
+    title: string;
+};
+
+// Cast categories to the extended type that includes title
+const categories = article.categories as unknown as
+    | ExtendedCategory[]
+    | undefined;
 ---
 
-<div class="card bg-base-100 shadow-sm hover:shadow transition-all duration-200">
-  <a href={`/straipsniai/${article.slug.current}`} class="block h-full">
-    {article.mainImage && (
-      <figure class="h-48">
-        <img
-          src={urlFor(article.mainImage).width(400).height(300).url()}
-          alt={article.mainImage.alt || article.title || 'Straipsnio nuotrauka'}
-          class="w-full h-full object-cover"
-          loading="lazy"
-        />
-      </figure>
-    )}
-    
-    <div class="card-body p-4">
-      {article.category && (
-        <div class="badge badge-primary badge-sm mb-2">{article.category}</div>
-      )}
-      
-      <h2 class="card-title text-lg line-clamp-2">{article.title}</h2>
-      
-      {article.excerpt && (
-        <p class="text-sm text-base-content/70 line-clamp-2 mb-3">{article.excerpt}</p>
-      )}
-      
-      <div class="flex justify-between text-xs text-base-content/60 mt-auto">
-        <span class="flex items-center gap-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-            <circle cx="12" cy="12" r="3"></circle>
-          </svg>
-          {article.viewCount || 0}
-        </span>
-        
-        <time datetime={article.publishedAt || article._createdAt}>
-          {formattedDate}
-        </time>
-      </div>
-    </div>
-  </a>
-</div> 
+<div
+    class="card bg-base-100 shadow-sm hover:shadow-xl transition-all duration-200"
+>
+    <a href={`/straipsniai/${article.slug?.current}`} class="block h-full">
+        {
+            article.mainImage && article.mainImage.asset && (
+                <figure class="h-48">
+                    <img
+                        src={urlFor(article.mainImage.asset)
+                            .width(400)
+                            .height(300)
+                            .url()}
+                        alt={article.title || 'Straipsnio nuotrauka'}
+                        class="w-full h-full object-cover"
+                        loading="lazy"
+                    />
+                </figure>
+            )
+        }
+
+        <div class="card-body p-4 h-full">
+            {
+                categories && categories.length > 0 && (
+                    <div class="badge badge-primary badge-sm mb-2">
+                        {categories[0].title}
+                    </div>
+                )
+            }
+
+            <h2 class="card-title text-lg line-clamp-2">{article.title}</h2>
+
+            <p class="text-sm text-base-content/70 mb-3">
+                {toPlainText(article.body!).slice(0, 225).trim()}...
+            </p>
+
+            <span class="flex-1"></span>
+
+            <div
+                class="card-actions flex justify-between text-xs text-base-content/60 mt-auto"
+            >
+                <span class="flex items-center gap-1">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"
+                        ></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    {article.views || 0}
+                </span>
+
+                <time datetime={article._createdAt}>
+                    {formatDate(article._createdAt)}
+                </time>
+            </div>
+        </div>
+    </a>
+</div>

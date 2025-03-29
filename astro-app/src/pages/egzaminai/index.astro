@@ -1,106 +1,237 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import { getExams } from "../../utils/sanity";
+import Layout from '@/layouts/Layout.astro';
+import { getExams, type Exam } from '@/utils/sanity';
 
-// Pagination parameters
-const page = Number(Astro.url.searchParams.get('page') || 1);
-const limit = 20;
-const offset = (page - 1) * limit;
+// Get Sanity project details from environment
+const SANITY_PROJECT_ID = import.meta.env.PUBLIC_SANITY_STUDIO_PROJECT_ID;
+const SANITY_DATASET = import.meta.env.PUBLIC_SANITY_DATASET || 'production';
 
-// Fetch exams for the current page
-const exams = await getExams(limit, offset);
+// Fetch all exams (no limit or pagination)
+let exams: Exam[] = [];
+let error: Error | null = null;
 
-// We would need a separate query to get the total count for accurate pagination
-// For now, we'll show next page button if we have a full page of results
-const hasNextPage = exams.length === limit;
+try {
+    // Pass 0 as limit to get all exams
+    exams = await getExams(0, 0);
+    console.log('All exams fetched:', exams.length);
+} catch (e) {
+    console.error('Error fetching exams:', e);
+    error = e instanceof Error ? e : new Error(String(e));
+}
 
-// Exam type map for display
-const examTypeMap = {
-  vbe: 'Valstybinis brandos egzaminas',
-  mbe: 'Mokyklinis brandos egzaminas',
-  trial: 'Bandomasis egzaminas',
-  other: 'Kitas egzaminas'
-};
+// Extract unique years from exams for the filter
+const examYears = [
+    ...new Set(
+        exams
+            .map((exam) =>
+                exam.year ? new Date(exam.year).getFullYear() : null,
+            )
+            .filter((year) => year !== null),
+    ),
+].sort((a, b) => b - a); // Sort years in descending order
 ---
 
-<Layout title="Egzaminai">
-  <div class="exams-page">
-    <header class="page-header">
-      <h1 class="page-title">Chemijos egzaminai</h1>
-      <p class="page-description">
-        Brandos egzaminų užduotys ir atsakymai. Ruoškitės egzaminams efektyviai!
-      </p>
-    </header>
+<Layout title="Chemijos egzaminai">
+    <div class="exam-page">
+        <header class="px-2 sm:px-0">
+            <h1 class="text-4xl text-gray-800">Chemijos egzaminai</h1>
+            <p>
+                Chemijos valstybinių bei mokyklinių egzaminų užduočių ir
+                atsakymų archyvas. Egzaminai su atsakymais nuo 1996 metų.
+            </p>
+            <div class="flex items-center">
+                <span class="flex-1 hidden md:inline"></span>
 
-    <div class="table-container">
-      <table class="exams-table">
-        <thead>
-          <tr>
-            <th>Pavadinimas</th>
-            <th>Tipas</th>
-            <th>Data</th>
-            <th>Užduotys</th>
-            <th>Atsakymai</th>
-          </tr>
-        </thead>
-        <tbody>
-          {exams.length ? (
-            exams.map((exam) => (
-              <tr>
-                <td class="exam-title">{exam.title}</td>
-                <td>{examTypeMap[exam.examType as keyof typeof examTypeMap] || exam.examType}</td>
-                <td>
-                  {exam.examDate
-                    ? new Date(exam.examDate).toLocaleDateString('lt-LT')
-                    : ''}
-                </td>
-                <td>
-                  {exam.questionsFile && (
-                    <a
-                      href={exam.questionsFile.asset.url}
-                      class="download-button download-button--questions"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Užduotys
-                    </a>
-                  )}
-                </td>
-                <td>
-                  {exam.answersFile && (
-                    <a
-                      href={exam.answersFile.asset.url}
-                      class="download-button download-button--answers"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Atsakymai
-                    </a>
-                  )}
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colspan="5" class="empty-message">Nėra egzaminų.</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
+                <label class="py-4 mr-2">
+                    <input
+                        type="radio"
+                        name="viewMode"
+                        value="download"
+                        class="radio radio-sm mr-1 align-middle"
+                        id="downloadRadio"
+                    />
+                    <span class="align-middle">Siųstis failus</span>
+                </label>
+                <label class="py-4">
+                    <input
+                        type="radio"
+                        name="viewMode"
+                        value="view"
+                        class="radio radio-sm mr-1 align-middle"
+                        id="viewRadio"
+                        checked
+                    />
+                    <span class="align-middle">Žiūrėti naršyklėje</span>
+                </label>
+            </div>
+        </header>
 
-    <div class="pagination">
-      {page > 1 && (
-        <a href={`/egzaminai?page=${page - 1}`} class="pagination-button">
-          ← Ankstesnis puslapis
-        </a>
-      )}
-      
-      {hasNextPage && (
-        <a href={`/egzaminai?page=${page + 1}`} class="pagination-button">
-          Kitas puslapis →
-        </a>
-      )}
+        {
+            error && (
+                <div class="alert alert-error my-4">
+                    <p>Klaida gaunant egzaminus: {error.message}</p>
+                </div>
+            )
+        }
+
+        {
+            !error && exams.length === 0 && (
+                <div class="alert alert-warning my-4">
+                    <p>
+                        Nerasta egzaminų. Patikrinkite Sanity CMS, ar yra
+                        sukurti egzamino tipo dokumentai.
+                    </p>
+                </div>
+            )
+        }
+
+        {
+            !error && exams.length > 0 && (
+                <div>
+                    <div class="form-control w-full max-w-xs mb-4">
+                        <label class="label">
+                            <span class="label-text">
+                                Filtruoti pagal metus
+                            </span>
+                        </label>
+                        <select
+                            class="select select-bordered w-full max-w-xs"
+                            id="yearFilter"
+                        >
+                            <option value="">Visi metai</option>
+                            {examYears.map((year) => (
+                                <option value={year}>{year}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr class="bg-primary text-primary-content">
+                                <th>Metai</th>
+                                <th>Tipas</th>
+                                <th>Sesija</th>
+                                <th>Užduotys</th>
+                                <th>Atsakymai</th>
+                            </tr>
+                        </thead>
+                        <tbody id="examsTableBody">
+                            {exams.map((exam: Exam) => (
+                                <tr
+                                    class="hover:bg-base-300"
+                                    data-year={
+                                        exam.year
+                                            ? new Date(exam.year).getFullYear()
+                                            : ''
+                                    }
+                                >
+                                    <td>
+                                        {exam.year
+                                            ? new Date(exam.year).getFullYear()
+                                            : 'N/A'}
+                                    </td>
+                                    <td>{exam.level || 'N/A'}</td>
+                                    <td>{exam.session || 'Pagrindinė'}</td>
+                                    <td>
+                                        {exam.questions?.asset?._ref ? (
+                                            <a
+                                                href={`https://cdn.sanity.io/files/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${exam.questions.asset._ref.replace('file-', '').replace('-pdf', '.pdf')}`}
+                                                class="link link-primary font-semibold"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                data-file-url={`https://cdn.sanity.io/files/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${exam.questions.asset._ref.replace('file-', '').replace('-pdf', '.pdf')}`}
+                                                data-download-name={`${exam.year ? new Date(exam.year).getFullYear() : ''} chemijos ${exam.level || ''} egzaminas - užduotys`}
+                                            >
+                                                Užduotys
+                                            </a>
+                                        ) : (
+                                            <span class="text-opacity-50">
+                                                Nėra
+                                            </span>
+                                        )}
+                                    </td>
+                                    <td>
+                                        {exam.answers?.asset?._ref ? (
+                                            <a
+                                                href={`https://cdn.sanity.io/files/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${exam.answers.asset._ref.replace('file-', '').replace('-pdf', '.pdf')}`}
+                                                class="link link-primary font-semibold"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                data-file-url={`https://cdn.sanity.io/files/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${exam.answers.asset._ref.replace('file-', '').replace('-pdf', '.pdf')}`}
+                                                data-download-name={`${exam.year ? new Date(exam.year).getFullYear() : ''} chemijos ${exam.level || ''} egzaminas - atsakymai`}
+                                            >
+                                                Atsakymai
+                                            </a>
+                                        ) : (
+                                            <span class="text-opacity-50">
+                                                Nėra
+                                            </span>
+                                        )}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )
+        }
     </div>
-  </div>
 </Layout>
+
+<script>
+    // Handle the download/view toggle functionality
+    document.addEventListener('DOMContentLoaded', () => {
+        const downloadRadio = document.getElementById(
+            'downloadRadio',
+        ) as HTMLInputElement;
+        const viewRadio = document.getElementById(
+            'viewRadio',
+        ) as HTMLInputElement;
+        const fileLinks = document.querySelectorAll('a[data-file-url]');
+        const yearFilter = document.getElementById(
+            'yearFilter',
+        ) as HTMLSelectElement;
+
+        const updateLinks = () => {
+            const isDownload = downloadRadio.checked;
+
+            fileLinks.forEach((link) => {
+                const fileUrl = link.getAttribute('data-file-url') || '';
+                const downloadName =
+                    link.getAttribute('data-download-name') || '';
+
+                if (isDownload) {
+                    link.setAttribute(
+                        'href',
+                        `${fileUrl}?dl=${downloadName.toLowerCase()}`,
+                    );
+                } else {
+                    link.setAttribute('href', fileUrl);
+                }
+            });
+        };
+
+        // Filter exams by year
+        const filterExamsByYear = () => {
+            const selectedYear = yearFilter.value;
+            const rows = document.querySelectorAll('#examsTableBody tr');
+
+            rows.forEach((row) => {
+                const rowYear = row.getAttribute('data-year');
+                if (!selectedYear || rowYear === selectedYear) {
+                    row.classList.remove('hidden');
+                } else {
+                    row.classList.add('hidden');
+                }
+            });
+        };
+
+        // Initialize links
+        updateLinks();
+
+        // Add event listeners
+        downloadRadio.addEventListener('change', updateLinks);
+        viewRadio.addEventListener('change', updateLinks);
+        yearFilter.addEventListener('change', filterExamsByYear);
+    });
+</script>

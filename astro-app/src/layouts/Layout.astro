@@ -1,110 +1,53 @@
 ---
 // https://docs.astro.build/en/guides/view-transitions/
-import { ViewTransitions } from 'astro:transitions';
-import Navigation from '../components/Navigation.astro';
-import "../assets/app.css";
-
+import { ClientRouter } from 'astro:transitions';
+import Navigation from '@/components/Navigation.astro';
+import '@/assets/app.css';
 
 interface Props {
-  title: string;
+    title: string;
 }
 
 const { title } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="lt">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width"
-    />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="/favicon.svg"
-    />
-    <meta
-      name="generator"
-      content={Astro.generator}
-    />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
 
-    <!-- Google fonts -->
-    <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com"
-    />
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter:wght@500;700;800&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-      rel="stylesheet"
-    />
+        <!-- Google fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter:wght@500;700;800&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+            rel="stylesheet"
+        />
 
-    <title>{title} | chemija.org</title>
-    <ViewTransitions />
-  </head>
-  <body>
-    <div class="min-h-screen flex flex-col bg-black">
-      <Navigation />
-      <main class="container mx-auto px-4 py-6 flex-grow">
-        <slot />
-      </main>
-      <footer class="py-6 border-t">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-          <div>
-            <p class="text-base-content/70 text-sm">
-              © {new Date().getFullYear()} chemija.org
-            </p>
-          </div>
-          <div>
-            <button id="theme-toggle" class="btn btn-sm btn-ghost">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="theme-toggle-icon-dark" class="hidden">
-                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="theme-toggle-icon-light" class="hidden">
-                <circle cx="12" cy="12" r="4"></circle>
-                <path d="M12 2v2"></path>
-                <path d="M12 20v2"></path>
-                <path d="m4.93 4.93 1.41 1.41"></path>
-                <path d="m17.66 17.66 1.41 1.41"></path>
-                <path d="M2 12h2"></path>
-                <path d="M20 12h2"></path>
-                <path d="m6.34 17.66-1.41 1.41"></path>
-                <path d="m19.07 4.93-1.41 1.41"></path>
-              </svg>
-            </button>
-          </div>
+        <title>{title} | chemija.org</title>
+        <ClientRouter />
+    </head>
+    <body>
+        <div class="min-h-screen flex flex-col">
+            <Navigation />
+            <main class="container mx-auto px-4 py-6 flex-grow">
+                <slot />
+            </main>
+            <footer class="py-6 border-t">
+                <div
+                    class="container mx-auto px-4 flex justify-between items-center"
+                >
+                    <div>
+                        <p class="text-base-content/70 text-sm">
+                            © {new Date().getFullYear()} chemija.org
+                        </p>
+                    </div>
+                    <div class="text-sm">Lukas Vá</div>
+                </div>
+            </footer>
         </div>
-      </footer>
-    </div>
-
-    <script>
-      // Show correct icon based on current theme
-      function updateThemeToggleIcons() {
-        const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
-        document.getElementById('theme-toggle-icon-dark')?.classList.toggle('hidden', isDarkTheme);
-        document.getElementById('theme-toggle-icon-light')?.classList.toggle('hidden', !isDarkTheme);
-      }
-
-      // Add event listener to theme toggle button
-      document.addEventListener('DOMContentLoaded', () => {
-        updateThemeToggleIcons();
-        
-        document.getElementById('theme-toggle')?.addEventListener('click', () => {
-          const currentTheme = document.documentElement.getAttribute('data-theme');
-          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-          
-          document.documentElement.setAttribute('data-theme', newTheme);
-          localStorage.setItem('theme', newTheme);
-          
-          updateThemeToggleIcons();
-        });
-      });
-    </script>
-  </body>
+    </body>
 </html>

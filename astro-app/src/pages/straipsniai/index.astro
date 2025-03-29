@@ -1,50 +1,103 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ArticleCard from "../../components/ArticleCard.astro";
-import { getArticles, type Article } from "../../utils/sanity";
+import Layout from '@/layouts/Layout.astro';
+import ArticleCard from '@/components/ArticleCard.astro';
+import { getArticles, getArticlesCount, type Article } from '@/utils/sanity';
 
 // Pagination parameters
 const page = Number(Astro.url.searchParams.get('page') || 1);
-const limit = 8;
+const limit = 20;
 const offset = (page - 1) * limit;
 
 // Fetch articles for the current page
 const articles = await getArticles(limit, offset);
 
-// We would need a separate query to get the total count for accurate pagination
-// For now, we'll show next page button if we have a full page of results
-const hasNextPage = articles.length === limit;
+// Get total count of articles for pagination
+const totalArticles = await getArticlesCount();
+const totalPages = Math.ceil(totalArticles / limit);
+
+// Generate pagination array
+const paginationItems = [];
+if (totalPages <= 5) {
+    // For 5 or fewer pages, show all
+    for (let i = 1; i <= totalPages; i++) {
+        paginationItems.push(i);
+    }
+} else if (page <= 3) {
+    // For first few pages
+    paginationItems.push(1, 2, 3, 4, 5);
+} else if (page >= totalPages - 2) {
+    // For last few pages
+    for (let i = totalPages - 4; i <= totalPages; i++) {
+        paginationItems.push(i);
+    }
+} else {
+    // For middle pages
+    for (let i = page - 2; i <= page + 2; i++) {
+        paginationItems.push(i);
+    }
+}
 ---
 
 <Layout title="Straipsniai">
-  <div class="articles-page">
-    <header class="page-header">
-      <h1 class="page-title">Straipsniai</h1>
-      <p class="page-description">
-        Naujausi chemijos mokslo straipsniai ir mokomoji medžiaga
-      </p>
-    </header>
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold">Straipsniai</h1>
+        </header>
 
-    <div class="articles-grid">
-      {articles.length ? (
-        articles.map((article: Article) => <ArticleCard article={article} />)
-      ) : (
-        <p class="empty-message">Nėra straipsnių.</p>
-      )}
-    </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {
+                articles.map((article: Article) => (
+                    <ArticleCard article={article} />
+                ))
+            }
+        </div>
 
-    <div class="pagination">
-      {page > 1 && (
-        <a href={`/straipsniai?page=${page - 1}`} class="pagination-button">
-          ← Ankstesnis puslapis
-        </a>
-      )}
-      
-      {hasNextPage && (
-        <a href={`/straipsniai?page=${page + 1}`} class="pagination-button">
-          Kitas puslapis →
-        </a>
-      )}
+        {
+            totalPages > 1 && (
+                <div class="pagination flex justify-center items-center gap-2 mt-10">
+                    {page > 1 && (
+                        <a href={`/straipsniai?page=1`} class="btn btn-sm">
+                            «
+                        </a>
+                    )}
+
+                    {page > 1 && (
+                        <a
+                            href={`/straipsniai?page=${page - 1}`}
+                            class="btn btn-sm"
+                        >
+                            ‹
+                        </a>
+                    )}
+
+                    {paginationItems.map((pageNum) => (
+                        <a
+                            href={`/straipsniai?page=${pageNum}`}
+                            class={`btn btn-sm ${pageNum === page ? 'btn-primary' : ''}`}
+                        >
+                            {pageNum}
+                        </a>
+                    ))}
+
+                    {page < totalPages && (
+                        <a
+                            href={`/straipsniai?page=${page + 1}`}
+                            class="btn btn-sm"
+                        >
+                            ›
+                        </a>
+                    )}
+
+                    {page < totalPages && (
+                        <a
+                            href={`/straipsniai?page=${totalPages}`}
+                            class="btn btn-sm"
+                        >
+                            »
+                        </a>
+                    )}
+                </div>
+            )
+        }
     </div>
-  </div>
 </Layout>

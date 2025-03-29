@@ -2,68 +2,83 @@
 import type { Exam } from '../utils/sanity';
 
 interface Props {
-  exam: Exam;
+    exam: Exam;
 }
 
 const { exam } = Astro.props;
 
+// Get Sanity project details from environment
+const SANITY_PROJECT_ID = import.meta.env.PUBLIC_SANITY_STUDIO_PROJECT_ID;
+const SANITY_DATASET = import.meta.env.PUBLIC_SANITY_DATASET || 'production';
+
 // Format the date to Lithuanian locale
-const formattedDate = exam.examDate 
-  ? new Date(exam.examDate).toLocaleDateString('lt-LT', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    })
-  : '';
+const formattedDate = exam.year
+    ? new Date(exam.year).toLocaleDateString('lt-LT', {
+          year: 'numeric',
+      })
+    : '';
 
 // Map exam type to readable Lithuanian text
 const examTypeMap = {
-  vbe: 'Valstybinis brandos egzaminas',
-  mbe: 'Mokyklinis brandos egzaminas',
-  trial: 'Bandomasis egzaminas',
-  other: 'Kitas egzaminas'
+    vbe: 'Valstybinis brandos egzaminas',
+    mbe: 'Mokyklinis brandos egzaminas',
+    trial: 'Bandomasis egzaminas',
+    other: 'Kitas egzaminas',
 };
 
 type ExamTypeKey = keyof typeof examTypeMap;
 
-const examTypeText = exam.examType 
-  ? (examTypeMap[exam.examType as ExamTypeKey] || exam.examType)
-  : '';
+const examTypeText = exam.level || '';
 ---
 
-<div class="card bg-base-100 shadow-sm">
-  <div class="card-body p-4">
-    <h3 class="card-title text-lg">{exam.title}</h3>
-    
-    <div class="flex items-center justify-between text-sm text-base-content/70 mb-2">
-      <span class="badge badge-success badge-sm">{examTypeText}</span>
-      <time class="text-xs" datetime={exam.examDate}>{formattedDate}</time>
-    </div>
-    
-    {exam.description && <p class="text-sm text-base-content/80 mb-3">{exam.description}</p>}
-    
-    <div class="card-actions justify-start mt-2">
-      {exam.questionsFile?.asset?.url && (
-        <a 
-          href={exam.questionsFile.asset.url} 
-          class="btn btn-primary btn-sm"
-          target="_blank"
-          rel="noopener noreferrer"
+<div class="card bg-base-100">
+    <div class="card-body p-4">
+        <h3 class="card-title text-lg">
+            {
+                exam.title ||
+                    `${examTypeText} ${exam.year ? new Date(exam.year).getFullYear() : ''}`
+            }
+        </h3>
+
+        <div
+            class="flex items-center justify-between text-sm text-base-content/70 mb-2"
         >
-          Užduotys
-        </a>
-      )}
-      
-      {exam.answersFile?.asset?.url && (
-        <a 
-          href={exam.answersFile.asset.url} 
-          class="btn btn-accent btn-sm"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Atsakymai
-        </a>
-      )}
+            <span class="badge badge-success badge-sm">{examTypeText}</span>
+            <time class="text-xs" datetime={exam.year}>{formattedDate}</time>
+        </div>
+
+        {
+            exam.session && (
+                <p class="text-sm text-base-content/80 mb-3">{exam.session}</p>
+            )
+        }
+
+        <div class="card-actions justify-start mt-2">
+            {
+                exam.questions?.asset?._ref && (
+                    <a
+                        href={`https://cdn.sanity.io/files/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${exam.questions.asset._ref.replace('file-', '').replace('-pdf', '.pdf')}`}
+                        class="btn btn-primary btn-sm"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Užduotys
+                    </a>
+                )
+            }
+
+            {
+                exam.answers?.asset?._ref && (
+                    <a
+                        href={`https://cdn.sanity.io/files/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${exam.answers.asset._ref.replace('file-', '').replace('-pdf', '.pdf')}`}
+                        class="btn btn-accent btn-sm"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Atsakymai
+                    </a>
+                )
+            }
+        </div>
     </div>
-  </div>
-</div> 
+</div>
