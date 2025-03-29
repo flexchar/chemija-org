@@ -1,11 +1,11 @@
 ---
-import type { Article } from '../utils/sanity';
+import type { ArticleQueryResult } from '@/types/sanity.types';
 import { urlFor } from '../utils/image';
 import { formatDate } from '../utils/index';
 import { toPlainText } from 'astro-portabletext';
 
 interface Props {
-    article: Article;
+    article: NonNullable<ArticleQueryResult>;
 }
 
 const { article } = Astro.props;

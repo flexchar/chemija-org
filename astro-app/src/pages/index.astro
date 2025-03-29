@@ -1,12 +1,7 @@
 ---
-import ExamCard from '../components/ExamCard.astro';
-import Layout from '../layouts/Layout.astro';
-import {
-    getLatestArticles,
-    getLatestExams,
-    type Article,
-    type Exam,
-} from '../utils/sanity';
+import ExamCard from '@/components/ExamCard.astro';
+import Layout from '@/layouts/Layout.astro';
+import { getLatestArticles, getLatestExams } from '@/utils/sanity';
 
 // Fetch data
 const articles = await getLatestArticles(5);
@@ -46,7 +41,7 @@ const formatDate = (dateString: string) => {
 
         {
             articles.length > 0 ? (
-                articles.map((article: Article) => (
+                articles.map((article) => (
                     <article class="flex flex-col md:flex-row justify-between pb-4 mb-6 sm:mb-10 md:mb-16">
                         <p class="text-base-content/70 py-2 md:py-0 text-sm tracking-wide">
                             <time
@@ -114,7 +109,7 @@ const formatDate = (dateString: string) => {
                 {
                     exams.length > 0 ? (
                         <div class="space-y-6">
-                            {exams.map((exam: Exam) => (
+                            {exams.map((exam) => (
                                 <div class="card card-compact bg-base-100 shadow-md hover:shadow-lg transition-shadow">
                                     <div class="card-body">
                                         <ExamCard exam={exam} />

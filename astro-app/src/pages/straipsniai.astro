@@ -1,7 +1,7 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import ArticleCard from '../components/ArticleCard.astro';
-import { getArticles, getArticlesCount, type Article } from '../utils/sanity';
+import Layout from '@/layouts/Layout.astro';
+import ArticleCard from '@/components/ArticleCard.astro';
+import { getArticles, getArticlesCount } from '@/utils/sanity';
 
 // Pagination parameters
 const page = Number(Astro.url.searchParams.get('page') || 1);
@@ -45,11 +45,7 @@ if (totalPages <= 5) {
         </header>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {
-                articles.map((article: Article) => (
-                    <ArticleCard article={article} />
-                ))
-            }
+            {articles.map((article) => <ArticleCard article={article} />)}
         </div>
 
         {

@@ -7,7 +7,7 @@
         "strict": true,
         "importsNotUsedAsValues": "remove",
         "forceConsistentCasingInFileNames": true,
-        "noEmit": false,
+        "noEmit": true,
         "esModuleInterop": true,
         "module": "esnext",
         "moduleResolution": "node",
@@ -16,10 +16,9 @@
         "jsx": "preserve",
         "baseUrl": ".",
         "paths": {
-            "@/*": ["./src/*"],
-            "~sanity-schema": ["../studio/sanity.types.ts"]
+            "@/*": ["./src/*"]
         }
     },
-    "includes": ["**/*.ts", "**/*.tsx"],
+    "includes": ["**/*.ts", "**/*.tsx", "./src/types/sanity.types.ts"],
     "exclude": ["node_modules", "dist", ".vercel"]
 }

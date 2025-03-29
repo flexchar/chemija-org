@@ -1,16 +1,16 @@
 ---
-import { getArticles, getArticle, type Article } from '../utils/sanity';
-import { urlFor } from '../utils/image';
+import { getArticles } from '@/utils/sanity';
+import { urlFor } from '@/utils/image';
 import { PortableText } from 'astro-portabletext';
-import Layout from '../layouts/Layout.astro';
-import YouTube from '../components/YouTube.astro';
-import { formatDate } from '../utils/index';
+import Layout from '@/layouts/Layout.astro';
+import YouTube from '@/components/YouTube.astro';
+import { formatDate } from '@/utils/index';
 
 // Define getStaticPaths to generate all article routes at build time
 export async function getStaticPaths() {
     const articles = await getArticles(Number.MAX_SAFE_INTEGER); // Get all articles
 
-    return articles.map((article: Article) => ({
+    return articles.map((article) => ({
         params: { slug: article.slug!.current },
         props: { article },
     }));
@@ -113,4 +113,3 @@ const articleData = article;
         </div>
     </article>
 </Layout>
-
