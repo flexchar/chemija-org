@@ -21,3 +21,11 @@ export const schemaTypes = [
   youtube,
   table,
 ]
+
+export type ArticleType = typeof article
+export type CategoryType = typeof category
+export type ExamType = typeof exam
+export type QuestionnaireType = typeof questionnaire
+export type BlockContentType = typeof blockContent
+export type YoutubeType = typeof youtube
+export type TableType = typeof table
