@@ -84,7 +84,11 @@ export async function updateArticleViewCount(id: string) {
 // Exam functions
 
 // Query to get exams (potentially paginated later, added params for future use)
-const examsQuery = defineQuery(groq`*[_type == "exam"] | order(year desc)`);
+const examsQuery = defineQuery(groq`*[_type == "exam"] | order(year desc) {
+        ...,
+        "questions_url": questions.asset->url,
+        "answers_url": answers.asset->url
+    }`);
 
 export async function getExams() {
     return await sanityClient.fetch<ExamsQueryResult>(examsQuery);
@@ -92,7 +96,11 @@ export async function getExams() {
 
 // Query to get the latest exams
 const latestExamsQuery = defineQuery(
-    groq`*[_type == "exam"] | order(year desc) [0...$limit]`,
+    groq`*[_type == "exam"] | order(year desc) [0...$limit] {
+        ...,
+        "questions_url": questions.asset->url,
+        "answers_url": answers.asset->url
+    }`,
 );
 
 export async function getLatestExams(limit = 4) {

@@ -369,7 +369,7 @@ export type CategoriesQueryResult = Array<{
   description?: string;
 }>;
 // Variable: examsQuery
-// Query: *[_type == "exam"] | order(year desc)
+// Query: *[_type == "exam"] | order(year desc) {        ...,        "questions_url": questions.asset->url,        "answers_url": answers.asset->url    }
 export type ExamsQueryResult = Array<{
   _id: string;
   _type: "exam";
@@ -398,9 +398,11 @@ export type ExamsQueryResult = Array<{
     _type: "file";
   };
   notes?: string;
+  questions_url: string | null;
+  answers_url: string | null;
 }>;
 // Variable: latestExamsQuery
-// Query: *[_type == "exam"] | order(year desc) [0...$limit]
+// Query: *[_type == "exam"] | order(year desc) [0...$limit] {        ...,        "questions_url": questions.asset->url,        "answers_url": answers.asset->url    }
 export type LatestExamsQueryResult = Array<{
   _id: string;
   _type: "exam";
@@ -429,6 +431,8 @@ export type LatestExamsQueryResult = Array<{
     _type: "file";
   };
   notes?: string;
+  questions_url: string | null;
+  answers_url: string | null;
 }>;
 
 // Query TypeMap
@@ -440,7 +444,7 @@ declare module "@sanity/client" {
     "*[_type == \"article\" && defined(slug.current)] {\n        ...,\n        \"categories\": categories[]->{ _id, title }\n    } | order(_updatedAt desc) [0...$limit]": LatestArticlesQueryResult;
     "*[_type == \"article\" && slug.current == $slug] {\n        ...,\n        \"categories\": categories[]->{ _id, title }\n    }[0]": ArticleQueryResult;
     "*[_type == \"category\"]": CategoriesQueryResult;
-    "*[_type == \"exam\"] | order(year desc)": ExamsQueryResult;
-    "*[_type == \"exam\"] | order(year desc) [0...$limit]": LatestExamsQueryResult;
+    "*[_type == \"exam\"] | order(year desc) {\n        ...,\n        \"questions_url\": questions.asset->url,\n        \"answers_url\": answers.asset->url\n    }": ExamsQueryResult;
+    "*[_type == \"exam\"] | order(year desc) [0...$limit] {\n        ...,\n        \"questions_url\": questions.asset->url,\n        \"answers_url\": answers.asset->url\n    }": LatestExamsQueryResult;
   }
 }

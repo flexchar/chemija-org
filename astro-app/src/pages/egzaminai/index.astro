@@ -2,10 +2,6 @@
 import Layout from '@/layouts/Layout.astro';
 import { getExams } from '@/utils/sanity';
 
-// Get Sanity project details from environment
-const SANITY_PROJECT_ID = import.meta.env.PUBLIC_SANITY_STUDIO_PROJECT_ID;
-const SANITY_DATASET = import.meta.env.PUBLIC_SANITY_DATASET || 'production';
-
 const exams = await getExams();
 
 // Extract unique years from exams for the filter
@@ -85,7 +81,7 @@ const examYears = [
                 </thead>
                 <tbody id="examsTableBody">
                     {
-                        exams.map((exam: Exam) => (
+                        exams.map((exam) => (
                             <tr
                                 class="hover:bg-base-300"
                                 data-year={
@@ -102,13 +98,13 @@ const examYears = [
                                 <td>{exam.level || 'N/A'}</td>
                                 <td>{exam.session || 'Pagrindinė'}</td>
                                 <td>
-                                    {exam.questions?.asset?._ref ? (
+                                    {exam.questions_url ? (
                                         <a
-                                            href={`https://cdn.sanity.io/files/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${exam.questions.asset._ref.replace('file-', '').replace('-pdf', '.pdf')}`}
+                                            href={exam.questions_url}
                                             class="link link-primary font-semibold"
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            data-file-url={`https://cdn.sanity.io/files/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${exam.questions.asset._ref.replace('file-', '').replace('-pdf', '.pdf')}`}
+                                            data-file-url={exam.questions_url}
                                             data-download-name={`${exam.year ? new Date(exam.year).getFullYear() : ''} chemijos ${exam.level || ''} egzaminas - užduotys`}
                                         >
                                             Užduotys
@@ -120,13 +116,13 @@ const examYears = [
                                     )}
                                 </td>
                                 <td>
-                                    {exam.answers?.asset?._ref ? (
+                                    {exam.answers_url ? (
                                         <a
-                                            href={`https://cdn.sanity.io/files/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${exam.answers.asset._ref.replace('file-', '').replace('-pdf', '.pdf')}`}
+                                            href={exam.answers_url}
                                             class="link link-primary font-semibold"
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            data-file-url={`https://cdn.sanity.io/files/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${exam.answers.asset._ref.replace('file-', '').replace('-pdf', '.pdf')}`}
+                                            data-file-url={exam.answers_url}
                                             data-download-name={`${exam.year ? new Date(exam.year).getFullYear() : ''} chemijos ${exam.level || ''} egzaminas - atsakymai`}
                                         >
                                             Atsakymai
