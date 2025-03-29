@@ -1,30 +1,123 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import Layout from '@/layouts/Layout.astro';
+import TemperatureConverter from '@/components/math/TemperatureConverter.jsx';
+import Balancer from '@/components/math/ChemicalBalancer.jsx';
+import QuadraticCalculator from '@/components/math/QuadraticCalculator.jsx';
+import MolarMassCalculator from '@/components/math/MolarMassCalculator.jsx';
+import ConcentrationCalculator from '@/components/math/ConcentrationCalculator.jsx';
 ---
 
 <Layout title="Chemijos skaičiuotuvas">
-  <div class="calculator-page">
-    <header class="page-header">
-      <h1 class="page-title">Chemijos skaičiuotuvas</h1>
-      <p class="page-description">
-        Naudokite mūsų įrankius chemijos uždaviniams spręsti.
-      </p>
-    </header>
+    <div class="max-w-7xl mx-auto py-8 px-4">
+        <header class="mb-8">
+            <h1 class="text-4xl pb-8">Chemijos skaičiuotuvas</h1>
+        </header>
 
-    <div class="calculator-container">
-      <div class="placeholder-content">
-        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="placeholder-icon">
-          <rect x="4" y="2" width="16" height="20" rx="2" />
-          <line x1="8" x2="16" y1="6" y2="6" />
-          <line x1="8" x2="16" y1="10" y2="10" />
-          <line x1="8" x2="16" y1="14" y2="14" />
-          <line x1="8" x2="16" y1="18" y2="18" />
-        </svg>
-        <h2 class="placeholder-title">Skaičiuotuvas kuriamas</h2>
-        <p class="placeholder-message">
-          Šiuo metu skaičiuotuvas dar kuriamas. Greitai čia atsiras įrankiai, padėsiantys spręsti chemijos uždavinius.
-        </p>
-      </div>
+        <!-- Temperature converter -->
+        <section class="flex flex-col md:flex-row mb-8">
+            <div class="w-full md:w-1/3 mr-4 mb-8">
+                <h2 class="pb-4 font-bold">Temperatūros konvertavimas</h2>
+                <p class="text-sm">Rašykite tik į vieną laukelį</p>
+            </div>
+            <div class="w-full md:w-2/3">
+                <TemperatureConverter client:load />
+            </div>
+        </section>
+
+        <hr class="my-8" />
+
+        <!--  Chemical equation balancer  -->
+        <section class="flex flex-col md:flex-row mb-8">
+            <div class="w-full md:w-1/3 mr-4 mb-8">
+                <h2 class="pb-4 font-bold">Reakcijų lygintuvas</h2>
+                <p class="text-sm mb-2">Chemijos reackijos lygčių lyginimas</p>
+                <p class="text-sm">
+                    Elektronai rašomi su ^ ženklu,
+                    <br />
+                    Na^+ yra tas pats kas Na
+                    <sup>+</sup>
+                </p>
+            </div>
+            <div class="w-full md:w-2/3">
+                <Balancer client:load />
+            </div>
+        </section>
+
+        <hr class="my-8" />
+
+        <!--  Quadratic calculator  -->
+        <section class="flex flex-col md:flex-row mb-8">
+            <div class="w-full md:w-1/3 mr-4 mb-8">
+                <h2 class="pb-4 font-bold">Kvadratinių lygčių skaičiuotuvas</h2>
+                <p class="mb-2">
+                    Pagal lygtį:
+                    <span>
+                        ax
+                        <sup>2</sup>
+                        + bx + c = 0
+                    </span>
+                </p>
+            </div>
+            <div class="w-full md:w-2/3">
+                <QuadraticCalculator client:load />
+            </div>
+        </section>
+
+        <hr class="my-8" />
+
+        <!--  Molar mass calculator  -->
+        <section class="flex flex-col md:flex-row mb-8">
+            <div class="w-full md:w-1/3 mr-4 mb-8">
+                <h2 class="pb-4 font-bold">Molinės masės skaičiavimas</h2>
+                <p class="mb-2">
+                    Pagal lygtį:
+                    <span>
+                        <abbr title="medžiagos kiekis, mol">n</abbr>
+                        =
+                        <abbr title="medžiagos masė, g">m</abbr>
+                        :
+                        <abbr title="molinė masė, g/mol">M</abbr>
+                    </span>
+                </p>
+                <p class="text-sm">
+                    Pildydami, palikite vieną iš trijų langelių tusčią
+                </p>
+            </div>
+            <div class="w-full md:w-2/3">
+                <MolarMassCalculator client:load />
+            </div>
+        </section>
+
+        <hr class="my-8" />
+
+        <!--  Concentration calculator  -->
+        <section class="flex flex-col md:flex-row mb-8">
+            <div class="w-full md:w-1/3 mr-4 mb-8">
+                <h2 class="pb-4 font-bold">
+                    Molinės koncentracijos skaičiavimas
+                </h2>
+                <p class="mb-2">
+                    Pagal lygtį:
+                    <span>
+                        <abbr title="tirpalo koncentracija, mol/l"> c(A) </abbr>
+                        =
+                        <abbr title="ištirpusios medžiagos kiekis, mol">
+                            n (A)
+                        </abbr>
+                        :
+                        <abbr title="tirpalo tūris, l arba dm^3">V</abbr>
+                    </span>
+                    ,
+                    <br />
+                    A - ištirpusi medžiaga
+                </p>
+                <p class="text-sm">
+                    Pildydami, palikite vieną iš trijų langelių tusčią
+                </p>
+            </div>
+            <div class="w-full md:w-2/3">
+                <ConcentrationCalculator client:load />
+            </div>
+        </section>
     </div>
-  </div>
 </Layout>
