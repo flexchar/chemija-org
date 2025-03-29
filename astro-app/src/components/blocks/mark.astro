@@ -1,0 +1,18 @@
+---
+const mark = Astro.props.node;
+---
+
+{
+    mark.markType === 'sup' && (
+        <sup>
+            <slot />
+        </sup>
+    )
+}
+{
+    mark.markType === 'sub' && (
+        <sub>
+            <slot />
+        </sub>
+    )
+}

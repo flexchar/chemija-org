@@ -1,0 +1,17 @@
+---
+import { PortableText as BasePortableTextComponent } from 'astro-portabletext';
+import YouTube from '@/components/blocks/youtube.astro';
+import { Image } from '@/components/blocks/image';
+import Mark from '@/components/blocks/mark.astro';
+---
+
+<BasePortableTextComponent
+    value={Astro.props.value}
+    components={{
+        type: {
+            youtube: YouTube,
+            image: Image,
+        },
+        mark: Mark,
+    }}
+/>
