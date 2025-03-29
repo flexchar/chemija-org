@@ -25,7 +25,7 @@ const categories = article.categories as unknown as
 <div
     class="card bg-base-100 shadow-sm hover:shadow-xl transition-all duration-200"
 >
-    <a href={`/straipsniai/${article.slug?.current}`} class="block h-full">
+    <a href={`/${article.slug?.current}`} class="block h-full">
         {
             article.mainImage && article.mainImage.asset && (
                 <figure class="h-48">

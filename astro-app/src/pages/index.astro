@@ -1,5 +1,4 @@
 ---
-import ArticleCard from '../components/ArticleCard.astro';
 import ExamCard from '../components/ExamCard.astro';
 import Layout from '../layouts/Layout.astro';
 import {
@@ -51,24 +50,20 @@ const formatDate = (dateString: string) => {
                     <article class="flex flex-col md:flex-row justify-between pb-4 mb-6 sm:mb-10 md:mb-16">
                         <p class="text-base-content/70 py-2 md:py-0 text-sm tracking-wide">
                             <time
-                                datetime={
-                                    article.publishedAt || article._createdAt
-                                }
-                                title={`Atnaujinta ${formatDate(article.publishedAt || article._createdAt)}`}
+                                datetime={article._updatedAt}
+                                title={`Atnaujinta ${formatDate(article._updatedAt)}`}
                             >
-                                {formatDate(
-                                    article.publishedAt || article._createdAt,
-                                )}
+                                {formatDate(article._updatedAt)}
                             </time>
                         </p>
                         <div class="md:w-3/4">
-                            {article.category && (
+                            {article.categories && (
                                 <p class="text-base-content/70 text-sm tracking-wide pb-2">
-                                    {article.category}
+                                    {article.categories[0].title}
                                 </p>
                             )}
                             <a
-                                href={`/straipsniai/${article.slug.current}`}
+                                href={`/${article.slug!.current}`}
                                 class="text-2xl break-words hover:text-accent hover:underline"
                             >
                                 {article.title}

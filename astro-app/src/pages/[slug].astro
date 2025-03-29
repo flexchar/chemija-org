@@ -1,14 +1,14 @@
 ---
-import { getArticles, type Article } from '@/utils/sanity';
-import { urlFor } from '@/utils/image';
+import { getArticles, getArticle, type Article } from '../utils/sanity';
+import { urlFor } from '../utils/image';
 import { PortableText } from 'astro-portabletext';
-import Layout from '@/layouts/Layout.astro';
-import YouTube from '@/components/YouTube.astro';
-import { formatDate } from '@/utils/index';
+import Layout from '../layouts/Layout.astro';
+import YouTube from '../components/YouTube.astro';
+import { formatDate } from '../utils/index';
 
 // Define getStaticPaths to generate all article routes at build time
 export async function getStaticPaths() {
-    const articles = await getArticles(Number.MAX_SAFE_INTEGER); // Get up to 100 articles, adjust if needed
+    const articles = await getArticles(Number.MAX_SAFE_INTEGER); // Get all articles
 
     return articles.map((article: Article) => ({
         params: { slug: article.slug!.current },
@@ -16,11 +16,9 @@ export async function getStaticPaths() {
     }));
 }
 
-// Get the article from props or fetch if needed
+// Get the article from props
 const { article } = Astro.props;
-
 const articleData = article;
-console.log(articleData);
 ---
 
 <Layout title={articleData.title || 'Straipsnis'}>
@@ -84,7 +82,7 @@ console.log(articleData);
                         ></path>
                         <circle cx="12" cy="12" r="3"></circle>
                     </svg>
-                    <span id="viewCount">{articleData.views}</span> peržiūrų
+                    <span id="viewCount">{articleData.views || 0}</span> peržiūrų
                 </span>
             </div>
         </header>
@@ -115,3 +113,4 @@ console.log(articleData);
         </div>
     </article>
 </Layout>
+

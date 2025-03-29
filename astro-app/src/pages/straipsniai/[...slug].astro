@@ -1,0 +1,22 @@
+---
+import { getArticle } from '../../utils/sanity';
+
+export async function getStaticPaths() {
+    return [{ params: { slug: undefined } }];
+}
+
+const { slug } = Astro.params;
+
+// Redirect to root level if this is a valid article slug
+if (slug) {
+    const article = await getArticle(slug);
+    if (article) {
+        return Astro.redirect(`/${slug}`, 301);
+    }
+}
+
+// If not a valid article slug, redirect to articles index
+return Astro.redirect('/straipsniai', 301);
+---
+
+<!-- This page intentionally left empty as it's only used for redirects -->

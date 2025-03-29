@@ -1,7 +1,7 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import ArticleCard from '@/components/ArticleCard.astro';
-import { getArticles, getArticlesCount, type Article } from '@/utils/sanity';
+import Layout from '../layouts/Layout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getArticles, getArticlesCount, type Article } from '../utils/sanity';
 
 // Pagination parameters
 const page = Number(Astro.url.searchParams.get('page') || 1);
