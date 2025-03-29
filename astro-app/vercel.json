@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        {
+            "source": "/:path(.*)",
+            "destination": "https://chemija-legacy.netlify.app/:path"
+        }
+    ]
+}
