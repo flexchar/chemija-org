@@ -1,7 +1,56 @@
 ---
-const mark = Astro.props.node;
+import type { MarkProps } from 'astro-portabletext/types';
+
+const { node, isInline, ...attrs } = Astro.props;
+const mark = node as MarkProps['node'];
 ---
 
+{
+    mark.markType === 'code' && (
+        <code class="bg-base-200 px-1.5 py-0.5 rounded text-sm">
+            <slot />
+        </code>
+    )
+}
+{
+    mark.markType === 'em' && (
+        <em {...attrs}>
+            <slot />
+        </em>
+    )
+}
+{
+    mark.markType === 'strong' && (
+        <strong {...attrs}>
+            <slot />
+        </strong>
+    )
+}
+{
+    mark.markType === 'link' && (
+        <a
+            href={(node as unknown as Mark<{ href: string }>).markDef.href}
+            class="link link-primary"
+            {...attrs}
+        >
+            <slot />
+        </a>
+    )
+}
+{
+    mark.markType === 'strike-through' && (
+        <del class="opacity-75" {...attrs}>
+            <slot />
+        </del>
+    )
+}
+{
+    mark.markType === 'underline' && (
+        <span class="underline" {...attrs}>
+            <slot />
+        </span>
+    )
+}
 {
     mark.markType === 'sup' && (
         <sup>
@@ -14,5 +63,12 @@ const mark = Astro.props.node;
         <sub>
             <slot />
         </sub>
+    )
+}
+{
+    mark.markType === 'highlight' && (
+        <span class="bg-warning/30 px-1 rounded" {...attrs}>
+            <slot />
+        </span>
     )
 }
