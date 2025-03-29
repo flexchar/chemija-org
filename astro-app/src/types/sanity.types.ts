@@ -267,7 +267,7 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../astro-app/src/utils/sanity.ts
 // Variable: articlesQuery
-// Query: *[_type == "article" && defined(slug.current)] {        ...,        "categories": categories[]->{ _id, title }    } | order(publishedAt desc) [$offset...$limit]
+// Query: *[_type == "article" && defined(slug.current)] {        ...,        "categories": categories[]->{ _id, title }    } | order(_updatedAt desc) [$offset...$limit]
 export type ArticlesQueryResult = Array<{
   _id: string;
   _type: "article";
@@ -299,7 +299,7 @@ export type ArticlesQueryResult = Array<{
 // Query: count(*[_type == "article" && defined(slug.current)])
 export type ArticlesCountQueryResult = number;
 // Variable: latestArticlesQuery
-// Query: *[_type == "article" && defined(slug.current)] {        ...,        "categories": categories[]->{ _id, title }    } | order(publishedAt desc) [0...$limit]
+// Query: *[_type == "article" && defined(slug.current)] {        ...,        "categories": categories[]->{ _id, title }    } | order(_updatedAt desc) [0...$limit]
 export type LatestArticlesQueryResult = Array<{
   _id: string;
   _type: "article";
@@ -369,7 +369,7 @@ export type CategoriesQueryResult = Array<{
   description?: string;
 }>;
 // Variable: examsQuery
-// Query: *[_type == "exam"] | order(year desc) [$offset...$limit]
+// Query: *[_type == "exam"] | order(year desc)
 export type ExamsQueryResult = Array<{
   _id: string;
   _type: "exam";
@@ -435,12 +435,12 @@ export type LatestExamsQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"article\" && defined(slug.current)] {\n        ...,\n        \"categories\": categories[]->{ _id, title }\n    } | order(publishedAt desc) [$offset...$limit]": ArticlesQueryResult;
+    "*[_type == \"article\" && defined(slug.current)] {\n        ...,\n        \"categories\": categories[]->{ _id, title }\n    } | order(_updatedAt desc) [$offset...$limit]": ArticlesQueryResult;
     "count(*[_type == \"article\" && defined(slug.current)])": ArticlesCountQueryResult;
-    "*[_type == \"article\" && defined(slug.current)] {\n        ...,\n        \"categories\": categories[]->{ _id, title }\n    } | order(publishedAt desc) [0...$limit]": LatestArticlesQueryResult;
+    "*[_type == \"article\" && defined(slug.current)] {\n        ...,\n        \"categories\": categories[]->{ _id, title }\n    } | order(_updatedAt desc) [0...$limit]": LatestArticlesQueryResult;
     "*[_type == \"article\" && slug.current == $slug] {\n        ...,\n        \"categories\": categories[]->{ _id, title }\n    }[0]": ArticleQueryResult;
     "*[_type == \"category\"]": CategoriesQueryResult;
-    "*[_type == \"exam\"] | order(year desc) [$offset...$limit]": ExamsQueryResult;
+    "*[_type == \"exam\"] | order(year desc)": ExamsQueryResult;
     "*[_type == \"exam\"] | order(year desc) [0...$limit]": LatestExamsQueryResult;
   }
 }
