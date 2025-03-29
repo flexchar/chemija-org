@@ -1,3 +1,4 @@
+import {BsSubscript, BsSuperscript} from 'react-icons/bs'
 import {defineType, defineArrayMember} from 'sanity'
 
 /**
@@ -44,8 +45,8 @@ export default defineType({
           {title: 'Code', value: 'code'},
           {title: 'Underline', value: 'underline'},
           {title: 'Strike', value: 'strike-through'},
-          {title: 'Subscript', value: 'sub'},
-          {title: 'Superscript', value: 'sup'},
+          {title: 'Subscript', value: 'sub', icon: BsSubscript},
+          {title: 'Superscript', value: 'sup', icon: BsSuperscript},
         ],
         // Annotations can be any object structure – e.g. a link or a footnote.
         annotations: [
