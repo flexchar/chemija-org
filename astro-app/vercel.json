@@ -1,4 +1,1071 @@
 {
+    "redirects": [
+        {
+            "source": "/natrio-sulfitas,s100",
+            "destination": "/natrio-sulfitas",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-sulfitas,s100.html",
+            "destination": "/natrio-sulfitas",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-nitratas,s101",
+            "destination": "/natrio-nitratas",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-nitratas,s101.html",
+            "destination": "/natrio-nitratas",
+            "permanent": true
+        },
+        {
+            "source": "/24-vandenilio-peroksido-skilimas-arba-kaip-islaisvinti-dzine,s108",
+            "destination": "/24-vandenilio-peroksido-skilimas-arba-kaip-islaisvinti-dzine",
+            "permanent": true
+        },
+        {
+            "source": "/24-vandenilio-peroksido-skilimas-arba-kaip-islaisvinti-dzine,s108.html",
+            "destination": "/24-vandenilio-peroksido-skilimas-arba-kaip-islaisvinti-dzine",
+            "permanent": true
+        },
+        {
+            "source": "/25-kaip-nuvalyti-varines-monetas-nuo-apnasu,s109",
+            "destination": "/25-kaip-nuvalyti-varines-monetas-nuo-apnasu",
+            "permanent": true
+        },
+        {
+            "source": "/25-kaip-nuvalyti-varines-monetas-nuo-apnasu,s109.html",
+            "destination": "/25-kaip-nuvalyti-varines-monetas-nuo-apnasu",
+            "permanent": true
+        },
+        {
+            "source": "/natris,s110",
+            "destination": "/natris",
+            "permanent": true
+        },
+        {
+            "source": "/natris,s110.html",
+            "destination": "/natris",
+            "permanent": true
+        },
+        {
+            "source": "/28-geltona-liepsna-lt,s115",
+            "destination": "/28-geltona-liepsna-lt",
+            "permanent": true
+        },
+        {
+            "source": "/28-geltona-liepsna-lt,s115.html",
+            "destination": "/28-geltona-liepsna-lt",
+            "permanent": true
+        },
+        {
+            "source": "/29-violetine-liepsna-lt,s116",
+            "destination": "/29-violetine-liepsna-lt",
+            "permanent": true
+        },
+        {
+            "source": "/29-violetine-liepsna-lt,s116.html",
+            "destination": "/29-violetine-liepsna-lt",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-natrio-citrata,s117",
+            "destination": "/kaip-pagaminti-natrio-citrata",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-natrio-citrata,s117.html",
+            "destination": "/kaip-pagaminti-natrio-citrata",
+            "permanent": true
+        },
+        {
+            "source": "/37-gyvsidabrio-tiocianato-gyvate,s118",
+            "destination": "/37-gyvsidabrio-tiocianato-gyvate",
+            "permanent": true
+        },
+        {
+            "source": "/37-gyvsidabrio-tiocianato-gyvate,s118.html",
+            "destination": "/37-gyvsidabrio-tiocianato-gyvate",
+            "permanent": true
+        },
+        {
+            "source": "/renis,s12",
+            "destination": "/renis",
+            "permanent": true
+        },
+        {
+            "source": "/renis,s12.html",
+            "destination": "/renis",
+            "permanent": true
+        },
+        {
+            "source": "/saldomieji-misiniai,s125",
+            "destination": "/saldomieji-misiniai",
+            "permanent": true
+        },
+        {
+            "source": "/saldomieji-misiniai,s125.html",
+            "destination": "/saldomieji-misiniai",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pasigaminti-vario-chlorida,s128",
+            "destination": "/kaip-pasigaminti-vario-chlorida",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pasigaminti-vario-chlorida,s128.html",
+            "destination": "/kaip-pasigaminti-vario-chlorida",
+            "permanent": true
+        },
+        {
+            "source": "/benedikto-reagento-paruosimas-ir-naudojimas,s129",
+            "destination": "/benedikto-reagento-paruosimas-ir-naudojimas",
+            "permanent": true
+        },
+        {
+            "source": "/benedikto-reagento-paruosimas-ir-naudojimas,s129.html",
+            "destination": "/benedikto-reagento-paruosimas-ir-naudojimas",
+            "permanent": true
+        },
+        {
+            "source": "/01-dramblio-dantu-pasta,s13",
+            "destination": "/01-dramblio-dantu-pasta",
+            "permanent": true
+        },
+        {
+            "source": "/01-dramblio-dantu-pasta,s13.html",
+            "destination": "/01-dramblio-dantu-pasta",
+            "permanent": true
+        },
+        {
+            "source": "/tolenso-reagento-paruosimas-ir-naudojimas,s130",
+            "destination": "/tolenso-reagento-paruosimas-ir-naudojimas",
+            "permanent": true
+        },
+        {
+            "source": "/tolenso-reagento-paruosimas-ir-naudojimas,s130.html",
+            "destination": "/tolenso-reagento-paruosimas-ir-naudojimas",
+            "permanent": true
+        },
+        {
+            "source": "/35-gyvates-magija-nitro-anilino-polimerizacija,s135",
+            "destination": "/gyvates-magija-nitro-anilino-polimerizacija",
+            "permanent": true
+        },
+        {
+            "source": "/35-gyvates-magija-nitro-anilino-polimerizacija,s135.html",
+            "destination": "/gyvates-magija-nitro-anilino-polimerizacija",
+            "permanent": true
+        },
+        {
+            "source": "/infusions/point_system/35-gyvates-magija-nitro-anilino-polimerizacija,s135",
+            "destination": "/gyvates-magija-nitro-anilino-polimerizacija",
+            "permanent": true
+        },
+        {
+            "source": "/infusions/point_system/35-gyvates-magija-nitro-anilino-polimerizacija,s135.html",
+            "destination": "/gyvates-magija-nitro-anilino-polimerizacija",
+            "permanent": true
+        },
+        {
+            "source": "/pagrindiniai-chemijoje-naudojami-reagentai,s136",
+            "destination": "/pagrindiniai-chemijoje-naudojami-reagentai",
+            "permanent": true
+        },
+        {
+            "source": "/pagrindiniai-chemijoje-naudojami-reagentai,s136.html",
+            "destination": "/pagrindiniai-chemijoje-naudojami-reagentai",
+            "permanent": true
+        },
+        {
+            "source": "/38-rudi-dumai,s142",
+            "destination": "/38-rudi-dumai",
+            "permanent": true
+        },
+        {
+            "source": "/38-rudi-dumai,s142.html",
+            "destination": "/38-rudi-dumai",
+            "permanent": true
+        },
+        {
+            "source": "/visa-info-apie-knyga,s148",
+            "destination": "/visa-info-apie-knyga",
+            "permanent": true
+        },
+        {
+            "source": "/visa-info-apie-knyga,s148.html",
+            "destination": "/visa-info-apie-knyga",
+            "permanent": true
+        },
+        {
+            "source": "/41-vario-degimas-acetono-garuose,s150",
+            "destination": "/41-vario-degimas-acetono-garuose",
+            "permanent": true
+        },
+        {
+            "source": "/41-vario-degimas-acetono-garuose,s150.html",
+            "destination": "/41-vario-degimas-acetono-garuose",
+            "permanent": true
+        },
+        {
+            "source": "/metalu-lydimosi-ir-virimo-temperaturos,s153",
+            "destination": "/metalu-lydimosi-ir-virimo-temperaturos",
+            "permanent": true
+        },
+        {
+            "source": "/metalu-lydimosi-ir-virimo-temperaturos,s153.html",
+            "destination": "/metalu-lydimosi-ir-virimo-temperaturos",
+            "permanent": true
+        },
+        {
+            "source": "/konstantos-ir-kiti-dydziai,s154",
+            "destination": "/konstantos-ir-kiti-dydziai",
+            "permanent": true
+        },
+        {
+            "source": "/konstantos-ir-kiti-dydziai,s154.html",
+            "destination": "/konstantos-ir-kiti-dydziai",
+            "permanent": true
+        },
+        {
+            "source": "/42-tirpalas-praryjantis-kalio-premanganato-tirpalo-spalva,s155",
+            "destination": "/42-tirpalas-praryjantis-kalio-premanganato-tirpalo-spalva",
+            "permanent": true
+        },
+        {
+            "source": "/42-tirpalas-praryjantis-kalio-premanganato-tirpalo-spalva,s155.html",
+            "destination": "/42-tirpalas-praryjantis-kalio-premanganato-tirpalo-spalva",
+            "permanent": true
+        },
+        {
+            "source": "/42-tirpalas-\"praryjantis\"-kalio-premanganato-tirpalo-spalva,s155.html",
+            "destination": "/42-tirpalas-praryjantis-kalio-premanganato-tirpalo-spalva",
+            "permanent": true
+        },
+        {
+            "source": "/43-reakcijos-kuriu-metu-susidaro-nuosedos-1-dal-,s156",
+            "destination": "/43-reakcijos-kuriu-metu-susidaro-nuosedos-1-dal-",
+            "permanent": true
+        },
+        {
+            "source": "/43-reakcijos-kuriu-metu-susidaro-nuosedos-1-dal-,s156.html",
+            "destination": "/43-reakcijos-kuriu-metu-susidaro-nuosedos-1-dal-",
+            "permanent": true
+        },
+        {
+            "source": "/44-reakcijos-kuriu-metu-susidaro-nuosedos-2-dal-,s157",
+            "destination": "/44-reakcijos-kuriu-metu-susidaro-nuosedos-2-dal-",
+            "permanent": true
+        },
+        {
+            "source": "/44-reakcijos-kuriu-metu-susidaro-nuosedos-2-dal-,s157.html",
+            "destination": "/44-reakcijos-kuriu-metu-susidaro-nuosedos-2-dal-",
+            "permanent": true
+        },
+        {
+            "source": "/kai-kuriu-medziagu-ir-jonu-standartines-susidarymo-entalpijos-,s158",
+            "destination": "/kai-kuriu-medziagu-ir-jonu-standartines-susidarymo-entalpijos-",
+            "permanent": true
+        },
+        {
+            "source": "/kai-kuriu-medziagu-ir-jonu-standartines-susidarymo-entalpijos-,s158.html",
+            "destination": "/kai-kuriu-medziagu-ir-jonu-standartines-susidarymo-entalpijos-",
+            "permanent": true
+        },
+        {
+            "source": "/cheminiai-rysiai-,s16",
+            "destination": "/cheminiai-rysiai-",
+            "permanent": true
+        },
+        {
+            "source": "/cheminiai-rysiai-,s16.html",
+            "destination": "/cheminiai-rysiai-",
+            "permanent": true
+        },
+        {
+            "source": "/cheminiu-formuliu-ir-pavadinimu-sudarymas,s17",
+            "destination": "/cheminiu-formuliu-ir-pavadinimu-sudarymas",
+            "permanent": true
+        },
+        {
+            "source": "/cheminiu-formuliu-ir-pavadinimu-sudarymas,s17.html",
+            "destination": "/cheminiu-formuliu-ir-pavadinimu-sudarymas",
+            "permanent": true
+        },
+        {
+            "source": "/oksidacija-redukcija,s18",
+            "destination": "/oksidacija-redukcija",
+            "permanent": true
+        },
+        {
+            "source": "/oksidacija-redukcija,s18.html",
+            "destination": "/oksidacija-redukcija",
+            "permanent": true
+        },
+        {
+            "source": "/reakciju-tipai,s19",
+            "destination": "/reakciju-tipai",
+            "permanent": true
+        },
+        {
+            "source": "/reakciju-tipai,s19.html",
+            "destination": "/reakciju-tipai",
+            "permanent": true
+        },
+        {
+            "source": "/oksidu-klasifikacija,s20",
+            "destination": "/oksidu-klasifikacija",
+            "permanent": true
+        },
+        {
+            "source": "/oksidu-klasifikacija,s20.html",
+            "destination": "/oksidu-klasifikacija",
+            "permanent": true
+        },
+        {
+            "source": "/matematikos-taikymas-uzdaviniuose,s21",
+            "destination": "/matematikos-taikymas-uzdaviniuose",
+            "permanent": true
+        },
+        {
+            "source": "/matematikos-taikymas-uzdaviniuose,s21.html",
+            "destination": "/matematikos-taikymas-uzdaviniuose",
+            "permanent": true
+        },
+        {
+            "source": "/daznai-olimpiadose-pasitaikancios-sudetingesnes-reakcijos,s22",
+            "destination": "/daznai-olimpiadose-pasitaikancios-sudetingesnes-reakcijos",
+            "permanent": true
+        },
+        {
+            "source": "/daznai-olimpiadose-pasitaikancios-sudetingesnes-reakcijos,s22.html",
+            "destination": "/daznai-olimpiadose-pasitaikancios-sudetingesnes-reakcijos",
+            "permanent": true
+        },
+        {
+            "source": "/02-violetiniai-dumai-lt,s23",
+            "destination": "/02-violetiniai-dumai-lt",
+            "permanent": true
+        },
+        {
+            "source": "/02-violetiniai-dumai-lt,s23.html",
+            "destination": "/02-violetiniai-dumai-lt",
+            "permanent": true
+        },
+        {
+            "source": "/03-termitas,s24",
+            "destination": "/03-termitas",
+            "permanent": true
+        },
+        {
+            "source": "/03-termitas,s24.html",
+            "destination": "/03-termitas",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pasigaminti-vario-karbonata,s25",
+            "destination": "/kaip-pasigaminti-vario-karbonata",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pasigaminti-vario-karbonata,s25.html",
+            "destination": "/kaip-pasigaminti-vario-karbonata",
+            "permanent": true
+        },
+        {
+            "source": "/desniai-6,s26",
+            "destination": "/desniai-6",
+            "permanent": true
+        },
+        {
+            "source": "/desniai-6,s26.html",
+            "destination": "/desniai-6",
+            "permanent": true
+        },
+        {
+            "source": "/kvantiniai-skaiciai-4,s27",
+            "destination": "/kvantiniai-skaiciai-4",
+            "permanent": true
+        },
+        {
+            "source": "/kvantiniai-skaiciai-4,s27.html",
+            "destination": "/kvantiniai-skaiciai-4",
+            "permanent": true
+        },
+        {
+            "source": "/rysiai,s28",
+            "destination": "/rysiai",
+            "permanent": true
+        },
+        {
+            "source": "/rysiai,s28.html",
+            "destination": "/rysiai",
+            "permanent": true
+        },
+        {
+            "source": "/kvantu-mechanika-ir-elektronai,s29",
+            "destination": "/kvantu-mechanika-ir-elektronai",
+            "permanent": true
+        },
+        {
+            "source": "/kvantu-mechanika-ir-elektronai,s29.html",
+            "destination": "/kvantu-mechanika-ir-elektronai",
+            "permanent": true
+        },
+        {
+            "source": "/periodine-elementu-sistema,s30",
+            "destination": "/periodine-elementu-sistema",
+            "permanent": true
+        },
+        {
+            "source": "/periodine-elementu-sistema,s30.html",
+            "destination": "/periodine-elementu-sistema",
+            "permanent": true
+        },
+        {
+            "source": "/gelezies-sulfido-gamyba,s31",
+            "destination": "/gelezies-sulfido-gamyba",
+            "permanent": true
+        },
+        {
+            "source": "/gelezies-sulfido-gamyba,s31.html",
+            "destination": "/gelezies-sulfido-gamyba",
+            "permanent": true
+        },
+        {
+            "source": "/sidabro-chlorido-gamyba-,s32",
+            "destination": "/sidabro-chlorido-gamyba-",
+            "permanent": true
+        },
+        {
+            "source": "/sidabro-chlorido-gamyba-,s32.html",
+            "destination": "/sidabro-chlorido-gamyba-",
+            "permanent": true
+        },
+        {
+            "source": "/indikatorius-is-raudonuju-kopustu,s33",
+            "destination": "/indikatorius-is-raudonuju-kopustu",
+            "permanent": true
+        },
+        {
+            "source": "/indikatorius-is-raudonuju-kopustu,s33.html",
+            "destination": "/indikatorius-is-raudonuju-kopustu",
+            "permanent": true
+        },
+        {
+            "source": "/malachito-gamyba,s34",
+            "destination": "/malachito-gamyba",
+            "permanent": true
+        },
+        {
+            "source": "/malachito-gamyba,s34.html",
+            "destination": "/malachito-gamyba",
+            "permanent": true
+        },
+        {
+            "source": "/vario-oksido-gamyba,s35",
+            "destination": "/vario-oksido-gamyba",
+            "permanent": true
+        },
+        {
+            "source": "/vario-oksido-gamyba,s35.html",
+            "destination": "/vario-oksido-gamyba",
+            "permanent": true
+        },
+        {
+            "source": "/vandenilio-duju-gamyba,s36",
+            "destination": "/vandenilio-duju-gamyba",
+            "permanent": true
+        },
+        {
+            "source": "/vandenilio-duju-gamyba,s36.html",
+            "destination": "/vandenilio-duju-gamyba",
+            "permanent": true
+        },
+        {
+            "source": "/deguonies-gamyba-lt,s37",
+            "destination": "/deguonies-gamyba-lt",
+            "permanent": true
+        },
+        {
+            "source": "/deguonies-gamyba-lt,s37.html",
+            "destination": "/deguonies-gamyba-lt",
+            "permanent": true
+        },
+        {
+            "source": "/valgomosios-druskos-nacl-gamyba,s38",
+            "destination": "/valgomosios-druskos-nacl-gamyba",
+            "permanent": true
+        },
+        {
+            "source": "/valgomosios-druskos-nacl-gamyba,s38.html",
+            "destination": "/valgomosios-druskos-nacl-gamyba",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-sulfato-gamyba,s39",
+            "destination": "/natrio-sulfato-gamyba",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-sulfato-gamyba,s39.html",
+            "destination": "/natrio-sulfato-gamyba",
+            "permanent": true
+        },
+        {
+            "source": "/iliustruota-elementu-lentele,s41",
+            "destination": "/iliustruota-elementu-lentele",
+            "permanent": true
+        },
+        {
+            "source": "/iliustruota-elementu-lentele,s41.html",
+            "destination": "/iliustruota-elementu-lentele",
+            "permanent": true
+        },
+        {
+            "source": "/interaktyvi-cheminiu-elementu-lentele,s42",
+            "destination": "/interaktyvi-cheminiu-elementu-lentele",
+            "permanent": true
+        },
+        {
+            "source": "/interaktyvi-cheminiu-elementu-lentele,s42.html",
+            "destination": "/interaktyvi-cheminiu-elementu-lentele",
+            "permanent": true
+        },
+        {
+            "source": "/klasikine-elementu-lentele,s43",
+            "destination": "/klasikine-elementu-lentele",
+            "permanent": true
+        },
+        {
+            "source": "/klasikine-elementu-lentele,s43.html",
+            "destination": "/klasikine-elementu-lentele",
+            "permanent": true
+        },
+        {
+            "source": "/elementu-lentele-nespalvota,s44",
+            "destination": "/elementu-lentele-nespalvota",
+            "permanent": true
+        },
+        {
+            "source": "/elementu-lentele-nespalvota,s44.html",
+            "destination": "/elementu-lentele-nespalvota",
+            "permanent": true
+        },
+        {
+            "source": "/fizikiniu-savybiu-lentele,s45",
+            "destination": "/fizikiniu-savybiu-lentele",
+            "permanent": true
+        },
+        {
+            "source": "/fizikiniu-savybiu-lentele,s45.html",
+            "destination": "/fizikiniu-savybiu-lentele",
+            "permanent": true
+        },
+        {
+            "source": "/praktikoje-vartojamu-pagrindiniu-reagentu-konstantos,s46",
+            "destination": "/praktikoje-vartojamu-pagrindiniu-reagentu-konstantos",
+            "permanent": true
+        },
+        {
+            "source": "/praktikoje-vartojamu-pagrindiniu-reagentu-konstantos,s46.html",
+            "destination": "/praktikoje-vartojamu-pagrindiniu-reagentu-konstantos",
+            "permanent": true
+        },
+        {
+            "source": "/oksidacijos-laipsnis,s47",
+            "destination": "/oksidacijos-laipsnis",
+            "permanent": true
+        },
+        {
+            "source": "/oksidacijos-laipsnis,s47.html",
+            "destination": "/oksidacijos-laipsnis",
+            "permanent": true
+        },
+        {
+            "source": "/valentingumas,s48",
+            "destination": "/valentingumas",
+            "permanent": true
+        },
+        {
+            "source": "/valentingumas,s48.html",
+            "destination": "/valentingumas",
+            "permanent": true
+        },
+        {
+            "source": "/jonu-atpazinimo-reakcijos,s49",
+            "destination": "/jonu-atpazinimo-reakcijos",
+            "permanent": true
+        },
+        {
+            "source": "/jonu-atpazinimo-reakcijos,s49.html",
+            "destination": "/jonu-atpazinimo-reakcijos",
+            "permanent": true
+        },
+        {
+            "source": "/duju-nustatymas,s50",
+            "destination": "/duju-nustatymas",
+            "permanent": true
+        },
+        {
+            "source": "/duju-nustatymas,s50.html",
+            "destination": "/duju-nustatymas",
+            "permanent": true
+        },
+        {
+            "source": "/organiniu-medziagu-nustatymas,s51",
+            "destination": "/organiniu-medziagu-nustatymas",
+            "permanent": true
+        },
+        {
+            "source": "/organiniu-medziagu-nustatymas,s51.html",
+            "destination": "/organiniu-medziagu-nustatymas",
+            "permanent": true
+        },
+        {
+            "source": "/kai-kurios-chemines-medziagos,s52",
+            "destination": "/kai-kurios-chemines-medziagos",
+            "permanent": true
+        },
+        {
+            "source": "/kai-kurios-chemines-medziagos,s52.html",
+            "destination": "/kai-kurios-chemines-medziagos",
+            "permanent": true
+        },
+        {
+            "source": "/pagrindines-vidurines-mokyklos-chemijos-formules-vienoje-vietoje,s53",
+            "destination": "/pagrindines-vidurines-mokyklos-chemijos-formules-vienoje-vietoje",
+            "permanent": true
+        },
+        {
+            "source": "/pagrindines-vidurines-mokyklos-chemijos-formules-vienoje-vietoje,s53.html",
+            "destination": "/pagrindines-vidurines-mokyklos-chemijos-formules-vienoje-vietoje",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-acetato-gamyba,s57",
+            "destination": "/natrio-acetato-gamyba",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-acetato-gamyba,s57.html",
+            "destination": "/natrio-acetato-gamyba",
+            "permanent": true
+        },
+        {
+            "source": "/04-audringa-reakcija,s58",
+            "destination": "/04-audringa-reakcija",
+            "permanent": true
+        },
+        {
+            "source": "/04-audringa-reakcija,s58.html",
+            "destination": "/04-audringa-reakcija",
+            "permanent": true
+        },
+        {
+            "source": "/06-cheminis-vulkanas,s60",
+            "destination": "/06-cheminis-vulkanas",
+            "permanent": true
+        },
+        {
+            "source": "/06-cheminis-vulkanas,s60.html",
+            "destination": "/06-cheminis-vulkanas",
+            "permanent": true
+        },
+        {
+            "source": "/08-svytintis-skystis,s62",
+            "destination": "/08-svytintis-skystis",
+            "permanent": true
+        },
+        {
+            "source": "/08-svytintis-skystis,s62.html",
+            "destination": "/08-svytintis-skystis",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-tirpdyti-rugstyse-netirpius-metalus,s63",
+            "destination": "/kaip-tirpdyti-rugstyse-netirpius-metalus",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-tirpdyti-rugstyse-netirpius-metalus,s63.html",
+            "destination": "/kaip-tirpdyti-rugstyse-netirpius-metalus",
+            "permanent": true
+        },
+        {
+            "source": "/09-penki-budai-kaip-uzkurti-ugni-nenaudojant-degtuku-o-tik-chemija,s64",
+            "destination": "/09-penki-budai-kaip-uzkurti-ugni-nenaudojant-degtuku-o-tik-chemija",
+            "permanent": true
+        },
+        {
+            "source": "/09-penki-budai-kaip-uzkurti-ugni-nenaudojant-degtuku-o-tik-chemija,s64.html",
+            "destination": "/09-penki-budai-kaip-uzkurti-ugni-nenaudojant-degtuku-o-tik-chemija",
+            "permanent": true
+        },
+        {
+            "source": "/10-stiklo-pralydimas-naudojant-chemija,s65",
+            "destination": "/10-stiklo-pralydimas-naudojant-chemija",
+            "permanent": true
+        },
+        {
+            "source": "/10-stiklo-pralydimas-naudojant-chemija,s65.html",
+            "destination": "/10-stiklo-pralydimas-naudojant-chemija",
+            "permanent": true
+        },
+        {
+            "source": "/11-melsvasis-skystis-vario-chlorido-reakcija-su-aliuminio-folija-lt,s66",
+            "destination": "/11-melsvasis-skystis-vario-chlorido-reakcija-su-aliuminio-folija-lt",
+            "permanent": true
+        },
+        {
+            "source": "/11-melsvasis-skystis-vario-chlorido-reakcija-su-aliuminio-folija-lt,s66.html",
+            "destination": "/11-melsvasis-skystis-vario-chlorido-reakcija-su-aliuminio-folija-lt",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-azoto-rugsti,s67",
+            "destination": "/kaip-pagaminti-azoto-rugsti",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-azoto-rugsti,s67.html",
+            "destination": "/kaip-pagaminti-azoto-rugsti",
+            "permanent": true
+        },
+        {
+            "source": "/forum/kaip-pagaminti-azoto-rugsti,s67",
+            "destination": "/kaip-pagaminti-azoto-rugsti",
+            "permanent": true
+        },
+        {
+            "source": "/forum/kaip-pagaminti-azoto-rugsti,s67.html",
+            "destination": "/kaip-pagaminti-azoto-rugsti",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pasigaminti-druskos-rugsti,s68",
+            "destination": "/kaip-pasigaminti-druskos-rugsti",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pasigaminti-druskos-rugsti,s68.html",
+            "destination": "/kaip-pasigaminti-druskos-rugsti",
+            "permanent": true
+        },
+        {
+            "source": "/12-guminukas-sukelia-siauba,s69",
+            "destination": "/12-guminukas-sukelia-siauba",
+            "permanent": true
+        },
+        {
+            "source": "/12-guminukas-sukelia-siauba,s69.html",
+            "destination": "/12-guminukas-sukelia-siauba",
+            "permanent": true
+        },
+        {
+            "source": "/sulfito-rugsties-gamyba-lt,s71",
+            "destination": "/sulfito-rugsties-gamyba-lt",
+            "permanent": true
+        },
+        {
+            "source": "/sulfito-rugsties-gamyba-lt,s71.html",
+            "destination": "/sulfito-rugsties-gamyba-lt",
+            "permanent": true
+        },
+        {
+            "source": "/kalio-chlorato-kclo3-sinteze,s72",
+            "destination": "/kalio-chlorato-kclo3-sinteze",
+            "permanent": true
+        },
+        {
+            "source": "/kalio-chlorato-kclo3-sinteze,s72.html",
+            "destination": "/kalio-chlorato-kclo3-sinteze",
+            "permanent": true
+        },
+        {
+            "source": "/14-chameleonas-,s73",
+            "destination": "/14-chameleonas-",
+            "permanent": true
+        },
+        {
+            "source": "/14-chameleonas-,s73.html",
+            "destination": "/14-chameleonas-",
+            "permanent": true
+        },
+        {
+            "source": "/amoniako-nh3-gamyba,s74",
+            "destination": "/amoniako-nh3-gamyba",
+            "permanent": true
+        },
+        {
+            "source": "/amoniako-nh3-gamyba,s74.html",
+            "destination": "/amoniako-nh3-gamyba",
+            "permanent": true
+        },
+        {
+            "source": "/vario-sulfato-gamyba,s75",
+            "destination": "/vario-sulfato-gamyba",
+            "permanent": true
+        },
+        {
+            "source": "/vario-sulfato-gamyba,s75.html",
+            "destination": "/vario-sulfato-gamyba",
+            "permanent": true
+        },
+        {
+            "source": "/15-sviecianti-moneta,s76",
+            "destination": "/15-sviecianti-moneta",
+            "permanent": true
+        },
+        {
+            "source": "/15-sviecianti-moneta,s76.html",
+            "destination": "/15-sviecianti-moneta",
+            "permanent": true
+        },
+        {
+            "source": "/16-kraujuojanti-vinis,s77",
+            "destination": "/16-kraujuojanti-vinis",
+            "permanent": true
+        },
+        {
+            "source": "/16-kraujuojanti-vinis,s77.html",
+            "destination": "/16-kraujuojanti-vinis",
+            "permanent": true
+        },
+        {
+            "source": "/17-netikras-kraujas,s78",
+            "destination": "/netikras-kraujas",
+            "permanent": true
+        },
+        {
+            "source": "/17-netikras-kraujas,s78.html",
+            "destination": "/netikras-kraujas",
+            "permanent": true
+        },
+        {
+            "source": "/18-audra-megintuvelyje,s79",
+            "destination": "/18-audra-megintuvelyje",
+            "permanent": true
+        },
+        {
+            "source": "/18-audra-megintuvelyje,s79.html",
+            "destination": "/18-audra-megintuvelyje",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-joda-pirmasis-budas,s80",
+            "destination": "/kaip-pagaminti-joda-pirmasis-budas",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-joda-pirmasis-budas,s80.html",
+            "destination": "/kaip-pagaminti-joda-pirmasis-budas",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-natrio-nitrata-pirmasis-budas,s81",
+            "destination": "/kaip-pagaminti-natrio-nitrata-pirmasis-budas",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-natrio-nitrata-pirmasis-budas,s81.html",
+            "destination": "/kaip-pagaminti-natrio-nitrata-pirmasis-budas",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-natrio-nitrata-antrasis-budas,s82",
+            "destination": "/kaip-pagaminti-natrio-nitrata-antrasis-budas",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-natrio-nitrata-antrasis-budas,s82.html",
+            "destination": "/kaip-pagaminti-natrio-nitrata-antrasis-budas",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-gelezies-iii-chlorida,s83",
+            "destination": "/kaip-pagaminti-gelezies-iii-chlorida",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-gelezies-iii-chlorida,s83.html",
+            "destination": "/kaip-pagaminti-gelezies-iii-chlorida",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-joda-antrasis-budas,s84",
+            "destination": "/kaip-pagaminti-joda-antrasis-budas",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-joda-antrasis-budas,s84.html",
+            "destination": "/kaip-pagaminti-joda-antrasis-budas",
+            "permanent": true
+        },
+        {
+            "source": "/19-karstas-ledas-lt,s85",
+            "destination": "/19-karstas-ledas-lt",
+            "permanent": true
+        },
+        {
+            "source": "/19-karstas-ledas-lt,s85.html",
+            "destination": "/19-karstas-ledas-lt",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-kalio-nitrata,s86",
+            "destination": "/kaip-pagaminti-kalio-nitrata",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-kalio-nitrata,s86.html",
+            "destination": "/kaip-pagaminti-kalio-nitrata",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-sidabro-acetata,s87",
+            "destination": "/kaip-pagaminti-sidabro-acetata",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-sidabro-acetata,s87.html",
+            "destination": "/kaip-pagaminti-sidabro-acetata",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-aliuminio-nitrata-nonahidrata,s88",
+            "destination": "/kaip-pagaminti-aliuminio-nitrata-nonahidrata",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-aliuminio-nitrata-nonahidrata,s88.html",
+            "destination": "/kaip-pagaminti-aliuminio-nitrata-nonahidrata",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-chlora,s89",
+            "destination": "/kaip-pagaminti-chlora",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-chlora,s89.html",
+            "destination": "/kaip-pagaminti-chlora",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pasigaminti-linksminancias-dujas-azoto-suboksida,s90",
+            "destination": "/kaip-pasigaminti-linksminancias-dujas-azoto-suboksida",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pasigaminti-linksminancias-dujas-azoto-suboksida,s90.html",
+            "destination": "/kaip-pasigaminti-linksminancias-dujas-azoto-suboksida",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-auksoiii-tetrachlorido-rugsti-haucl4-angl-chloroauric-acid,s91",
+            "destination": "/kaip-pagaminti-auksoiii-tetrachlorido-rugsti-haucl4-angl-chloroauric-acid",
+            "permanent": true
+        },
+        {
+            "source": "/kaip-pagaminti-auksoiii-tetrachlorido-rugsti-haucl4-angl-chloroauric-acid,s91.html",
+            "destination": "/kaip-pagaminti-auksoiii-tetrachlorido-rugsti-haucl4-angl-chloroauric-acid",
+            "permanent": true
+        },
+        {
+            "source": "/20-ugnies-uzkurimas-naudojant-stabdziu-skysti,s92",
+            "destination": "/20-ugnies-uzkurimas-naudojant-stabdziu-skysti",
+            "permanent": true
+        },
+        {
+            "source": "/20-ugnies-uzkurimas-naudojant-stabdziu-skysti,s92.html",
+            "destination": "/20-ugnies-uzkurimas-naudojant-stabdziu-skysti",
+            "permanent": true
+        },
+        {
+            "source": "/uzdaviniu-sprendykla,s93",
+            "destination": "/uzdaviniu-sprendykla",
+            "permanent": true
+        },
+        {
+            "source": "/uzdaviniu-sprendykla,s93.html",
+            "destination": "/uzdaviniu-sprendykla",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-hidroksidas,s94",
+            "destination": "/natrio-hidroksidas",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-hidroksidas,s94.html",
+            "destination": "/natrio-hidroksidas",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-karbonatas,s95",
+            "destination": "/natrio-karbonatas",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-karbonatas,s95.html",
+            "destination": "/natrio-karbonatas",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-hidrokarbonatas,s96",
+            "destination": "/natrio-hidrokarbonatas",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-hidrokarbonatas,s96.html",
+            "destination": "/natrio-hidrokarbonatas",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-cianidas,s97",
+            "destination": "/natrio-cianidas",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-cianidas,s97.html",
+            "destination": "/natrio-cianidas",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-sulfatas,s98",
+            "destination": "/natrio-sulfatas",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-sulfatas,s98.html",
+            "destination": "/natrio-sulfatas",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-hidrosulfatas,s99",
+            "destination": "/natrio-hidrosulfatas",
+            "permanent": true
+        },
+        {
+            "source": "/natrio-hidrosulfatas,s99.html",
+            "destination": "/natrio-hidrosulfatas",
+            "permanent": true
+        },
+        {
+            "source": "/cheminis-skaiciuotuvas.html",
+            "destination": "/cheminis-skaiciuotuvas",
+            "permanent": true
+        },
+        {
+            "source": "/egzaminai.html",
+            "destination": "/egzaminai",
+            "permanent": true
+        }
+    ],
     "rewrites": [
         {
             "source": "/:path(.*)",
