@@ -3,6 +3,7 @@
 import { ClientRouter } from 'astro:transitions';
 import Navigation from '@/components/Navigation.astro';
 import '@/assets/app.css';
+import Analytics from '@vercel/analytics/astro';
 
 interface Props {
     title: string;
@@ -29,6 +30,7 @@ const { title } = Astro.props;
 
         <title>{title} | chemija.org</title>
         <ClientRouter />
+        <Analytics />
     </head>
     <body>
         <div class="min-h-screen flex flex-col">

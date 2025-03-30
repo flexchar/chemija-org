@@ -19,9 +19,12 @@ import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
-    // Hybrid+adapter is required to support embedded Sanity Studio
     output: 'static',
-    adapter: vercel(),
+    adapter: vercel({
+        webAnalytics: {
+            enabled: true,
+        },
+    }),
     integrations: [
         sanity({
             projectId,
