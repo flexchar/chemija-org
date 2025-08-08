@@ -14,121 +14,146 @@ const formatDate = (dateString: string) => {
 ---
 
 <Layout title="Chemijos portalas">
-    <!-- Welcome hero -->
-    <section class="flex flex-col sm:flex-row justify-between py-16">
-        <h1
-            class="text-3xl font-light self-center text-center sm:text-left w-full sm:w-1/2 pb-20 sm:pb-0"
-        >
-            Chemijos bei kitų gamtos mokslų mėgėjų svetainė
-        </h1>
-
-        <div class="flex justify-center w-full sm:w-1/2">
-            <img
-                src="/images/science.svg"
-                class="w-64"
-                alt="Woman scientist taking notes next to chemistry flasks"
-                title="Chemija tavo draugas"
-            />
-        </div>
-    </section>
-
-    <!-- Articles -->
-    <section>
-        <div class="border-b py-1 my-4 flex justify-between items-end">
-            <h2 class="text-3xl">Straipsniai</h2>
-            <a href="/straipsniai" class="link link-hover">Visi straipsniai</a>
-        </div>
-
-        {
-            articles.length > 0 ? (
-                articles.map((article) => (
-                    <article class="flex flex-col md:flex-row justify-between pb-4 mb-6 sm:mb-10 md:mb-16">
-                        <p class="text-base-content/70 py-2 md:py-0 text-sm tracking-wide">
-                            <time
-                                datetime={article._updatedAt}
-                                title={`Atnaujinta ${formatDate(article._updatedAt)}`}
-                            >
-                                {formatDate(article._updatedAt)}
-                            </time>
-                        </p>
-                        <div class="md:w-3/4">
-                            {article.categories && (
-                                <p class="text-base-content/70 text-sm tracking-wide pb-2">
-                                    {article.categories[0].title}
-                                </p>
-                            )}
-                            <a
-                                href={`/${article.slug!.current}`}
-                                class="text-2xl break-words hover:text-accent hover:underline"
-                            >
-                                {article.title}
-                            </a>
-                        </div>
-                    </article>
-                ))
-            ) : (
-                <p class="text-base-content/70 italic py-4">Nėra straipsnių.</p>
-            )
-        }
-    </section>
-
-    <!-- Exams -->
-    <section class="mb-12">
-        <div class="border-b py-1 my-4 flex justify-between items-end">
-            <h2 class="text-3xl">Egzaminai</h2>
-            <a href="/egzaminai" class="link link-hover text-primary"
-                >Visi egzaminai</a
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Welcome hero -->
+        <section class="pt-8 sm:pt-12">
+            <div
+                class="hero rounded-3xl bg-gradient-to-br from-base-200/90 via-base-200/60 to-transparent border border-base-200/70 ring-1 ring-base-200/70"
             >
-        </div>
-
-        <div class="my-6">
-            <p>
-                Didžiausias chemijos egzaminų archyvas padės tau
-                <span
-                    class="badge badge-accent badge-lg text-accent-content font-medium"
+                <div
+                    class="hero-content flex-col lg:flex-row-reverse gap-10 lg:gap-16"
                 >
-                    PASIRUOŠTI EGZAMINUI
-                </span>
-                ir gliaudyti užduotis it riešutus!
-            </p>
-        </div>
+                    <div class="w-full lg:w-1/2 flex justify-center">
+                        <img
+                            src="/images/science.svg"
+                            class="w-56 sm:w-72 lg:w-80 drop-shadow-xl transition-transform duration-300 ease-out hover:scale-[1.03]"
+                            alt="Mokslininkė šalia kolbų užrašo pastabas"
+                            title="Chemija tavo draugas"
+                        />
+                    </div>
+                    <div class="w-full lg:w-1/2">
+                        <h1
+                            class="text-4xl sm:text-6xl font-extrabold leading-tight bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent"
+                        >
+                            Chemijos bei kitų gamtos mokslų mėgėjų svetainė
+                        </h1>
+                        <p class="mt-5 text-base-content/70 text-lg">
+                            Minimalistiška, aiški ir draugiška vieta mokytis,
+                            atrasti ir pasiruošti.
+                        </p>
+                        <div class="mt-8 flex flex-wrap items-center gap-3">
+                            <a href="/egzaminai" class="btn btn-primary btn-lg"
+                                >Egzaminų archyvas</a
+                            >
+                            <a href="/straipsniai" class="btn btn-ghost btn-lg"
+                                >Naujausi straipsniai</a
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <div class="flex flex-col sm:flex-row pb-8">
-            <div class="hidden sm:flex w-1/2 items-center justify-center">
-                <div class="max-w-xs">
-                    <img
-                        src="/images/exams.svg"
-                        alt="Students writting an exam"
-                        title="Pasiruošk egzaminams"
-                        class="w-full"
-                    />
+        <!-- Articles -->
+        <section class="mt-16">
+            <div class="flex justify-between items-end gap-4">
+                <h2 class="text-3xl sm:text-4xl font-semibold">Straipsniai</h2>
+                <a href="/straipsniai" class="btn btn-ghost btn-sm"
+                    >Visi straipsniai</a
+                >
+            </div>
+
+            {
+                articles.length > 0 ? (
+                    <div class="mt-8 grid gap-6">
+                        {articles.map((article) => (
+                            <a href={`/${article.slug!.current}`} class="group">
+                                <article class="card bg-base-100/60 backdrop-blur border border-base-200/70 hover:border-primary/40 transition-all duration-200 shadow-sm hover:shadow-lg">
+                                    <div class="card-body">
+                                        <div class="flex items-center gap-3 text-sm text-base-content/60">
+                                            {article.categories && (
+                                                <span class="badge badge-outline">
+                                                    {
+                                                        article.categories[0]
+                                                            .title
+                                                    }
+                                                </span>
+                                            )}
+                                            <span class="opacity-40">•</span>
+                                            <time
+                                                datetime={article._updatedAt}
+                                                title={`Atnaujinta ${formatDate(article._updatedAt)}`}
+                                            >
+                                                {formatDate(article._updatedAt)}
+                                            </time>
+                                        </div>
+                                        <h3 class="card-title text-2xl sm:text-3xl leading-snug group-hover:text-primary">
+                                            {article.title}
+                                        </h3>
+                                    </div>
+                                </article>
+                            </a>
+                        ))}
+                    </div>
+                ) : (
+                    <p class="text-base-content/70 italic py-6">
+                        Nėra straipsnių.
+                    </p>
+                )
+            }
+        </section>
+
+        <!-- Exams -->
+        <section class="mt-16 mb-20">
+            <div class="flex justify-between items-end gap-4">
+                <h2 class="text-3xl sm:text-4xl font-semibold">Egzaminai</h2>
+                <a href="/egzaminai" class="btn btn-ghost btn-sm"
+                    >Peržiūrėti visus</a
+                >
+            </div>
+
+            <div class="mt-6">
+                <div class="card bg-base-100/60 border border-base-200/70">
+                    <div class="card-body py-4">
+                        <p class="text-base-content/70">
+                            Didžiausias chemijos egzaminų archyvas padės tau
+                            pasiruošti egzaminui ir gliaudyti užduotis it
+                            riešutus.
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            <div class="w-full sm:w-1/2">
-                {
-                    exams.length > 0 ? (
-                        <div class="space-y-6">
-                            {exams.map((exam) => (
-                                <div class="card card-compact bg-base-100 shadow-md hover:shadow-lg transition-shadow">
-                                    <div class="card-body">
-                                        <ExamCard exam={exam} />
-                                    </div>
-                                </div>
-                            ))}
-                            <div class="flex justify-center mt-6">
-                                <a href="/egzaminai" class="btn btn-primary">
-                                    Peržiūrėti visus egzaminus
-                                </a>
+            <div class="mt-8 flex flex-col lg:flex-row gap-10">
+                <div
+                    class="hidden lg:flex w-full lg:w-1/2 items-center justify-center"
+                >
+                    <div class="max-w-sm">
+                        <img
+                            src="/images/exams.svg"
+                            alt="Mokiniai sprendžia egzaminą"
+                            title="Pasiruošk egzaminams"
+                            class="w-full drop-shadow-xl"
+                        />
+                    </div>
+                </div>
+
+                <div class="w-full lg:w-1/2">
+                    {
+                        exams.length > 0 ? (
+                            <div class="space-y-6">
+                                {exams.map((exam) => (
+                                    <ExamCard exam={exam} />
+                                ))}
                             </div>
-                        </div>
-                    ) : (
-                        <div class="alert alert-warning">
-                            <p>Nėra egzaminų.</p>
-                        </div>
-                    )
-                }
+                        ) : (
+                            <div class="alert alert-warning">
+                                <span>Nėra egzaminų.</span>
+                            </div>
+                        )
+                    }
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </Layout>

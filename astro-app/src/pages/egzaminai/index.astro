@@ -17,42 +17,21 @@ const examYears = [
 ---
 
 <Layout title="Chemijos egzaminai">
-    <div class="exam-page">
-        <header class="px-2 sm:px-0">
-            <h1 class="text-3xl font-bold mb-2">Chemijos egzaminai</h1>
-            <p>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Page header / intro -->
+        <header class="pt-6">
+            <h1 class="text-3xl sm:text-4xl font-semibold mb-2">
+                Chemijos egzaminai
+            </h1>
+            <p class="text-base-content/70">
                 Chemijos valstybinių bei mokyklinių egzaminų užduočių ir
                 atsakymų archyvas. Egzaminai su atsakymais nuo 1996 metų.
             </p>
-            <div class="flex items-center">
-                <span class="flex-1 hidden md:inline"></span>
-
-                <label class="py-4 mr-2">
-                    <input
-                        type="radio"
-                        name="viewMode"
-                        value="download"
-                        class="radio radio-sm mr-1 align-middle"
-                        id="downloadRadio"
-                    />
-                    <span class="align-middle">Siųstis failus</span>
-                </label>
-                <label class="py-4">
-                    <input
-                        type="radio"
-                        name="viewMode"
-                        value="view"
-                        class="radio radio-sm mr-1 align-middle"
-                        id="viewRadio"
-                        checked
-                    />
-                    <span class="align-middle">Žiūrėti naršyklėje</span>
-                </label>
-            </div>
         </header>
 
-        <div>
-            <div class="form-control w-full max-w-xs mb-4">
+        <!-- Controls -->
+        <div class="mt-6">
+            <div class="form-control w-full max-w-xs">
                 <label class="label">
                     <span class="label-text"> Filtruoti pagal metus </span>
                 </label>
@@ -68,112 +47,102 @@ const examYears = [
                     }
                 </select>
             </div>
+        </div>
 
-            <table class="table">
-                <thead>
-                    <tr class="bg-primary text-primary-content">
-                        <th>Metai</th>
-                        <th>Tipas</th>
-                        <th>Sesija</th>
-                        <th>Užduotys</th>
-                        <th>Atsakymai</th>
-                    </tr>
-                </thead>
-                <tbody id="examsTableBody">
-                    {
-                        exams.map((exam) => (
-                            <tr
-                                class="hover:bg-base-300"
-                                data-year={
-                                    exam.year
-                                        ? new Date(exam.year).getFullYear()
-                                        : ''
-                                }
-                            >
-                                <td>
-                                    {exam.year
-                                        ? new Date(exam.year).getFullYear()
-                                        : 'N/A'}
-                                </td>
-                                <td>{exam.level || 'N/A'}</td>
-                                <td>{exam.session || 'Pagrindinė'}</td>
-                                <td>
-                                    {exam.questions_url ? (
-                                        <a
-                                            href={exam.questions_url}
-                                            class="link link-primary font-semibold"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            data-file-url={exam.questions_url}
-                                            data-download-name={`${exam.year ? new Date(exam.year).getFullYear() : ''} chemijos ${exam.level || ''} egzaminas - užduotys`}
-                                        >
-                                            Užduotys
-                                        </a>
-                                    ) : (
-                                        <span class="text-opacity-50">
-                                            Nėra
-                                        </span>
-                                    )}
-                                </td>
-                                <td>
-                                    {exam.answers_url ? (
-                                        <a
-                                            href={exam.answers_url}
-                                            class="link link-primary font-semibold"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            data-file-url={exam.answers_url}
-                                            data-download-name={`${exam.year ? new Date(exam.year).getFullYear() : ''} chemijos ${exam.level || ''} egzaminas - atsakymai`}
-                                        >
-                                            Atsakymai
-                                        </a>
-                                    ) : (
-                                        <span class="text-opacity-50">
-                                            Nėra
-                                        </span>
-                                    )}
-                                </td>
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
+        <!-- Table card -->
+        <div class="card bg-base-100/60 border border-base-200/70 mt-6">
+            <div class="overflow-x-auto">
+                <table class="table">
+                    <thead>
+                        <tr class="bg-base-200/60 text-base-content/70">
+                            <th>Metai</th>
+                            <th>Tipas</th>
+                            <th>Sesija</th>
+                            <th>Užduotys</th>
+                            <th>Atsakymai</th>
+                        </tr>
+                    </thead>
+                    <tbody id="examsTableBody">
+                        {
+                            exams.map((exam) => (
+                                <tr
+                                    class="hover:bg-base-200/40"
+                                    data-year={
+                                        exam.year
+                                            ? new Date(exam.year).getFullYear()
+                                            : ''
+                                    }
+                                >
+                                    <td>
+                                        {exam.year
+                                            ? new Date(exam.year).getFullYear()
+                                            : 'N/A'}
+                                    </td>
+                                    <td>{exam.level || 'N/A'}</td>
+                                    <td>{exam.session || 'Pagrindinė'}</td>
+                                    <td>
+                                        {exam.questions_url ? (
+                                            <div class="flex flex-wrap gap-2">
+                                                <a
+                                                    href={exam.questions_url}
+                                                    class="btn btn-ghost btn-xs transition-colors hover:bg-base-200 hover:text-primary"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    Žiūrėti
+                                                </a>
+                                                <a
+                                                    href={`${exam.questions_url}?dl=${`${exam.year ? new Date(exam.year).getFullYear() : ''} chemijos ${exam.level || ''} egzaminas - užduotys`.toLowerCase()}.pdf`}
+                                                    class="btn btn-ghost btn-xs transition-colors hover:bg-base-200 hover:text-primary"
+                                                >
+                                                    Siųsti
+                                                </a>
+                                            </div>
+                                        ) : (
+                                            <span class="text-base-content/50">
+                                                Nėra
+                                            </span>
+                                        )}
+                                    </td>
+                                    <td>
+                                        {exam.answers_url ? (
+                                            <div class="flex flex-wrap gap-2">
+                                                <a
+                                                    href={exam.answers_url}
+                                                    class="btn btn-ghost btn-xs transition-colors hover:bg-base-200 hover:text-primary"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    Žiūrėti
+                                                </a>
+                                                <a
+                                                    href={`${exam.answers_url}?dl=${`${exam.year ? new Date(exam.year).getFullYear() : ''} chemijos ${exam.level || ''} egzaminas - atsakymai`.toLowerCase()}.pdf`}
+                                                    class="btn btn-ghost btn-xs transition-colors hover:bg-base-200 hover:text-primary"
+                                                >
+                                                    Siųsti
+                                                </a>
+                                            </div>
+                                        ) : (
+                                            <span class="text-base-content/50">
+                                                Nėra
+                                            </span>
+                                        )}
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </Layout>
 
 <script>
-    // Handle the download/view toggle functionality
     document.addEventListener('DOMContentLoaded', () => {
-        const downloadRadio = document.getElementById(
-            'downloadRadio',
-        ) as HTMLInputElement;
-        const viewRadio = document.getElementById(
-            'viewRadio',
-        ) as HTMLInputElement;
-        const fileLinks = document.querySelectorAll('a[data-file-url]');
         const yearFilter = document.getElementById(
             'yearFilter',
         ) as HTMLSelectElement;
-
-        const updateLinks = () => {
-            const isDownload = downloadRadio.checked;
-
-            fileLinks.forEach((link) => {
-                const fileUrl = link.getAttribute('data-file-url') || '';
-                const downloadName =
-                    link.getAttribute('data-download-name') || '';
-
-                if (isDownload) {
-                    link.setAttribute(
-                        'href',
-                        `${fileUrl}?dl=${downloadName.toLowerCase()}`,
-                    );
-                } else {
-                    link.setAttribute('href', fileUrl);
-                }
-            });
-        };
 
         // Filter exams by year
         const filterExamsByYear = () => {
@@ -190,12 +159,7 @@ const examYears = [
             });
         };
 
-        // Initialize links
-        updateLinks();
-
         // Add event listeners
-        downloadRadio.addEventListener('change', updateLinks);
-        viewRadio.addEventListener('change', updateLinks);
         yearFilter.addEventListener('change', filterExamsByYear);
     });
 </script>

@@ -8,20 +8,28 @@ interface Props {
 const { exam } = Astro.props;
 ---
 
-<div class="card bg-base-100">
-    <div class="card-body p-4">
-        <h3 class="card-title text-lg">
-            {exam.level}
-            {exam.year}
-            {exam.session}
+<div
+    class="card bg-base-100/60 border border-base-200/70 transition-all duration-200 hover:border-primary/40 hover:shadow-lg group"
+>
+    <div class="card-body p-5">
+        <h3 class="card-title text-lg group-hover:text-primary">
+            <span class="font-medium">{exam.level}</span>
+            <span
+                >{
+                    exam.year
+                        ? new Date(exam.year).getFullYear()
+                        : '[missing year]'
+                }</span
+            >
+            <span>{exam.session}</span>
         </h3>
 
-        <div class="card-actions justify-start mt-2">
+        <div class="card-actions justify-start mt-2 gap-2">
             {
                 exam.questions_url && (
                     <a
                         href={exam.questions_url}
-                        class="btn btn-primary btn-sm"
+                        class="btn btn-ghost btn-sm transition-colors hover:bg-base-200 hover:text-primary"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
@@ -34,7 +42,7 @@ const { exam } = Astro.props;
                 exam.answers_url && (
                     <a
                         href={exam.answers_url}
-                        class="btn btn-accent btn-sm"
+                        class="btn btn-ghost btn-sm transition-colors hover:bg-base-200 hover:text-primary"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
