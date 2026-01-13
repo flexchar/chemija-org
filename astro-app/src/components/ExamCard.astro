@@ -6,50 +6,59 @@ interface Props {
 }
 
 const { exam } = Astro.props;
+
+// Accent color for exams (amber for exam entries)
+const accentColor = '#F59E0B';
 ---
 
 <div
-    class="card bg-base-100/60 border border-base-200/70 transition-all duration-200 hover:border-primary/40 hover:shadow-lg group"
+    class="bg-white border border-neutral-200 hover:border-neutral-400 transition-all duration-150 p-6 group"
+    style={`border-left: 4px solid ${accentColor}; border-radius: 4px;`}
 >
-    <div class="card-body p-5">
-        <h3 class="card-title text-lg group-hover:text-primary">
-            <span class="font-medium">{exam.level}</span>
-            <span
-                >{
-                    exam.year
-                        ? new Date(exam.year).getFullYear()
-                        : '[missing year]'
-                }</span
-            >
-            <span>{exam.session}</span>
-        </h3>
+    <h3
+        class="text-base font-medium tracking-wide uppercase mb-4"
+        style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.02em;"
+    >
+        <span class="text-neutral-900">{exam.level}</span>
+        <span class="text-neutral-400 mx-2">•</span>
+        <span class="text-neutral-900"
+            >{
+                exam.year
+                    ? new Date(exam.year).getFullYear()
+                    : '[missing year]'
+            }</span
+        >
+        <span class="text-neutral-400 mx-2">•</span>
+        <span class="text-neutral-900">{exam.session}</span>
+    </h3>
 
-        <div class="card-actions justify-start mt-2 gap-2">
-            {
-                exam.questions_url && (
-                    <a
-                        href={exam.questions_url}
-                        class="btn btn-ghost btn-sm transition-colors hover:bg-base-200 hover:text-primary"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Užduotys
-                    </a>
-                )
-            }
+    <div class="flex gap-3">
+        {
+            exam.questions_url && (
+                <a
+                    href={exam.questions_url}
+                    class="inline-flex items-center gap-2 bg-white text-black border border-black px-4 py-2 text-xs font-medium tracking-wider uppercase transition-colors hover:bg-black hover:text-white"
+                    style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em; border-radius: 4px;"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    UŽDUOTYS
+                </a>
+            )
+        }
 
-            {
-                exam.answers_url && (
-                    <a
-                        href={exam.answers_url}
-                        class="btn btn-ghost btn-sm transition-colors hover:bg-base-200 hover:text-primary"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Atsakymai
-                    </a>
-                )
-            }
-        </div>
+        {
+            exam.answers_url && (
+                <a
+                    href={exam.answers_url}
+                    class="inline-flex items-center gap-2 bg-white text-black border border-black px-4 py-2 text-xs font-medium tracking-wider uppercase transition-colors hover:bg-black hover:text-white"
+                    style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em; border-radius: 4px;"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    ATSAKYMAI
+                </a>
+            )
+        }
     </div>
 </div>

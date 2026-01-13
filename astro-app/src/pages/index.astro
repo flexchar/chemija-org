@@ -14,145 +14,179 @@ const formatDate = (dateString: string) => {
 ---
 
 <Layout title="Chemijos portalas">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-[1400px] mx-auto px-6 sm:px-12">
         <!-- Welcome hero -->
-        <section class="pt-8 sm:pt-12">
+        <section class="pt-16 sm:pt-24">
             <div
-                class="hero rounded-3xl bg-gradient-to-br from-base-200/90 via-base-200/60 to-transparent border border-base-200/70 ring-1 ring-base-200/70"
+                class="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center"
             >
-                <div
-                    class="hero-content flex-col lg:flex-row-reverse gap-10 lg:gap-16"
-                >
-                    <div class="w-full lg:w-1/2 flex justify-center">
-                        <img
-                            src="/images/science.svg"
-                            class="w-56 sm:w-72 lg:w-80 drop-shadow-xl transition-transform duration-300 ease-out hover:scale-[1.03]"
-                            alt="Mokslininkė šalia kolbų užrašo pastabas"
-                            title="Chemija tavo draugas"
-                        />
-                    </div>
-                    <div class="w-full lg:w-1/2">
-                        <h1
-                            class="text-4xl sm:text-6xl font-extrabold leading-tight bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent"
+                <div class="w-full lg:w-3/5">
+                    <h1
+                        class="text-3xl sm:text-5xl font-medium leading-tight tracking-wider uppercase"
+                        style="font-family: 'IBM Plex Mono', 'Space Mono', monospace; letter-spacing: 0.1em;"
+                    >
+                        CHEMIJOS MĖGĖJŲ SVETAINĖ
+                    </h1>
+                    <div class="mt-4 h-px bg-neutral-200"></div>
+                    <p
+                        class="mt-8 text-base text-neutral-600 leading-relaxed max-w-2xl"
+                    >
+                        Valstybinių egzaminų archyvas su užduotimis ir
+                        atsakymais nuo 2004 metų. Taip pat straipsniai apie
+                        chemiją ir molinio masyvinimo skaičiuotuvai.
+                    </p>
+                    <div class="mt-10 flex flex-wrap items-center gap-4">
+                        <a
+                            href="/egzaminai"
+                            class="inline-flex items-center gap-2 bg-black text-white px-8 py-4 text-sm font-medium tracking-wider uppercase transition-opacity hover:opacity-90"
+                            style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em; border-radius: 4px;"
                         >
-                            Chemijos bei kitų gamtos mokslų mėgėjų svetainė
-                        </h1>
-                        <p class="mt-5 text-base-content/70 text-lg">
-                            Minimalistiška, aiški ir draugiška vieta mokytis,
-                            atrasti ir pasiruošti.
-                        </p>
-                        <div class="mt-8 flex flex-wrap items-center gap-3">
-                            <a href="/egzaminai" class="btn btn-primary btn-lg"
-                                >Egzaminų archyvas</a
-                            >
-                            <a href="/straipsniai" class="btn btn-ghost btn-lg"
-                                >Naujausi straipsniai</a
-                            >
-                        </div>
+                            Egzaminų archyvas
+                            <span class="text-lg">→</span>
+                        </a>
+                        <a
+                            href="/straipsniai"
+                            class="inline-flex items-center gap-2 bg-white text-black border border-black px-8 py-4 text-sm font-medium tracking-wider uppercase transition-colors hover:bg-neutral-50"
+                            style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em; border-radius: 4px;"
+                        >
+                            STRAIPSNIAI
+                        </a>
                     </div>
+                </div>
+                <div class="hidden lg:flex w-full lg:w-2/5 justify-center">
+                    <img
+                        src="/images/science.svg"
+                        class="w-64 lg:w-80 opacity-40"
+                        alt="Chemijos iliustracija"
+                    />
                 </div>
             </div>
         </section>
 
         <!-- Articles -->
-        <section class="mt-16">
-            <div class="flex justify-between items-end gap-4">
-                <h2 class="text-3xl sm:text-4xl font-semibold">Straipsniai</h2>
-                <a href="/straipsniai" class="btn btn-ghost btn-sm"
-                    >Visi straipsniai</a
+        <section class="mt-32">
+            <div class="flex justify-between items-center gap-4 mb-2">
+                <h2
+                    class="text-lg sm:text-xl font-medium tracking-wider uppercase"
+                    style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.1em;"
                 >
+                    NAUJAUSI STRAIPSNIAI
+                </h2>
+                <a
+                    href="/straipsniai"
+                    class="text-xs font-medium tracking-wider uppercase text-neutral-700 hover:text-black transition-colors"
+                    style="font-family: 'Space Mono', 'Courier New', monospace; letter-spacing: 0.05em;"
+                >
+                    VISI →
+                </a>
             </div>
+            <div class="h-px bg-neutral-200 mb-10"></div>
 
             {
                 articles.length > 0 ? (
-                    <div class="mt-8 grid gap-6">
-                        {articles.map((article) => (
-                            <a href={`/${article.slug!.current}`} class="group">
-                                <article class="card bg-base-100/60 backdrop-blur border border-base-200/70 hover:border-primary/40 transition-all duration-200 shadow-sm hover:shadow-lg">
-                                    <div class="card-body">
-                                        <div class="flex items-center gap-3 text-sm text-base-content/60">
+                    <div class="grid gap-6">
+                        {articles.map((article, index) => {
+                            // Assign accent colors based on category or index
+                            const accentColors = [
+                                '#10B981', // emerald
+                                '#3B82F6', // blue
+                                '#8B5CF6', // violet
+                                '#F59E0B', // amber
+                                '#EF4444', // red
+                            ];
+                            const accentColor =
+                                accentColors[index % accentColors.length];
+
+                            return (
+                                <a
+                                    href={`/${article.slug!.current}`}
+                                    class="group block"
+                                >
+                                    <article
+                                        class="bg-white border border-neutral-200 hover:border-neutral-400 transition-all duration-150 p-6"
+                                        style={`border-left: 4px solid ${accentColor}; border-radius: 4px;`}
+                                    >
+                                        <div class="flex items-center gap-3 mb-3">
                                             {article.categories && (
-                                                <span class="badge badge-outline">
+                                                <span
+                                                    class="text-xs font-medium tracking-wider uppercase px-3 py-1"
+                                                    style={`font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em; background: ${accentColor}20; color: ${accentColor}; border-radius: 4px;`}
+                                                >
                                                     {
                                                         article.categories[0]
                                                             .title
                                                     }
                                                 </span>
                                             )}
-                                            <span class="opacity-40">•</span>
                                             <time
                                                 datetime={article._updatedAt}
+                                                class="text-xs text-neutral-400"
                                                 title={`Atnaujinta ${formatDate(article._updatedAt)}`}
                                             >
                                                 {formatDate(article._updatedAt)}
                                             </time>
                                         </div>
-                                        <h3 class="card-title text-2xl sm:text-3xl leading-snug group-hover:text-primary">
+                                        <h3
+                                            class="text-base sm:text-lg font-medium tracking-wide uppercase group-hover:text-neutral-600 transition-colors"
+                                            style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.02em;"
+                                        >
                                             {article.title}
                                         </h3>
-                                    </div>
-                                </article>
-                            </a>
-                        ))}
+                                    </article>
+                                </a>
+                            );
+                        })}
                     </div>
                 ) : (
-                    <p class="text-base-content/70 italic py-6">
-                        Nėra straipsnių.
-                    </p>
+                    <p class="text-neutral-500 py-6">Nėra straipsnių.</p>
                 )
             }
         </section>
 
         <!-- Exams -->
-        <section class="mt-16 mb-20">
-            <div class="flex justify-between items-end gap-4">
-                <h2 class="text-3xl sm:text-4xl font-semibold">Egzaminai</h2>
-                <a href="/egzaminai" class="btn btn-ghost btn-sm"
-                    >Peržiūrėti visus</a
+        <section class="mt-32 mb-32">
+            <div class="flex justify-between items-center gap-4 mb-2">
+                <h2
+                    class="text-lg sm:text-xl font-medium tracking-wider uppercase"
+                    style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.1em;"
                 >
+                    EGZAMINŲ ARCHYVAS
+                </h2>
+                <a
+                    href="/egzaminai"
+                    class="text-xs font-medium tracking-wider uppercase text-neutral-700 hover:text-black transition-colors"
+                    style="font-family: 'Space Mono', 'Courier New', monospace; letter-spacing: 0.05em;"
+                >
+                    VISI →
+                </a>
+            </div>
+            <div class="h-px bg-neutral-200 mb-10"></div>
+
+            <div
+                class="bg-neutral-50 border border-neutral-200 p-6 mb-10"
+                style="border-radius: 4px;"
+            >
+                <p class="text-sm text-neutral-600 leading-relaxed">
+                    Išsamus valstybinių egzaminų užduočių ir atsakymų archyvas.
+                    Medžiaga suskirstyta pagal metus ir sesijas.
+                </p>
             </div>
 
-            <div class="mt-6">
-                <div class="card bg-base-100/60 border border-base-200/70">
-                    <div class="card-body py-4">
-                        <p class="text-base-content/70">
-                            Didžiausias chemijos egzaminų archyvas padės tau
-                            pasiruošti egzaminui ir gliaudyti užduotis it
-                            riešutus.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-8 flex flex-col lg:flex-row gap-10">
-                <div
-                    class="hidden lg:flex w-full lg:w-1/2 items-center justify-center"
-                >
-                    <div class="max-w-sm">
-                        <img
-                            src="/images/exams.svg"
-                            alt="Mokiniai sprendžia egzaminą"
-                            title="Pasiruošk egzaminams"
-                            class="w-full drop-shadow-xl"
-                        />
-                    </div>
-                </div>
-
-                <div class="w-full lg:w-1/2">
-                    {
-                        exams.length > 0 ? (
-                            <div class="space-y-6">
-                                {exams.map((exam) => (
-                                    <ExamCard exam={exam} />
-                                ))}
-                            </div>
-                        ) : (
-                            <div class="alert alert-warning">
-                                <span>Nėra egzaminų.</span>
-                            </div>
-                        )
-                    }
-                </div>
+            <div class="grid gap-6">
+                {
+                    exams.length > 0 ? (
+                        exams.map((exam) => <ExamCard exam={exam} />)
+                    ) : (
+                        <div
+                            class="bg-neutral-50 border border-neutral-200 p-6"
+                            style="border-radius: 4px;"
+                        >
+                            <p class="text-sm text-neutral-600">
+                                Nėra egzaminų.
+                            </p>
+                        </div>
+                    )
+                }
             </div>
         </section>
     </div>

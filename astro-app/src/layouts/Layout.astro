@@ -33,21 +33,35 @@ const { title } = Astro.props;
         <Analytics />
     </head>
     <body>
-        <div class="min-h-screen flex flex-col">
+        <div class="min-h-screen flex flex-col bg-white">
             <Navigation />
-            <main class="container mx-auto px-4 py-6 flex-grow">
+            <main class="flex-grow">
                 <slot />
             </main>
-            <footer class="py-6 border-t">
+            <footer class="bg-neutral-50 border-t border-neutral-200 py-12">
                 <div
-                    class="container mx-auto px-4 flex justify-between items-center"
+                    class="max-w-[1400px] mx-auto px-6 sm:px-12 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6"
                 >
                     <div>
-                        <p class="text-base-content/70 text-sm">
-                            © {new Date().getFullYear()} chemija.org
+                        <p
+                            class="text-xs font-medium tracking-wider uppercase text-neutral-500 mb-2"
+                            style="font-family: 'IBM Plex Mono', 'Space Mono', monospace; letter-spacing: 0.05em;"
+                        >
+                            CHEMIJA.ORG
+                        </p>
+                        <p class="text-xs text-neutral-400">
+                            © {new Date().getFullYear()} Visos teisės saugomos
                         </p>
                     </div>
-                    <div class="text-sm">Lukas Vá</div>
+                    <div class="flex flex-col items-start sm:items-end gap-2">
+                        <p
+                            class="text-xs font-medium tracking-wider uppercase text-neutral-500"
+                            style="font-family: 'IBM Plex Mono', 'Space Mono', monospace; letter-spacing: 0.05em;"
+                        >
+                            SUKŪRĖ
+                        </p>
+                        <p class="text-xs text-neutral-400">Lukas Vá</p>
+                    </div>
                 </div>
             </footer>
         </div>

@@ -31,24 +31,53 @@ if (totalPages <= 5) {
 ---
 
 <Layout title="Straipsniai">
-    <div class="container mx-auto px-4 py-8">
-        <header class="mb-8">
-            <h1 class="text-3xl font-bold">Straipsniai</h1>
+    <div class="max-w-[1400px] mx-auto px-6 sm:px-12 py-16">
+        <header class="mb-12">
+            <h1
+                class="text-2xl sm:text-3xl font-medium tracking-wider uppercase mb-4"
+                style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.1em;"
+            >
+                STRAIPSNIAI
+            </h1>
+            <div class="h-px bg-neutral-200"></div>
+            <p class="mt-6 text-sm text-neutral-600 max-w-2xl">
+                Visi straipsniai apie chemiją, organines medžiagas ir kitų gamtos mokslų temas.
+            </p>
         </header>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {articles.map((article) => <ArticleCard article={article} />)}
+            {
+                articles.map((article, index) => {
+                    const accentColors = [
+                        '#10B981',
+                        '#3B82F6',
+                        '#8B5CF6',
+                        '#F59E0B',
+                        '#EF4444',
+                    ];
+                    const accentColor =
+                        accentColors[index % accentColors.length];
+                    return <ArticleCard article={article} accentColor={accentColor} />;
+                })
+            }
         </div>
 
         {
             totalPages > 1 && (
-                <div class="pagination flex justify-center items-center gap-2 mt-10">
-                    {/* No previous/first buttons needed on page 1 */}
-
+                <div class="flex justify-center items-center gap-2 mt-16">
                     {paginationItems.map((pageNum) => (
                         <a
-                            href={pageNum === 1 ? `/straipsniai` : `/straipsniai/${pageNum}`}
-                            class={`btn btn-sm ${pageNum === page ? 'btn-primary' : ''}`}
+                            href={
+                                pageNum === 1
+                                    ? `/straipsniai`
+                                    : `/straipsniai/${pageNum}`
+                            }
+                            class={`px-4 py-2 text-xs font-medium tracking-wider uppercase border transition-colors ${
+                                pageNum === page
+                                    ? 'bg-black text-white border-black'
+                                    : 'bg-white text-black border-neutral-200 hover:border-black'
+                            }`}
+                            style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em; border-radius: 4px;"
                         >
                             {pageNum}
                         </a>
@@ -56,8 +85,9 @@ if (totalPages <= 5) {
 
                     {page < totalPages && (
                         <a
-                            href={`/straipsniai/2`} // Next page is always 2 from page 1
-                            class="btn btn-sm"
+                            href={`/straipsniai/2`}
+                            class="px-4 py-2 text-xs font-medium tracking-wider uppercase bg-white text-black border border-neutral-200 hover:border-black transition-colors"
+                            style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em; border-radius: 4px;"
                         >
                             ›
                         </a>
@@ -66,7 +96,8 @@ if (totalPages <= 5) {
                     {page < totalPages && (
                         <a
                             href={`/straipsniai/${totalPages}`}
-                            class="btn btn-sm"
+                            class="px-4 py-2 text-xs font-medium tracking-wider uppercase bg-white text-black border border-neutral-200 hover:border-black transition-colors"
+                            style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em; border-radius: 4px;"
                         >
                             »
                         </a>
