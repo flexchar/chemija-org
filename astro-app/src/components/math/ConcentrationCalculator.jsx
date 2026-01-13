@@ -6,8 +6,12 @@ function round(value, decimals = 4) {
     return +value.toFixed(decimals);
 }
 
-function ConcentrationCalculator() {
-    const initialFormula = { c: '', n: '', v: '' };
+function ConcentrationCalculator({ initialC, initialN, initialV }) {
+    const initialFormula = {
+        c: initialC || '',
+        n: initialN || '',
+        v: initialV || ''
+    };
     const [formula, setFormula] = useState(initialFormula);
     const [error, setError] = useState(''); // State for error messages
 

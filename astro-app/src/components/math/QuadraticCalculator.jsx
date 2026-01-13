@@ -8,8 +8,12 @@ function round(num) {
     return parseFloat(Math.round(num * 100) / 100);
 }
 
-function QuadraticCalculator() {
-    const initialFormula = { a: '', b: '', c: '' };
+function QuadraticCalculator({ initialA, initialB, initialC }) {
+    const initialFormula = {
+        a: initialA || '',
+        b: initialB || '',
+        c: initialC || ''
+    };
     const initialResults = {
         answer1: null,
         answer2: null,

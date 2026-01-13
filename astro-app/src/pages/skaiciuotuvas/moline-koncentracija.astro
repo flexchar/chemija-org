@@ -1,18 +1,51 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import ConcentrationCalculator from '@/components/math/ConcentrationCalculator.jsx';
+
+const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Molinės koncentracijos skaičiavimas',
+    description:
+        'Apskaičiuokite tirpalo koncentraciją (c), medžiagos kiekį (n) arba tūrį (V) pagal formulę c(A) = n(A)/V.',
+    applicationCategory: 'EducationalApplication',
+    operatingSystem: 'Any',
+    offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'EUR',
+    },
+};
+
+const url = new URL(Astro.request.url);
+const c = url.searchParams.get('c');
+const n = url.searchParams.get('n');
+const v = url.searchParams.get('v');
 ---
 
-<Layout title="Molinės koncentracijos skaičiavimas | Chemijos skaičiuotuvas">
+<Layout
+    title="Molinės koncentracijos skaičiavimas"
+    description="Apskaičiuokite tirpalo koncentraciją, medžiagos kiekį arba tūrį pagal formulę c = n/V. Greitas koncentracijos skaičiuotuvas."
+    schema={schema}
+>
     <div class="max-w-[900px] mx-auto px-6 sm:px-12 py-16">
-        <!-- Back link -->
-        <a
-            href="/skaiciuotuvas"
-            class="inline-flex items-center gap-2 text-xs font-medium tracking-wider uppercase text-neutral-500 hover:text-black transition-colors mb-12"
-            style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em;"
-        >
-            ← SKAIČIUOTUVAI
-        </a>
+        <!-- Breadcrumbs -->
+        <nav class="mb-8 text-xs text-neutral-500" aria-label="Breadcrumb">
+            <ol class="flex items-center gap-2" style="font-family: 'IBM Plex Mono', monospace;">
+                <li><a href="/" class="hover:text-black transition-colors">PRADŽIA</a></li>
+                <li>/</li>
+                <li>
+                    <a
+                        href="/skaiciuotuvas"
+                        class="hover:text-black transition-colors"
+                    >
+                        SKAIČIUOTUVAI
+                    </a>
+                </li>
+                <li>/</li>
+                <li class="text-neutral-900">MOLINĖS KONCENTRACIJOS SKAIČIAVIMAS</li>
+            </ol>
+        </nav>
 
         <header class="mb-12">
             <h1
@@ -33,7 +66,49 @@ import ConcentrationCalculator from '@/components/math/ConcentrationCalculator.j
             class="bg-white border border-neutral-200 p-8"
             style="border-radius: 4px;"
         >
-            <ConcentrationCalculator client:load />
+            <ConcentrationCalculator client:load initialC={c} initialN={n} initialV={v} />
+        </div>
+
+        <!-- Examples section -->
+        <div
+            class="mt-8 bg-neutral-50 border border-neutral-200 p-6"
+            style="border-radius: 4px;"
+        >
+            <h2
+                class="text-xs font-medium tracking-wider uppercase text-neutral-700 mb-4"
+                style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em;"
+            >
+                PAVYZDŽIAI
+            </h2>
+            <div class="space-y-4 text-sm text-neutral-600">
+                <div>
+                    <p class="font-medium text-neutral-900 mb-1">
+                        Pavyzdys 1: Apskaičiuoti koncentraciją
+                    </p>
+                    <p>
+                        Užduotis: Rasti c, kai n = 2 mol, V = 1 L<br />
+                        Sprendimas: c = 2 / 1 = <strong>2 mol/L</strong>
+                    </p>
+                </div>
+                <div>
+                    <p class="font-medium text-neutral-900 mb-1">
+                        Pavyzdys 2: Apskaičiuoti medžiagos kiekį
+                    </p>
+                    <p>
+                        Užduotis: Rasti n, kai c = 0.5 mol/L, V = 2 L<br />
+                        Sprendimas: n = 0.5 × 2 = <strong>1 mol</strong>
+                    </p>
+                </div>
+                <div>
+                    <p class="font-medium text-neutral-900 mb-1">
+                        Pavyzdys 3: Apskaičiuoti tūrį
+                    </p>
+                    <p>
+                        Užduotis: Rasti V, kai c = 1 mol/L, n = 0.25 mol<br />
+                        Sprendimas: V = 0.25 / 1 = <strong>0.25 L</strong>
+                    </p>
+                </div>
+            </div>
         </div>
 
         <!-- Formula reference -->

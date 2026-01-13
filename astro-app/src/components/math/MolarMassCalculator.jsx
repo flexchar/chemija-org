@@ -6,8 +6,12 @@ function round(value, decimals = 4) {
     return +value.toFixed(decimals);
 }
 
-function MolarMassCalculator() {
-    const initialFormula = { n: '', m: '', M: '' };
+function MolarMassCalculator({ initialN, initialM, initialMolarMass }) {
+    const initialFormula = {
+        n: initialN || '',
+        m: initialM || '',
+        M: initialMolarMass || ''
+    };
     const [formula, setFormula] = useState(initialFormula);
 
     // Handle input changes

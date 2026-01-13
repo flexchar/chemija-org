@@ -1,10 +1,22 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 // Assuming the balancer logic exists and is compatible/ported to JS/TS
 import { balance, getRandom } from './chemicalEquationBalancer';
 
-function ChemicalBalancer() {
-    const [equation, setEquation] = useState('');
+function ChemicalBalancer({ initialEquation }) {
+    const [equation, setEquation] = useState(initialEquation || '');
     const [result, setResult] = useState('');
+
+    // Auto-balance if initial equation is provided
+    useEffect(() => {
+        if (initialEquation && initialEquation.trim()) {
+            try {
+                const balancedResult = balance(initialEquation);
+                setResult(balancedResult);
+            } catch (error) {
+                console.error('Error balancing initial equation:', error);
+            }
+        }
+    }, []); // Run only once on mount
 
     // Function to balance the equation
     const handleBalance = useCallback(() => {

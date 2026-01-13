@@ -1,18 +1,51 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import MolarMassCalculator from '@/components/math/MolarMassCalculator.jsx';
+
+const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Molinės masės skaičiavimas',
+    description:
+        'Apskaičiuokite medžiagos kiekį (n), masę (m) arba molinę masę (M) pagal formulę n = m/M.',
+    applicationCategory: 'EducationalApplication',
+    operatingSystem: 'Any',
+    offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'EUR',
+    },
+};
+
+const url = new URL(Astro.request.url);
+const n = url.searchParams.get('n');
+const m = url.searchParams.get('m');
+const M = url.searchParams.get('M');
 ---
 
-<Layout title="Molinės masės skaičiavimas | Chemijos skaičiuotuvas">
+<Layout
+    title="Molinės masės skaičiavimas"
+    description="Apskaičiuokite medžiagos kiekį, masę arba molinę masę pagal formulę n = m/M. Greitas molinės masės skaičiuotuvas."
+    schema={schema}
+>
     <div class="max-w-[900px] mx-auto px-6 sm:px-12 py-16">
-        <!-- Back link -->
-        <a
-            href="/skaiciuotuvas"
-            class="inline-flex items-center gap-2 text-xs font-medium tracking-wider uppercase text-neutral-500 hover:text-black transition-colors mb-12"
-            style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em;"
-        >
-            ← SKAIČIUOTUVAI
-        </a>
+        <!-- Breadcrumbs -->
+        <nav class="mb-8 text-xs text-neutral-500" aria-label="Breadcrumb">
+            <ol class="flex items-center gap-2" style="font-family: 'IBM Plex Mono', monospace;">
+                <li><a href="/" class="hover:text-black transition-colors">PRADŽIA</a></li>
+                <li>/</li>
+                <li>
+                    <a
+                        href="/skaiciuotuvas"
+                        class="hover:text-black transition-colors"
+                    >
+                        SKAIČIUOTUVAI
+                    </a>
+                </li>
+                <li>/</li>
+                <li class="text-neutral-900">MOLINĖS MASĖS SKAIČIAVIMAS</li>
+            </ol>
+        </nav>
 
         <header class="mb-12">
             <h1
@@ -32,7 +65,49 @@ import MolarMassCalculator from '@/components/math/MolarMassCalculator.jsx';
             class="bg-white border border-neutral-200 p-8"
             style="border-radius: 4px;"
         >
-            <MolarMassCalculator client:load />
+            <MolarMassCalculator client:load initialN={n} initialM={m} initialMolarMass={M} />
+        </div>
+
+        <!-- Examples section -->
+        <div
+            class="mt-8 bg-neutral-50 border border-neutral-200 p-6"
+            style="border-radius: 4px;"
+        >
+            <h2
+                class="text-xs font-medium tracking-wider uppercase text-neutral-700 mb-4"
+                style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em;"
+            >
+                PAVYZDŽIAI
+            </h2>
+            <div class="space-y-4 text-sm text-neutral-600">
+                <div>
+                    <p class="font-medium text-neutral-900 mb-1">
+                        Pavyzdys 1: Apskaičiuoti medžiagos kiekį
+                    </p>
+                    <p>
+                        Užduotis: Rasti n, kai m = 18 g, M = 18 g/mol (H₂O)<br />
+                        Sprendimas: n = 18 / 18 = <strong>1 mol</strong>
+                    </p>
+                </div>
+                <div>
+                    <p class="font-medium text-neutral-900 mb-1">
+                        Pavyzdys 2: Apskaičiuoti masę
+                    </p>
+                    <p>
+                        Užduotis: Rasti m, kai n = 2 mol, M = 44 g/mol (CO₂)<br />
+                        Sprendimas: m = 2 × 44 = <strong>88 g</strong>
+                    </p>
+                </div>
+                <div>
+                    <p class="font-medium text-neutral-900 mb-1">
+                        Pavyzdys 3: Apskaičiuoti molinę masę
+                    </p>
+                    <p>
+                        Užduotis: Rasti M, kai n = 0.5 mol, m = 20 g<br />
+                        Sprendimas: M = 20 / 0.5 = <strong>40 g/mol</strong>
+                    </p>
+                </div>
+            </div>
         </div>
 
         <!-- Formula reference -->

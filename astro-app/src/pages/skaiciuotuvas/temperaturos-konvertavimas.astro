@@ -1,18 +1,52 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import TemperatureConverter from '@/components/math/TemperatureConverter.jsx';
+
+const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Temperatūros konvertavimas',
+    description:
+        'Konvertuokite temperatūrą tarp Celsijaus, Kelvino ir Farenheito skalių. Greitas ir tikslus temperatūros skaičiuotuvas.',
+    applicationCategory: 'EducationalApplication',
+    operatingSystem: 'Any',
+    offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'EUR',
+    },
+};
+
+// Get URL parameters for pre-filling
+const url = new URL(Astro.request.url);
+const celsius = url.searchParams.get('celsius');
+const kelvin = url.searchParams.get('kelvin');
+const fahrenheit = url.searchParams.get('fahrenheit');
 ---
 
-<Layout title="Temperatūros konvertavimas | Chemijos skaičiuotuvas">
+<Layout
+    title="Temperatūros konvertavimas"
+    description="Konvertuokite temperatūrą tarp Celsijaus, Kelvino ir Farenheito skalių. Greitas ir tikslus temperatūros skaičiuotuvas chemijos mokslams."
+    schema={schema}
+>
     <div class="max-w-[900px] mx-auto px-6 sm:px-12 py-16">
-        <!-- Back link -->
-        <a
-            href="/skaiciuotuvas"
-            class="inline-flex items-center gap-2 text-xs font-medium tracking-wider uppercase text-neutral-500 hover:text-black transition-colors mb-12"
-            style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em;"
-        >
-            ← SKAIČIUOTUVAI
-        </a>
+        <!-- Breadcrumbs -->
+        <nav class="mb-8 text-xs text-neutral-500" aria-label="Breadcrumb">
+            <ol class="flex items-center gap-2" style="font-family: 'IBM Plex Mono', monospace;">
+                <li><a href="/" class="hover:text-black transition-colors">PRADŽIA</a></li>
+                <li>/</li>
+                <li>
+                    <a
+                        href="/skaiciuotuvas"
+                        class="hover:text-black transition-colors"
+                    >
+                        SKAIČIUOTUVAI
+                    </a>
+                </li>
+                <li>/</li>
+                <li class="text-neutral-900">TEMPERATŪROS KONVERTAVIMAS</li>
+            </ol>
+        </nav>
 
         <header class="mb-12">
             <h1
@@ -32,7 +66,54 @@ import TemperatureConverter from '@/components/math/TemperatureConverter.jsx';
             class="bg-white border border-neutral-200 p-8"
             style="border-radius: 4px;"
         >
-            <TemperatureConverter client:load />
+            <TemperatureConverter
+                client:load
+                initialCelsius={celsius}
+                initialKelvin={kelvin}
+                initialFahrenheit={fahrenheit}
+            />
+        </div>
+
+        <!-- Examples section -->
+        <div
+            class="mt-8 bg-neutral-50 border border-neutral-200 p-6"
+            style="border-radius: 4px;"
+        >
+            <h2
+                class="text-xs font-medium tracking-wider uppercase text-neutral-700 mb-4"
+                style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em;"
+            >
+                PAVYZDŽIAI
+            </h2>
+            <div class="space-y-4 text-sm text-neutral-600">
+                <div>
+                    <p class="font-medium text-neutral-900 mb-1">
+                        Pavyzdys 1: Kambario temperatūra
+                    </p>
+                    <p>
+                        Užduotis: 25°C į Kelviną<br />
+                        Sprendimas: K = 25 + 273.15 = <strong>298.15 K</strong>
+                    </p>
+                </div>
+                <div>
+                    <p class="font-medium text-neutral-900 mb-1">
+                        Pavyzdys 2: Vandens virimo taškas
+                    </p>
+                    <p>
+                        Užduotis: 100°C į Farenheitą<br />
+                        Sprendimas: °F = (100 × 9/5) + 32 = <strong>212°F</strong>
+                    </p>
+                </div>
+                <div>
+                    <p class="font-medium text-neutral-900 mb-1">
+                        Pavyzdys 3: Absoliutus nulis
+                    </p>
+                    <p>
+                        Užduotis: 0 K į Celsijų<br />
+                        Sprendimas: °C = 0 - 273.15 = <strong>-273.15°C</strong>
+                    </p>
+                </div>
+            </div>
         </div>
 
         <!-- Formula reference -->

@@ -32,11 +32,11 @@ const calculateTemperatures = (kelvin) => {
     };
 };
 
-function TemperatureConverter() {
+function TemperatureConverter({ initialCelsius, initialKelvin, initialFahrenheit }) {
     const initialDegrees = {
-        fahrenheit: '',
-        celsius: '',
-        kelvin: '',
+        fahrenheit: initialFahrenheit || '',
+        celsius: initialCelsius || '',
+        kelvin: initialKelvin || '',
     };
     const [degrees, setDegrees] = useState(initialDegrees);
 
