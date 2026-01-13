@@ -1,123 +1,104 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import TemperatureConverter from '@/components/math/TemperatureConverter.jsx';
-import Balancer from '@/components/math/ChemicalBalancer.jsx';
-import QuadraticCalculator from '@/components/math/QuadraticCalculator.jsx';
-import MolarMassCalculator from '@/components/math/MolarMassCalculator.jsx';
-import ConcentrationCalculator from '@/components/math/ConcentrationCalculator.jsx';
+
+// Calculator directory data
+const calculators = [
+    {
+        title: 'Temperatūros konvertavimas',
+        description:
+            'Konvertuokite temperatūrą tarp Celsijaus, Kelvino ir Farenheito skalių',
+        url: '/skaiciuotuvas/temperaturos-konvertavimas',
+        formula: 'K = °C + 273.15',
+        color: '#10B981',
+    },
+    {
+        title: 'Reakcijų lygintuvas',
+        description: 'Automatiškai subalansuokite chemines reakcijų lygtis',
+        url: '/skaiciuotuvas/reakciju-lygintuvas',
+        formula: 'aA + bB → cC + dD',
+        color: '#3B82F6',
+    },
+    {
+        title: 'Kvadratinių lygčių skaičiuotuvas',
+        description: 'Išspręskite kvadratines lygtis formos ax² + bx + c = 0',
+        url: '/skaiciuotuvas/kvadratines-lygtys',
+        formula: 'x = (-b ± √(b² - 4ac)) / 2a',
+        color: '#8B5CF6',
+    },
+    {
+        title: 'Molinės masės skaičiavimas',
+        description:
+            'Apskaičiuokite medžiagos kiekį, masę arba molinę masę pagal formulę',
+        url: '/skaiciuotuvas/moline-mase',
+        formula: 'n = m / M',
+        color: '#F59E0B',
+    },
+    {
+        title: 'Molinės koncentracijos skaičiavimas',
+        description:
+            'Apskaičiuokite tirpalo koncentraciją, medžiagos kiekį arba tūrį',
+        url: '/skaiciuotuvas/moline-koncentracija',
+        formula: 'c(A) = n(A) / V',
+        color: '#EF4444',
+    },
+];
 ---
 
-<Layout title="Chemijos skaičiuotuvas">
-    <div class="max-w-7xl mx-auto py-8 px-4">
-        <header class="mb-8">
-            <h1 class="text-4xl pb-8">Chemijos skaičiuotuvas</h1>
+<Layout title="Chemijos skaičiuotuvai">
+    <div class="max-w-[1400px] mx-auto px-6 sm:px-12 py-16">
+        <header class="mb-12">
+            <h1
+                class="text-2xl sm:text-3xl font-medium tracking-wider uppercase mb-4"
+                style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.1em;"
+            >
+                CHEMIJOS SKAIČIUOTUVAI
+            </h1>
+            <div class="h-px bg-neutral-200"></div>
+            <p class="mt-6 text-sm text-neutral-600 max-w-2xl">
+                Interaktyvūs skaičiuotuvai chemijos formulėms, reakcijoms ir
+                konversijoms. Visi įrankiai veikia tiesiogiai naršyklėje.
+            </p>
         </header>
 
-        <!-- Temperature converter -->
-        <section class="flex flex-col md:flex-row mb-8">
-            <div class="w-full md:w-1/3 mr-4 mb-8">
-                <h2 class="pb-4 font-bold">Temperatūros konvertavimas</h2>
-                <p class="text-sm">Rašykite tik į vieną laukelį</p>
-            </div>
-            <div class="w-full md:w-2/3">
-                <TemperatureConverter client:load />
-            </div>
-        </section>
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {
+                calculators.map((calc) => (
+                    <a href={calc.url} class="group block">
+                        <article
+                            class="bg-white border border-neutral-200 hover:border-neutral-400 transition-all duration-150 h-full flex flex-col"
+                            style={`border-left: 4px solid ${calc.color}; border-radius: 4px;`}
+                        >
+                            <div class="p-6 flex-1 flex flex-col">
+                                <h2
+                                    class="text-base sm:text-lg font-medium tracking-wide uppercase mb-3 group-hover:text-neutral-600 transition-colors"
+                                    style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.02em; line-height: 1.4;"
+                                >
+                                    {calc.title}
+                                </h2>
 
-        <hr class="my-8" />
+                                <p class="text-sm text-neutral-600 leading-relaxed mb-4 flex-1">
+                                    {calc.description}
+                                </p>
 
-        <!--  Chemical equation balancer  -->
-        <section class="flex flex-col md:flex-row mb-8">
-            <div class="w-full md:w-1/3 mr-4 mb-8">
-                <h2 class="pb-4 font-bold">Reakcijų lygintuvas</h2>
-                <p class="text-sm mb-2">Chemijos reackijos lygčių lyginimas</p>
-                <p class="text-sm">
-                    Elektronai rašomi su ^ ženklu,
-                    <br />
-                    Na^+ yra tas pats kas Na
-                    <sup>+</sup>
-                </p>
-            </div>
-            <div class="w-full md:w-2/3">
-                <Balancer client:load />
-            </div>
-        </section>
-
-        <hr class="my-8" />
-
-        <!--  Quadratic calculator  -->
-        <section class="flex flex-col md:flex-row mb-8">
-            <div class="w-full md:w-1/3 mr-4 mb-8">
-                <h2 class="pb-4 font-bold">Kvadratinių lygčių skaičiuotuvas</h2>
-                <p class="mb-2">
-                    Pagal lygtį:
-                    <span>
-                        ax
-                        <sup>2</sup>
-                        + bx + c = 0
-                    </span>
-                </p>
-            </div>
-            <div class="w-full md:w-2/3">
-                <QuadraticCalculator client:load />
-            </div>
-        </section>
-
-        <hr class="my-8" />
-
-        <!--  Molar mass calculator  -->
-        <section class="flex flex-col md:flex-row mb-8">
-            <div class="w-full md:w-1/3 mr-4 mb-8">
-                <h2 class="pb-4 font-bold">Molinės masės skaičiavimas</h2>
-                <p class="mb-2">
-                    Pagal lygtį:
-                    <span>
-                        <abbr title="medžiagos kiekis, mol">n</abbr>
-                        =
-                        <abbr title="medžiagos masė, g">m</abbr>
-                        :
-                        <abbr title="molinė masė, g/mol">M</abbr>
-                    </span>
-                </p>
-                <p class="text-sm">
-                    Pildydami, palikite vieną iš trijų langelių tusčią
-                </p>
-            </div>
-            <div class="w-full md:w-2/3">
-                <MolarMassCalculator client:load />
-            </div>
-        </section>
-
-        <hr class="my-8" />
-
-        <!--  Concentration calculator  -->
-        <section class="flex flex-col md:flex-row mb-8">
-            <div class="w-full md:w-1/3 mr-4 mb-8">
-                <h2 class="pb-4 font-bold">
-                    Molinės koncentracijos skaičiavimas
-                </h2>
-                <p class="mb-2">
-                    Pagal lygtį:
-                    <span>
-                        <abbr title="tirpalo koncentracija, mol/l"> c(A) </abbr>
-                        =
-                        <abbr title="ištirpusios medžiagos kiekis, mol">
-                            n (A)
-                        </abbr>
-                        :
-                        <abbr title="tirpalo tūris, l arba dm^3">V</abbr>
-                    </span>
-                    ,
-                    <br />
-                    A - ištirpusi medžiaga
-                </p>
-                <p class="text-sm">
-                    Pildydami, palikite vieną iš trijų langelių tusčią
-                </p>
-            </div>
-            <div class="w-full md:w-2/3">
-                <ConcentrationCalculator client:load />
-            </div>
-        </section>
+                                <div class="pt-4 border-t border-neutral-100">
+                                    <div
+                                        class="text-xs font-medium tracking-wider uppercase text-neutral-500 mb-2"
+                                        style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em;"
+                                    >
+                                        FORMULĖ
+                                    </div>
+                                    <code
+                                        class="text-sm text-neutral-900"
+                                        style="font-family: 'IBM Plex Mono', monospace;"
+                                    >
+                                        {calc.formula}
+                                    </code>
+                                </div>
+                            </div>
+                        </article>
+                    </a>
+                ))
+            }
+        </div>
     </div>
 </Layout>

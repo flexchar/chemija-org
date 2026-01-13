@@ -1,0 +1,49 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Balancer from '@/components/math/ChemicalBalancer.jsx';
+---
+
+<Layout title="Reakcijų lygintuvas | Chemijos skaičiuotuvas">
+    <div class="max-w-[900px] mx-auto px-6 sm:px-12 py-16">
+        <!-- Back link -->
+        <a
+            href="/skaiciuotuvas"
+            class="inline-flex items-center gap-2 text-xs font-medium tracking-wider uppercase text-neutral-500 hover:text-black transition-colors mb-12"
+            style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em;"
+        >
+            ← SKAIČIUOTUVAI
+        </a>
+
+        <header class="mb-12">
+            <h1
+                class="text-2xl sm:text-3xl font-medium tracking-wider uppercase mb-4"
+                style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.1em;"
+            >
+                REAKCIJŲ LYGINTUVAS
+            </h1>
+            <div class="h-px bg-neutral-200 mb-6"></div>
+            <p class="text-sm text-neutral-600 leading-relaxed mb-4">
+                Automatiškai subalansuokite chemines reakcijų lygtis. Įveskite
+                reakcijos reagentus ir produktus.
+            </p>
+            <div
+                class="text-xs text-neutral-500 p-4 bg-neutral-50 border border-neutral-200"
+                style="border-radius: 4px;"
+            >
+                <p class="mb-2">
+                    <strong>Pastaba:</strong> Elektronai rašomi su ^ ženklu
+                </p>
+                <p>
+                    Pavyzdys: Na<sup>+</sup> rašoma kaip Na^+
+                </p>
+            </div>
+        </header>
+
+        <div
+            class="bg-white border border-neutral-200 p-8"
+            style="border-radius: 4px;"
+        >
+            <Balancer client:load />
+        </div>
+    </div>
+</Layout>
