@@ -131,6 +131,8 @@ Provided by the `@sanity/table` plugin registered in `studio/sanity.config.ts`.
 
 ## Article Rewrite Workflow (Recommended)
 
+### Step-by-Step Process
+
 1. Query article by slug and get `_id`
 2. Draft improved content (same reading level, cleaner structure)
 3. Prepare COMPLETE body structure in advance
@@ -140,13 +142,30 @@ Provided by the `@sanity/table` plugin registered in `studio/sanity.config.ts`.
 
 Critical: Use ONE patch operation for complete body rewrites. Incremental patching creates empty blocks and missing text spans.
 
-Rules:
+### Title Rules
 
-- Update content to 6th grade Lithuanian level for pupils education
-- Add proper chemical/mathematical formatting using schema (not unicode symbols)
-- Improve structure and readability
-- Convert YouTube links to HTTPS format
-- Remove numbering (01., 25., etc.) from article title if exists
+- Remove numeric prefixes from titles (examples: `24. `, `08. `, `37. `).
+- Remove "(Lt)" from titles if exists.
+- Keep the meaningful title text after removing numbering.
+- Preserve existing language/casing style unless obvious normalization is needed.
+
+### YouTube Rules
+
+- If an article contains YouTube links, verify each link is publicly accessible.
+- Recommended check: YouTube oEmbed endpoint.
+    - Example: `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=<id>&format=json`
+- If a video is inaccessible/private/404, remove that link from content.
+- If links are valid but content is fully rewritten, prefer clean rewritten body without legacy raw links.
+- Convert YouTube links to HTTPS format.
+
+### Content Tone and Pedagogy Rules
+
+- Write for 6th-grade pupils in Lithuanian.
+- Address the reader in singular form ("tu").
+- Use short, clear sentences and practical wording.
+- Expand content compared to old text where needed (not just paraphrase).
+- Include concrete examples (`Pavyzdys`) to make ideas easier to understand.
+- Include short safety notes when reactions/materials can be hazardous.
 
 ## Portable Text Notes for This Studio
 
@@ -157,8 +176,22 @@ Rules:
 - Supported block list types:
     - `bullet`, `number`
 
+### Portable Text Formatting Rules
+
+- Use Portable Text decorators for chemistry notation:
+    - `sub` for indices (examples: `H2O`, `CO2`, `SO4`)
+    - `sup` for charges/exponents (examples: `H+`, `OH-`, `SO4 2-`)
+- Ensure each rewritten article includes both subscript and superscript usage where educationally relevant.
+- Add proper chemical/mathematical formatting using schema (not unicode symbols).
+
 ## Safety Rules
 
 - Prefer draft updates first; do not publish automatically.
 - Keep structure clean: remove empty blocks, broken characters, malformed list fragments.
 - Preserve article metadata (`title`, `slug`, `categories`, `mainImage`, `legacy_urls`) unless explicitly asked to change.
+
+## Publishing Workflow
+
+1. Rewrite into draft first.
+2. Validate title cleanup + sub/sup usage + no broken YouTube links.
+3. Publish only after validation, or - if asked - publish directly.
