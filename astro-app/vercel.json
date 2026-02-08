@@ -1064,6 +1064,11 @@
             "source": "/egzaminai.html",
             "destination": "/egzaminai",
             "permanent": true
+        },
+        {
+            "source": "/infusions/point_system/reward.php",
+            "destination": "/klausimynas",
+            "permanent": true
         }
     ],
     "rewrites": [

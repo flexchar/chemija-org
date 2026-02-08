@@ -1,0 +1,544 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getQuestionnaire } from '@/utils/sanity';
+
+const questionnaire = await getQuestionnaire();
+
+const getLevelLabel = (category: string) => {
+    const trimmed = category.trim();
+    const withoutTrailingNumber = trimmed.replace(/\s+\d+\s*$/, '').trim();
+
+    if (withoutTrailingNumber) {
+        return withoutTrailingNumber.toUpperCase();
+    }
+
+    const gradeMatch = trimmed.match(/(\d+)\s*klas[ėe]/i);
+    if (gradeMatch) {
+        return `${gradeMatch[1]} KLASĖ`;
+    }
+
+    return 'BENDRA';
+};
+
+const practiceQuestions = questionnaire.map((item) => {
+    const category = item.category?.trim() || 'Bendra';
+
+    return {
+        id: item._id,
+        level: getLevelLabel(category),
+        category,
+        question: item.question?.trim() || '',
+        answer: item.answer?.trim() || '',
+        points: item.points ?? 1,
+    };
+});
+
+const hasQuestions = practiceQuestions.length > 0;
+---
+
+<Layout
+    title="Klausimynas"
+    description="Smagūs atsitiktiniai klausimai pradedantiesiems, kurie padės pasitikrinti chemijos pagrindus."
+>
+    <div class="max-w-[1400px] mx-auto px-6 sm:px-12 py-16">
+        <header class="mb-12">
+            <h1
+                class="text-2xl sm:text-3xl font-medium tracking-wider uppercase mb-4"
+                style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.1em;"
+            >
+                KLAUSIMYNAS
+            </h1>
+            <div class="h-px bg-neutral-200"></div>
+            <p class="mt-6 text-sm text-neutral-600 max-w-2xl">
+                Praktikos laukas pradedantiesiems: rinkis lygį, spręsk
+                atsitiktinius klausimus ir rink taškus be prisijungimo.
+            </p>
+        </header>
+
+        {
+            hasQuestions ? (
+                <section
+                    class="bg-white border border-neutral-200 p-6 sm:p-8"
+                    style="border-radius: 4px;"
+                >
+                    <div class="grid gap-4 sm:grid-cols-3 sm:items-end mb-8">
+                        <label class="block sm:col-span-2">
+                            <span
+                                class="block text-xs font-medium tracking-wider uppercase text-neutral-700 mb-2"
+                                style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em;"
+                            >
+                                LYGIS
+                            </span>
+                            <select
+                                id="levelSelect"
+                                class="w-full border border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-900"
+                                style="border-radius: 4px;"
+                            ></select>
+                        </label>
+
+                        <button
+                            id="nextQuestionButton"
+                            type="button"
+                            class="inline-flex items-center justify-center px-5 py-3 bg-black text-white text-xs font-medium tracking-wider uppercase hover:opacity-90 transition-opacity"
+                            style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em; border-radius: 4px;"
+                        >
+                            Kitas klausimas
+                        </button>
+                    </div>
+
+                    <div class="grid gap-4 sm:grid-cols-3 mb-8">
+                        <div
+                            class="border border-neutral-200 bg-neutral-50 p-4"
+                            style="border-radius: 4px;"
+                        >
+                            <p
+                                class="text-xs font-medium tracking-wider uppercase text-neutral-500"
+                                style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em;"
+                            >
+                                Viso taškų
+                            </p>
+                            <p id="totalPoints" class="mt-2 text-2xl text-neutral-900">0</p>
+                        </div>
+                        <div
+                            class="border border-neutral-200 bg-neutral-50 p-4"
+                            style="border-radius: 4px;"
+                        >
+                            <p
+                                class="text-xs font-medium tracking-wider uppercase text-neutral-500"
+                                style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em;"
+                            >
+                                Išspręsta
+                            </p>
+                            <p id="solvedCount" class="mt-2 text-2xl text-neutral-900">0</p>
+                        </div>
+                        <div
+                            class="border border-neutral-200 bg-neutral-50 p-4"
+                            style="border-radius: 4px;"
+                        >
+                            <p
+                                class="text-xs font-medium tracking-wider uppercase text-neutral-500"
+                                style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em;"
+                            >
+                                Lygio klausimai
+                            </p>
+                            <p id="levelCount" class="mt-2 text-2xl text-neutral-900">0</p>
+                        </div>
+                    </div>
+
+                    <article
+                        class="border border-neutral-200 bg-neutral-50 p-5 sm:p-6"
+                        style="border-radius: 4px;"
+                    >
+                        <p
+                            id="questionMeta"
+                            class="text-xs font-medium tracking-wider uppercase text-neutral-500"
+                            style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em;"
+                        ></p>
+                        <div
+                            id="questionText"
+                            class="mt-4 text-base text-neutral-900 leading-relaxed"
+                        ></div>
+                        <p id="questionPoints" class="mt-4 text-sm text-neutral-600"></p>
+
+                        <label class="block mt-6">
+                            <span class="block text-sm text-neutral-700 mb-2">
+                                Tavo atsakymas
+                            </span>
+                            <input
+                                id="answerInput"
+                                type="text"
+                                class="w-full border border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-900"
+                                style="border-radius: 4px;"
+                                autocomplete="off"
+                                placeholder="Įvesk atsakymą"
+                            />
+                        </label>
+
+                        <div class="mt-4 flex flex-wrap gap-3">
+                            <button
+                                id="checkAnswerButton"
+                                type="button"
+                                class="inline-flex items-center justify-center px-4 py-2 bg-black text-white text-xs font-medium tracking-wider uppercase hover:opacity-90 transition-opacity"
+                                style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em; border-radius: 4px;"
+                            >
+                                Tikrinti
+                            </button>
+                            <button
+                                id="showAnswerButton"
+                                type="button"
+                                class="inline-flex items-center justify-center px-4 py-2 bg-white text-neutral-900 border border-neutral-300 text-xs font-medium tracking-wider uppercase hover:bg-neutral-100 transition-colors"
+                                style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em; border-radius: 4px;"
+                            >
+                                Rodyti atsakymą
+                            </button>
+                            <button
+                                id="resetProgressButton"
+                                type="button"
+                                class="inline-flex items-center justify-center px-4 py-2 bg-white text-neutral-900 border border-neutral-300 text-xs font-medium tracking-wider uppercase hover:bg-neutral-100 transition-colors"
+                                style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em; border-radius: 4px;"
+                            >
+                                Valyti progresą
+                            </button>
+                        </div>
+
+                        <p id="feedback" class="mt-4 text-sm text-neutral-700"></p>
+
+                        <div
+                            id="answerReveal"
+                            class="mt-4 hidden border border-neutral-200 bg-white p-4"
+                            style="border-radius: 4px;"
+                        >
+                            <p
+                                class="text-xs font-medium tracking-wider uppercase text-neutral-500 mb-2"
+                                style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em;"
+                            >
+                                Teisingas atsakymas
+                            </p>
+                            <div id="answerText" class="text-sm text-neutral-900 leading-relaxed"></div>
+                        </div>
+                    </article>
+
+                    <p class="mt-6 text-xs text-neutral-500 leading-relaxed">
+                        Pastaba: taškai ir išspręsti klausimai saugomi tik šiame
+                        naršyklės įrenginyje (localStorage).
+                    </p>
+                </section>
+            ) : (
+                <div
+                    class="bg-neutral-50 border border-neutral-200 p-6"
+                    style="border-radius: 4px;"
+                >
+                    <p class="text-sm text-neutral-600">
+                        Klausimyno klausimų dar nėra.
+                    </p>
+                </div>
+            )
+        }
+
+        <script
+            id="questionnaireData"
+            type="application/json"
+            set:html={JSON.stringify(practiceQuestions)}
+        ></script>
+    </div>
+</Layout>
+
+<script>
+    type PracticeQuestion = {
+        id: string;
+        level: string;
+        category: string;
+        question: string;
+        answer: string;
+        points: number;
+    };
+
+    const dataElement = document.getElementById('questionnaireData');
+    const questions: PracticeQuestion[] = dataElement
+        ? JSON.parse(dataElement.textContent || '[]')
+        : [];
+
+    const levelSelect = document.getElementById('levelSelect') as HTMLSelectElement | null;
+    const nextQuestionButton = document.getElementById('nextQuestionButton') as HTMLButtonElement | null;
+    const checkAnswerButton = document.getElementById('checkAnswerButton') as HTMLButtonElement | null;
+    const showAnswerButton = document.getElementById('showAnswerButton') as HTMLButtonElement | null;
+    const resetProgressButton = document.getElementById('resetProgressButton') as HTMLButtonElement | null;
+    const answerInput = document.getElementById('answerInput') as HTMLInputElement | null;
+    const questionMeta = document.getElementById('questionMeta');
+    const questionText = document.getElementById('questionText');
+    const questionPoints = document.getElementById('questionPoints');
+    const answerReveal = document.getElementById('answerReveal');
+    const answerText = document.getElementById('answerText');
+    const feedback = document.getElementById('feedback');
+    const totalPointsElement = document.getElementById('totalPoints');
+    const solvedCountElement = document.getElementById('solvedCount');
+    const levelCountElement = document.getElementById('levelCount');
+
+    const STORAGE_POINTS_KEY = 'klausimynas.totalPoints';
+    const STORAGE_SOLVED_KEY = 'klausimynas.solvedIds';
+    const STORAGE_LEVEL_KEY = 'klausimynas.level';
+
+    let currentQuestion: PracticeQuestion | null = null;
+
+    const escapeHtml = (value: string) =>
+        value
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+
+    const renderLegacyMarkup = (value: string) => {
+        let html = escapeHtml(value);
+
+        html = html.replace(
+            /\[img\](https?:\/\/[^\s\[]+)\[\/img\]/gi,
+            '<img src="$1" alt="Klausimyno iliustracija" class="inline-block my-2 max-w-full h-auto rounded" loading="lazy" />',
+        );
+        html = html.replace(/\[sub\](.*?)\[\/sub\]/gi, '<sub>$1</sub>');
+        html = html.replace(/\[sup\](.*?)\[\/sup\]/gi, '<sup>$1</sup>');
+        html = html.replace(/\[b\](.*?)\[\/b\]/gi, '<strong>$1</strong>');
+        html = html.replace(/\[i\](.*?)\[\/i\]/gi, '<em>$1</em>');
+        html = html.replace(/\[u\](.*?)\[\/u\]/gi, '<u>$1</u>');
+        html = html.replace(
+            /\[url=(https?:\/\/[^\]]+)\](.*?)\[\/url\]/gi,
+            '<a href="$1" target="_blank" rel="noopener noreferrer" class="underline">$2</a>',
+        );
+        html = html.replace(
+            /\[url\](https?:\/\/[^\[]+)\[\/url\]/gi,
+            '<a href="$1" target="_blank" rel="noopener noreferrer" class="underline">$1</a>',
+        );
+
+        return html.replace(/\n/g, '<br />');
+    };
+
+    const normalizeAnswer = (value: string) =>
+        value
+            .replace(/\[[^\]]+\]/g, ' ')
+            .toLowerCase()
+            .replace(/\s+/g, ' ')
+            .replace(/,/g, '.')
+            .replace(/\.$/g, '')
+            .trim();
+
+    const getSolvedSet = () => {
+        try {
+            const raw = localStorage.getItem(STORAGE_SOLVED_KEY);
+            const parsed = raw ? JSON.parse(raw) : [];
+            if (!Array.isArray(parsed)) {
+                return new Set<string>();
+            }
+            return new Set<string>(parsed.filter((item) => typeof item === 'string'));
+        } catch {
+            return new Set<string>();
+        }
+    };
+
+    const setSolvedSet = (set: Set<string>) => {
+        localStorage.setItem(STORAGE_SOLVED_KEY, JSON.stringify([...set]));
+    };
+
+    const getPoints = () => {
+        const raw = localStorage.getItem(STORAGE_POINTS_KEY);
+        const value = raw ? Number(raw) : 0;
+        return Number.isFinite(value) ? value : 0;
+    };
+
+    const setPoints = (points: number) => {
+        localStorage.setItem(STORAGE_POINTS_KEY, String(points));
+    };
+
+    const getLevels = () => {
+        const uniqueLevels = [...new Set(questions.map((item) => item.level))];
+        return uniqueLevels.sort((a, b) => {
+            const aNum = Number(a.match(/^\d+/)?.[0] || Number.NaN);
+            const bNum = Number(b.match(/^\d+/)?.[0] || Number.NaN);
+
+            if (Number.isFinite(aNum) && Number.isFinite(bNum)) {
+                return aNum - bNum;
+            }
+
+            if (Number.isFinite(aNum)) {
+                return -1;
+            }
+
+            if (Number.isFinite(bNum)) {
+                return 1;
+            }
+
+            return a.localeCompare(b, 'lt');
+        });
+    };
+
+    const getSelectedLevel = () => {
+        if (!levelSelect) {
+            return 'ALL';
+        }
+
+        return levelSelect.value || 'ALL';
+    };
+
+    const getQuestionsForLevel = () => {
+        const selectedLevel = getSelectedLevel();
+        if (selectedLevel === 'ALL') {
+            return questions;
+        }
+
+        return questions.filter((item) => item.level === selectedLevel);
+    };
+
+    const updateStats = () => {
+        const solved = getSolvedSet();
+        const levelQuestions = getQuestionsForLevel();
+
+        if (totalPointsElement) {
+            totalPointsElement.textContent = String(getPoints());
+        }
+
+        if (solvedCountElement) {
+            solvedCountElement.textContent = String(solved.size);
+        }
+
+        if (levelCountElement) {
+            levelCountElement.textContent = String(levelQuestions.length);
+        }
+    };
+
+    const setFeedback = (message: string, isGood = false) => {
+        if (!feedback) {
+            return;
+        }
+
+        feedback.textContent = message;
+        feedback.classList.remove('text-green-700', 'text-neutral-700');
+        if (isGood) {
+            feedback.classList.add('text-green-700');
+        } else {
+            feedback.classList.add('text-neutral-700');
+        }
+    };
+
+    const renderQuestion = (question: PracticeQuestion | null) => {
+        if (!questionText || !questionMeta || !questionPoints || !answerReveal || !answerText) {
+            return;
+        }
+
+        answerReveal.classList.add('hidden');
+        answerText.innerHTML = '';
+
+        if (!question) {
+            questionMeta.textContent = 'Nėra klausimų pasirinktame lygyje';
+            questionText.textContent = 'Pasirink kitą lygį arba pridėk klausimų Sanity.';
+            questionPoints.textContent = '';
+            setFeedback('');
+            return;
+        }
+
+        questionMeta.textContent = `${question.level} - ${question.category}`;
+        questionText.innerHTML = `<strong>Klausimas:</strong> ${renderLegacyMarkup(question.question || 'Nėra klausimo.')}`;
+        questionPoints.textContent = `Taškai už teisingą atsakymą: ${question.points}`;
+        setFeedback('');
+        if (answerInput) {
+            answerInput.value = '';
+            answerInput.focus();
+        }
+    };
+
+    const pickRandomQuestion = () => {
+        const pool = getQuestionsForLevel();
+        if (pool.length === 0) {
+            currentQuestion = null;
+            renderQuestion(null);
+            updateStats();
+            return;
+        }
+
+        const solved = getSolvedSet();
+        const unsolved = pool.filter((item) => !solved.has(item.id));
+        const source = unsolved.length > 0 ? unsolved : pool;
+        const random = source[Math.floor(Math.random() * source.length)] || null;
+
+        currentQuestion = random;
+        renderQuestion(currentQuestion);
+        updateStats();
+    };
+
+    const checkAnswer = () => {
+        if (!currentQuestion || !answerInput) {
+            return;
+        }
+
+        const userAnswer = normalizeAnswer(answerInput.value);
+        const expected = normalizeAnswer(currentQuestion.answer);
+
+        if (!userAnswer) {
+            setFeedback('Įvesk atsakymą prieš tikrindamas.');
+            return;
+        }
+
+        if (userAnswer === expected) {
+            const solved = getSolvedSet();
+            const wasAlreadySolved = solved.has(currentQuestion.id);
+            if (!wasAlreadySolved) {
+                solved.add(currentQuestion.id);
+                setSolvedSet(solved);
+                setPoints(getPoints() + currentQuestion.points);
+                setFeedback(`Teisingai! +${currentQuestion.points} tašk.`, true);
+            } else {
+                setFeedback('Teisingai! Šis klausimas jau buvo įskaitytas.', true);
+            }
+            updateStats();
+            return;
+        }
+
+        setFeedback('Dar ne. Patikrink skaičiavimą arba pabandyk kitą formuluotę.');
+    };
+
+    const revealAnswer = () => {
+        if (!currentQuestion || !answerReveal || !answerText) {
+            return;
+        }
+
+        answerText.innerHTML = renderLegacyMarkup(currentQuestion.answer || 'Nėra atsakymo.');
+        answerReveal.classList.remove('hidden');
+    };
+
+    const resetProgress = () => {
+        localStorage.removeItem(STORAGE_POINTS_KEY);
+        localStorage.removeItem(STORAGE_SOLVED_KEY);
+        setFeedback('Progresas išvalytas.');
+        updateStats();
+        pickRandomQuestion();
+    };
+
+    const initLevelSelect = () => {
+        if (!levelSelect) {
+            return;
+        }
+
+        const levels = getLevels();
+        levelSelect.innerHTML = '';
+
+        const allOption = document.createElement('option');
+        allOption.value = 'ALL';
+        allOption.textContent = 'Visi lygiai';
+        levelSelect.appendChild(allOption);
+
+        levels.forEach((level) => {
+            const option = document.createElement('option');
+            option.value = level;
+            option.textContent = level;
+            levelSelect.appendChild(option);
+        });
+
+        const storedLevel = localStorage.getItem(STORAGE_LEVEL_KEY);
+        if (
+            storedLevel &&
+            [...levelSelect.options].some((option) => option.value === storedLevel)
+        ) {
+            levelSelect.value = storedLevel;
+        }
+
+        levelSelect.addEventListener('change', () => {
+            localStorage.setItem(STORAGE_LEVEL_KEY, levelSelect.value);
+            pickRandomQuestion();
+        });
+    };
+
+    if (questions.length > 0) {
+        initLevelSelect();
+        updateStats();
+        pickRandomQuestion();
+
+        nextQuestionButton?.addEventListener('click', pickRandomQuestion);
+        checkAnswerButton?.addEventListener('click', checkAnswer);
+        showAnswerButton?.addEventListener('click', revealAnswer);
+        resetProgressButton?.addEventListener('click', resetProgress);
+        answerInput?.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                checkAnswer();
+            }
+        });
+    }
+</script>

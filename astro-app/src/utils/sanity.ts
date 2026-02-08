@@ -8,6 +8,7 @@ import type {
     CategoriesQueryResult,
     ExamsQueryResult,
     LatestExamsQueryResult,
+    Questionnaire,
 } from '@/types/sanity.types';
 
 // Query Definitions
@@ -107,4 +108,13 @@ export async function getLatestExams(limit = 4) {
     return await sanityClient.fetch<LatestExamsQueryResult>(latestExamsQuery, {
         limit,
     });
+}
+
+// Questionnaire functions
+const questionnaireQuery = defineQuery(
+    groq`*[_type == "questionnaire"] | order(category asc, points desc, _updatedAt desc)`,
+);
+
+export async function getQuestionnaire() {
+    return await sanityClient.fetch<Questionnaire[]>(questionnaireQuery);
 }
