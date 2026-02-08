@@ -109,6 +109,14 @@ Required for Sanity integration:
 - `PUBLIC_SANITY_STUDIO_DATASET` (usually "production")
 - `SANITY_API_KEY` (for write operations in scripts)
 
+## Sanity MCP Reference
+
+- Before Sanity MCP write operations, read `SANITY_MCP.md` for:
+  - Verified project/dataset/workspace values
+  - Draft-first update workflow
+  - Known MCP behavior and fallback strategy (`patch_document_from_json` for full `body` replacement)
+  - Portable Text decorator/list values from studio schema
+
 ## TypeScript Configuration
 
 - Strict mode enabled
