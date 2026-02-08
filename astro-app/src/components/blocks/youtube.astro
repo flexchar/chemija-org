@@ -1,10 +1,10 @@
 ---
 import { YouTube as YouTubeEmbed } from '@astro-community/astro-embed-youtube';
-const { url } = Astro.props.node;
+const { url = '' } = Astro.props.node;
 
 const id = (url.split('watch?v=')[1] || '').split('&')[0];
 
 const new_url = `https://www.youtube.com/embed/${id}?modestbranding=1&rel=0`;
 ---
 
-<YouTubeEmbed id={new_url} class="mx-auto" />
+{url && <YouTubeEmbed id={new_url} class="mx-auto" />}
