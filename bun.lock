@@ -49,6 +49,7 @@
       "name": "chemija-org-studio",
       "version": "1.0.0",
       "dependencies": {
+        "@sanity/table": "^2.0.1",
         "@sanity/vision": "^5.8.1",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
@@ -806,6 +807,8 @@
 
     "@sanity/import": ["@sanity/import@4.1.0", "", { "dependencies": { "@oclif/core": "^4.8.0", "@oclif/plugin-help": "^6.2.36", "@sanity/asset-utils": "^2.3.0", "@sanity/cli-core": "0.1.0-alpha.4", "@sanity/generate-help-url": "^4.0.0", "@sanity/mutator": "^5.2.0", "debug": "^4.4.3", "get-it": "^8.7.0", "get-uri": "^6.0.5", "gunzip-maybe": "^1.4.2", "lodash-es": "^4.17.22", "p-map": "^7.0.3", "pretty-ms": "^9.2.0", "split2": "^4.2.0", "tar-fs": "^2.1.4", "tinyglobby": "^0.2.15" }, "bin": { "sanity-import": "bin/run.js" } }, "sha512-CvEy2EgxKwMI6qL/NiRvc/5NDHO6M28jHpeFMQVITMCYaiKRbuaEmHoRMgIroCDE+MgFxQ3MgLK0kCV4SE/4RA=="],
 
+    "@sanity/incompatible-plugin": ["@sanity/incompatible-plugin@1.0.5", "", { "peerDependencies": { "react": "^16.9 || ^17 || ^18 || ^19", "react-dom": "^16.9 || ^17 || ^18 || ^19" } }, "sha512-9JGAacbElUPy9Chghd+sllIiM3jAcraZdD65bWYWUVKkghOsf1L/+jFLz1rcAuvrA9o2s7Y+T75BNcXuLwRcvw=="],
+
     "@sanity/insert-menu": ["@sanity/insert-menu@3.0.4", "", { "dependencies": { "@sanity/icons": "^3.7.4", "@sanity/ui": "^3.1.11", "lodash-es": "^4.17.23", "react-is": "^19.2.4" }, "peerDependencies": { "@sanity/types": "*", "react": "^19.2" } }, "sha512-90Sky6kraYuoGllbhHe2sYVOHLsRNJCMf/JjjEhsBv5MFNvV7TLIkNeajT4DpI4hMDC0D47d7TYPZJxwAjLP2A=="],
 
     "@sanity/json-match": ["@sanity/json-match@1.0.5", "", {}, "sha512-skhIX8gT/hLritEBkjfc7+TBlJNu/NLisyA8noKceCk28OatFK0wX7dIuFawkt3pfhTYVomVPykAYFcIm2OqJg=="],
@@ -833,6 +836,8 @@
     "@sanity/sdk": ["@sanity/sdk@2.1.2", "", { "dependencies": { "@sanity/bifur-client": "^0.4.1", "@sanity/client": "^7.2.1", "@sanity/comlink": "^3.0.4", "@sanity/diff-match-patch": "^3.2.0", "@sanity/diff-patch": "^6.0.0", "@sanity/json-match": "^1.0.5", "@sanity/message-protocol": "^0.12.0", "@sanity/mutate": "^0.12.4", "@sanity/types": "^3.83.0", "groq": "3.88.1-typegen-experimental.0", "lodash-es": "^4.17.21", "reselect": "^5.1.1", "rxjs": "^7.8.2", "zustand": "^5.0.4" } }, "sha512-gRBMDNvMUqlFTVoNgOLtcOFDO+e8Fh6v+BrEA4C5F18oi949ObjMmPB2aZMoyP3N3GQuqwVQP6L2PrhH70H7Bw=="],
 
     "@sanity/signed-urls": ["@sanity/signed-urls@2.0.2", "", { "dependencies": { "@noble/ed25519": "^3.0.0", "@noble/hashes": "^2.0.0" } }, "sha512-w/Aq0JDYI44WC5w8mzJBAjCem8qlGrxGTzvNbUWwBfys6kSL+TZBSypV5waCc35XRgt0X5zdYZMJOrshcjJLFw=="],
+
+    "@sanity/table": ["@sanity/table@2.0.1", "", { "dependencies": { "@sanity/icons": "^3.5.3", "@sanity/incompatible-plugin": "^1.0.5", "@sanity/ui": "^3.1.0" }, "peerDependencies": { "react": "^18 || ^19", "sanity": "^3.0.0 || ^4.0.0 || ^5.0.0" } }, "sha512-+zLvXZOdll1a80YYyzWCUeDzQzq9OHsht9I1O13/QmKqcfqgMpgmDKzpw9zgplyq5pwtOH4g+uATAgms/yDQ2w=="],
 
     "@sanity/telemetry": ["@sanity/telemetry@0.8.1", "", { "dependencies": { "lodash": "^4.17.21", "rxjs": "^7.8.1", "typeid-js": "^0.3.0" }, "peerDependencies": { "react": "^18.2 || ^19.0.0" } }, "sha512-YybPb6s3IO2HmHZ4dLC3JCX+IAwAnVk5/qmhH4CWbC3iL/VsikRbz4FfOIIIt0cj2UOKrahL/wpSPBR/3quQzg=="],
 
