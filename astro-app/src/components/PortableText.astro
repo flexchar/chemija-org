@@ -1,6 +1,7 @@
 ---
 import { PortableText as BasePortableTextComponent } from 'astro-portabletext';
 import YouTube from '@/components/blocks/youtube.astro';
+import Table from '@/components/blocks/table.astro';
 import { Image } from '@/components/blocks/image';
 import Mark from '@/components/blocks/mark.astro';
 ---
@@ -11,6 +12,7 @@ import Mark from '@/components/blocks/mark.astro';
         type: {
             youtube: YouTube,
             image: Image,
+            table: Table,
         },
         mark: Mark,
     }}

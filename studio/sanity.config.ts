@@ -1,9 +1,9 @@
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
+import {table} from '@sanity/table'
 import {schemaTypes} from './src/schemaTypes'
 
-// Environment variables for project configuration
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'lv5ajubm'
 const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
 
@@ -12,7 +12,7 @@ export default defineConfig({
   title: 'Chemija.org Sanity Studio',
   projectId,
   dataset,
-  plugins: [structureTool(), visionTool()],
+  plugins: [structureTool(), visionTool(), table({rowType: 'row'})],
   schema: {
     types: schemaTypes,
   },

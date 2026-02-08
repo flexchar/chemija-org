@@ -95,10 +95,15 @@ Annotations:
 
 - `url`: `url`
 
-#### `table` (`studio/src/schemaTypes/objects/table.ts`)
+#### `table` (via `@sanity/table` plugin)
 
-- `rows`: `array` of `row`
-- `row.cells`: `array` of `text`
+Provided by the `@sanity/table` plugin registered in `studio/sanity.config.ts`.
+
+- Plugin config: `table({rowType: 'row'})`
+- `rows`: `array` of `row` objects
+- `row._type`: `"row"`
+- `row._key`: `string`
+- `row.cells`: `array` of `string`
 
 ## What Worked Well
 
@@ -115,6 +120,10 @@ Annotations:
 - If MCP returns schema errors, first resolve workspace name:
     - Run `sanity_list_workspace_schemas`
     - Pass `workspaceName: "chemija-org-studio"` in schema-aware operations.
+- Table schema is plugin-provided:
+    - Do not expect `studio/src/schemaTypes/objects/table.ts` to exist.
+    - The `table` type comes from `@sanity/table` in `studio/sanity.config.ts`.
+    - Current row type is configured as `row` via `table({rowType: 'row'})`.
 - `sanity_patch_document_from_markdown` may merge/append in some cases on existing rich content.
     - For full body replacement, prefer `sanity_patch_document_from_json` and set `body` directly.
 - If a draft becomes messy, discard it cleanly:
