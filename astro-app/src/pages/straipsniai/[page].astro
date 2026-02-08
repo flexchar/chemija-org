@@ -20,13 +20,12 @@ export async function getStaticPaths() {
         });
     }
 
-    console.log('paths', paths);
+    // console.log('paths', paths);
     return paths;
 }
 
 const { page } = Astro.params;
 const { articles, currentPage, totalPages } = Astro.props;
-const limit = 20; // Needed for pagination calculation consistency
 
 // --- Pagination Logic (Adapated from original straipsniai.astro) ---
 const paginationItems = [];
