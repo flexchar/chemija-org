@@ -4,4 +4,8 @@
     themes:
         light --default silk,
         dark --prefersdark abyss;
+    exclude:
+        properties,
+        radialprogress,
+        radial-progress;
 }
