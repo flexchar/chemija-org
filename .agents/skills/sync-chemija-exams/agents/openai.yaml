@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sync Chemija Exams"
+  short_description: "Verify NŠA exam pairs and sync Sanity"
+  default_prompt: "Use $sync-chemija-exams to audit the official NŠA chemistry exam files for a year and prepare verified Sanity drafts."
