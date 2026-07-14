@@ -14,6 +14,7 @@ Chemija.org is a chemistry resource website in Lithuanian, built as a monorepo w
 - **TailwindCSS 4**: Enabled in `astro-app/src/assets/app.css`
 - **DaisyUI**: Always prefer DaisyUI classes over raw Tailwind for built-in dark mode support
 - **React 19**: Used for calculator components (`.jsx` files)
+- **Bun**: Preferred package manager and runtime for all repository scripts
 
 ## Workspace Structure
 
@@ -27,25 +28,25 @@ This is a monorepo with two npm workspaces:
 ### Root Level
 
 ```bash
-npm run dev                    # Run both Astro dev server and Sanity Studio concurrently
+bun run dev                    # Run both Astro dev server and Sanity Studio concurrently
 ```
 
 ### Astro App (`astro-app/`)
 
 ```bash
-npm run dev                    # Start dev server
-npm run build                  # Build for production
-npm run safe:build             # Type check, then build (runs astro check && tsc --noEmit && astro build)
-npm run preview                # Preview production build
+bun run dev                    # Start dev server
+bun run build                  # Build for production
+bun run safe:build             # Type check, then build (runs astro check && tsc --noEmit && astro build)
+bun run preview                # Preview production build
 ```
 
 ### Sanity Studio (`studio/`)
 
 ```bash
-npm run dev                    # Start Sanity Studio dev server
-npm run build                  # Build Sanity Studio
-npm run deploy                 # Deploy Studio to Sanity's hosted service
-npm run typegen                # Generate TypeScript types from schemas
+bun run dev                    # Start Sanity Studio dev server
+bun run build                  # Build Sanity Studio
+bun run deploy                 # Deploy Studio to Sanity's hosted service
+bun run typegen                # Generate TypeScript types from schemas
 ```
 
 ## Architecture
@@ -121,6 +122,16 @@ Required for Sanity integration:
 - `PUBLIC_SANITY_STUDIO_PROJECT_ID`
 - `PUBLIC_SANITY_STUDIO_DATASET` (usually "production")
 - `SANITY_API_KEY` (for write operations in scripts)
+
+Use `.env.1pass` as the unresolved 1Password template and materialize the local, gitignored
+`.env` file when its secrets change:
+
+```bash
+op inject -i .env.1pass -o .env --force
+```
+
+Bun automatically loads `.env`. Prefer `bun <script>` and Bun APIs for future scripts; do not
+add Node-specific environment-loading wrappers.
 
 ## Sanity MCP Reference
 
