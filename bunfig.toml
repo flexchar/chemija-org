@@ -1,0 +1,3 @@
+[install]
+# packages must be at least 2 days old - guards against fresh malicious releases
+minimumReleaseAge = 172800
