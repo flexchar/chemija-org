@@ -12,7 +12,7 @@ Chemija.org is a chemistry resource website in Lithuanian, built as a monorepo w
 - **Astro 5+**: Static site generator (remember to use `---` to start and end Astro blocks)
 - **Sanity Studio**: Headless CMS with GROQ API for queries
 - **TailwindCSS 4**: Enabled in `astro-app/src/assets/app.css`
-- **Styling**: Raw Tailwind utilities are the styling approach for new UI, following `DESIGN_DOCS.md`. Dark mode is deliberately disabled for now.
+- **Styling**: Raw Tailwind utilities are the styling approach for new UI, following `DESIGN_DOCS.md`. DaisyUI remains installed and load-bearing in the calculator components, pagination, table and link blocks (~160 class usages) until those are migrated. Dark mode is deliberately disabled for now.
 - **DaisyUI**: Legacy, still load-bearing. The five calculator components, the article pagination, and the portable-text table/link blocks depend on DaisyUI classes (`btn`, `input input-bordered`, `alert`, `label-text`, `table-zebra`, `link-primary`). Do not add new DaisyUI classes; do not remove the plugin without restyling those files first.
 - **React 19**: Used for calculator components (`.jsx` files)
 - **Bun**: Preferred package manager and runtime for all repository scripts. `bunfig.toml` at the repo root sets `minimumReleaseAge = 172800`, so `bun install` refuses packages published less than 2 days ago (supply-chain guard).
