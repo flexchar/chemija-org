@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useMemo } from 'react';
+import { mono, labelText, inputClass, btnPrimary, btnGhost } from './ui';
 
 // Helper function to calculate Kelvin from different units
 const calculateKelvin = (value, type) => {
@@ -103,18 +104,17 @@ function TemperatureConverter({ initialCelsius, initialKelvin, initialFahrenheit
     return (
         <section>
             {/* Fahrenheit Input */}
-            <label
-                htmlFor="fahrenheit"
-                className="block mb-4 text-gray-700 dark:text-gray-300"
-            >
-                Farenheito, °F
+            <label htmlFor="fahrenheit" className="block mb-4">
+                <span className={labelText} style={mono}>
+                    Farenheito, °F
+                </span>
                 <input
                     id="fahrenheit"
                     name="fahrenheit"
                     type="text" // Use text to allow empty string and better control parsing
                     inputMode="decimal" // Hint for mobile keyboards
                     step="0.0001"
-                    className="input input-bordered w-full mt-1" // Using DaisyUI input class
+                    className={`${inputClass} mt-2`}
                     onKeyDown={handleKeyDown}
                     onChange={handleChange}
                     value={degrees.fahrenheit}
@@ -123,18 +123,17 @@ function TemperatureConverter({ initialCelsius, initialKelvin, initialFahrenheit
             </label>
 
             {/* Celsius Input */}
-            <label
-                htmlFor="celsius"
-                className="block mb-4 text-gray-700 dark:text-gray-300"
-            >
-                Celsijaus, °C
+            <label htmlFor="celsius" className="block mb-4">
+                <span className={labelText} style={mono}>
+                    Celsijaus, °C
+                </span>
                 <input
                     id="celsius"
                     name="celsius"
                     type="text"
                     inputMode="decimal"
                     step="0.0001"
-                    className="input input-bordered w-full mt-1"
+                    className={`${inputClass} mt-2`}
                     onKeyDown={handleKeyDown}
                     onChange={handleChange}
                     value={degrees.celsius}
@@ -143,18 +142,17 @@ function TemperatureConverter({ initialCelsius, initialKelvin, initialFahrenheit
             </label>
 
             {/* Kelvin Input */}
-            <label
-                htmlFor="kelvin"
-                className="block mb-4 text-gray-700 dark:text-gray-300"
-            >
-                Kelvino, K
+            <label htmlFor="kelvin" className="block mb-4">
+                <span className={labelText} style={mono}>
+                    Kelvino, K
+                </span>
                 <input
                     id="kelvin"
                     name="kelvin"
                     type="text"
                     inputMode="decimal"
                     step="0.0001"
-                    className="input input-bordered w-full mt-1"
+                    className={`${inputClass} mt-2`}
                     onKeyDown={handleKeyDown}
                     onChange={handleChange}
                     value={degrees.kelvin}
@@ -165,7 +163,8 @@ function TemperatureConverter({ initialCelsius, initialKelvin, initialFahrenheit
             {/* Action Buttons */}
             <div className="mt-4 space-x-4">
                 <button
-                    className={`btn ${isEmpty ? 'btn-disabled' : 'btn-primary'}`} // DaisyUI button classes
+                    className={btnPrimary}
+                    style={mono}
                     onClick={calculate}
                     disabled={isEmpty}
                 >
@@ -173,7 +172,8 @@ function TemperatureConverter({ initialCelsius, initialKelvin, initialFahrenheit
                 </button>
                 <button
                     type="button" // Prevent form submission if wrapped in a form
-                    className="btn btn-ghost" // DaisyUI ghost button
+                    className={btnGhost}
+                    style={mono}
                     onClick={reset}
                 >
                     Išvalyti

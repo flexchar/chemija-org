@@ -1,4 +1,12 @@
 import React, { useState, useMemo, useCallback } from 'react';
+import {
+    mono,
+    labelText,
+    inputClass,
+    inputErrorClass,
+    btnPrimary,
+    btnGhost,
+} from './ui';
 
 // Helper function to round to two decimal places
 function round(num) {
@@ -192,9 +200,13 @@ function QuadraticCalculator({ initialA, initialB, initialC }) {
             {/* Input Fields */}
             <div className="grid grid-cols-1 gap-4 mb-4">
                 {['a', 'b', 'c'].map((term) => (
-                    <div key={term} className="form-control">
-                        <label className="label" htmlFor={`input-${term}`}>
-                            <span className="label-text font-bold uppercase">
+                    <div key={term}>
+                        <label
+                            className="block mb-2"
+                            htmlFor={`input-${term}`}
+                            style={mono}
+                        >
+                            <span className={`${labelText} uppercase`}>
                                 {term}
                             </span>
                         </label>
@@ -204,18 +216,20 @@ function QuadraticCalculator({ initialA, initialB, initialC }) {
                             type="text" // Use text for better control over input
                             inputMode="decimal"
                             step="any" // Allow any step for decimals
-                            className={`input input-bordered w-full ${term === 'a' && formula.a === '0' ? 'input-error' : ''}`}
+                            className={
+                                term === 'a' && formula.a === '0'
+                                    ? inputErrorClass
+                                    : inputClass
+                            }
                             value={formula[term]}
                             onChange={handleChange}
                             onKeyDown={handleKeyDown}
                             placeholder={term}
                         />
                         {term === 'a' && formula.a === '0' && (
-                            <label className="label">
-                                <span className="label-text-alt text-error">
-                                    Jei A = 0, tai nėra kvadratinė lygtis.
-                                </span>
-                            </label>
+                            <p className="mt-2 text-xs text-[#ef4444]">
+                                Jei A = 0, tai nėra kvadratinė lygtis.
+                            </p>
                         )}
                     </div>
                 ))}
@@ -223,7 +237,7 @@ function QuadraticCalculator({ initialA, initialB, initialC }) {
 
             {/* Results Section */}
             {showResults && (
-                <div className="prose prose-sm dark:prose-invert max-w-none mb-4">
+                <div className="prose prose-sm max-w-none mb-4">
                     <h4>Rezultatai:</h4>
                     <p>
                         <strong>Lygtis:</strong> {equationJSX}
@@ -239,7 +253,7 @@ function QuadraticCalculator({ initialA, initialB, initialC }) {
                     )}
                     {results.discriminant !== null &&
                         results.discriminant < 0 && (
-                            <p className="text-warning">
+                            <p className="text-[#f59e0b]">
                                 D &lt; 0, realiujų šaknų nėra.
                             </p>
                         )}
@@ -255,13 +269,19 @@ function QuadraticCalculator({ initialA, initialB, initialC }) {
             {/* Action Buttons */}
             <div className="mt-4 space-x-4">
                 <button
-                    className={`btn ${!isReady ? 'btn-disabled' : 'btn-primary'}`}
+                    className={btnPrimary}
+                    style={mono}
                     onClick={calculate}
                     disabled={!isReady}
                 >
                     Skaičiuoti
                 </button>
-                <button type="button" className="btn btn-ghost" onClick={reset}>
+                <button
+                    type="button"
+                    className={btnGhost}
+                    style={mono}
+                    onClick={reset}
+                >
                     Išvalyti
                 </button>
             </div>

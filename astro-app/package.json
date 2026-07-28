@@ -31,7 +31,6 @@
     "devDependencies": {
         "@sanity/types": "5.8.1",
         "@tailwindcss/typography": "^0.5.19",
-        "daisyui": "^5.5.18",
         "eslint": "10.0.0",
         "prettier": "3.8.1",
         "typescript": "5.9.3",

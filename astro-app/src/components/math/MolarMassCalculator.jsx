@@ -1,4 +1,12 @@
 import React, { useState, useMemo, useCallback } from 'react';
+import {
+    mono,
+    labelText,
+    labelHint,
+    inputClass,
+    btnPrimary,
+    btnGhost,
+} from './ui';
 
 // Helper function to round to a specified number of decimal places
 function round(value, decimals = 4) {
@@ -117,10 +125,14 @@ function MolarMassCalculator({ initialN, initialM, initialMolarMass }) {
             {' '}
             {/* Attach keydown listener to the container */}
             {/* Amount of Substance (n) Input */}
-            <div className="form-control mb-4">
-                <label className="label" htmlFor="input-n">
-                    <span className="label-text">Atomų molių skaičius (n)</span>
-                    <span className="label-text-alt">mol</span>
+            <div className="mb-4">
+                <label
+                    className="flex items-center justify-between mb-2"
+                    htmlFor="input-n"
+                    style={mono}
+                >
+                    <span className={labelText}>Atomų molių skaičius (n)</span>
+                    <span className={labelHint}>mol</span>
                 </label>
                 <input
                     id="input-n"
@@ -128,17 +140,21 @@ function MolarMassCalculator({ initialN, initialM, initialMolarMass }) {
                     type="text"
                     inputMode="decimal"
                     step="any"
-                    className="input input-bordered w-full"
+                    className={inputClass}
                     value={formula.n}
                     onChange={handleChange}
                     placeholder="pvz., 1"
                 />
             </div>
             {/* Mass (m) Input */}
-            <div className="form-control mb-4">
-                <label className="label" htmlFor="input-m">
-                    <span className="label-text">Elemento masė (m)</span>
-                    <span className="label-text-alt">g</span>
+            <div className="mb-4">
+                <label
+                    className="flex items-center justify-between mb-2"
+                    htmlFor="input-m"
+                    style={mono}
+                >
+                    <span className={labelText}>Elemento masė (m)</span>
+                    <span className={labelHint}>g</span>
                 </label>
                 <input
                     id="input-m"
@@ -146,19 +162,23 @@ function MolarMassCalculator({ initialN, initialM, initialMolarMass }) {
                     type="text"
                     inputMode="decimal"
                     step="any"
-                    className="input input-bordered w-full"
+                    className={inputClass}
                     value={formula.m}
                     onChange={handleChange}
                     placeholder="pvz., 18.015"
                 />
             </div>
             {/* Molar Mass (M) Input */}
-            <div className="form-control mb-4">
-                <label className="label" htmlFor="input-M">
-                    <span className="label-text">
+            <div className="mb-4">
+                <label
+                    className="flex items-center justify-between mb-2"
+                    htmlFor="input-M"
+                    style={mono}
+                >
+                    <span className={labelText}>
                         Santykinė atominė masė (M)
                     </span>
-                    <span className="label-text-alt">g/mol</span>
+                    <span className={labelHint}>g/mol</span>
                 </label>
                 <input
                     id="input-M"
@@ -166,7 +186,7 @@ function MolarMassCalculator({ initialN, initialM, initialMolarMass }) {
                     type="text"
                     inputMode="decimal"
                     step="any"
-                    className="input input-bordered w-full"
+                    className={inputClass}
                     value={formula.M}
                     onChange={handleChange}
                     placeholder="pvz., 18.015"
@@ -175,13 +195,19 @@ function MolarMassCalculator({ initialN, initialM, initialMolarMass }) {
             {/* Action Buttons */}
             <div className="mt-4 space-x-4">
                 <button
-                    className={`btn ${!isReady ? 'btn-disabled' : 'btn-primary'}`}
+                    className={btnPrimary}
+                    style={mono}
                     onClick={calculate}
                     disabled={!isReady}
                 >
                     Skaičiuoti
                 </button>
-                <button type="button" className="btn btn-ghost" onClick={reset}>
+                <button
+                    type="button"
+                    className={btnGhost}
+                    style={mono}
+                    onClick={reset}
+                >
                     Išvalyti
                 </button>
             </div>

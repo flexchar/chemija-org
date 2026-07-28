@@ -1,4 +1,13 @@
 import React, { useState, useMemo, useCallback } from 'react';
+import {
+    mono,
+    labelText,
+    labelHint,
+    inputClass,
+    btnPrimary,
+    btnGhost,
+    errorAlert,
+} from './ui';
 
 // Helper function to round to a specified number of decimal places
 function round(value, decimals = 4) {
@@ -132,10 +141,14 @@ function ConcentrationCalculator({ initialC, initialN, initialV }) {
     return (
         <div onKeyDown={handleKeyDown}>
             {/* Concentration (c) Input */}
-            <div className="form-control mb-4">
-                <label className="label" htmlFor="input-c">
-                    <span className="label-text">Koncentracija (c)</span>
-                    <span className="label-text-alt">mol/l</span>
+            <div className="mb-4">
+                <label
+                    className="flex items-center justify-between mb-2"
+                    htmlFor="input-c"
+                    style={mono}
+                >
+                    <span className={labelText}>Koncentracija (c)</span>
+                    <span className={labelHint}>mol/l</span>
                 </label>
                 <input
                     id="input-c"
@@ -143,7 +156,7 @@ function ConcentrationCalculator({ initialC, initialN, initialV }) {
                     type="text"
                     inputMode="decimal"
                     step="any"
-                    className="input input-bordered w-full"
+                    className={inputClass}
                     value={formula.c}
                     onChange={handleChange}
                     placeholder="pvz., 0.1"
@@ -152,10 +165,14 @@ function ConcentrationCalculator({ initialC, initialN, initialV }) {
             </div>
 
             {/* Amount (n) Input */}
-            <div className="form-control mb-4">
-                <label className="label" htmlFor="input-n">
-                    <span className="label-text">Kiekis moliais (n)</span>
-                    <span className="label-text-alt">mol</span>
+            <div className="mb-4">
+                <label
+                    className="flex items-center justify-between mb-2"
+                    htmlFor="input-n"
+                    style={mono}
+                >
+                    <span className={labelText}>Kiekis moliais (n)</span>
+                    <span className={labelHint}>mol</span>
                 </label>
                 <input
                     id="input-n"
@@ -163,7 +180,7 @@ function ConcentrationCalculator({ initialC, initialN, initialV }) {
                     type="text"
                     inputMode="decimal"
                     step="any"
-                    className="input input-bordered w-full"
+                    className={inputClass}
                     value={formula.n}
                     onChange={handleChange}
                     placeholder="pvz., 0.5"
@@ -172,10 +189,14 @@ function ConcentrationCalculator({ initialC, initialN, initialV }) {
             </div>
 
             {/* Volume (v) Input */}
-            <div className="form-control mb-4">
-                <label className="label" htmlFor="input-v">
-                    <span className="label-text">Tūris (V)</span>
-                    <span className="label-text-alt">
+            <div className="mb-4">
+                <label
+                    className="flex items-center justify-between mb-2"
+                    htmlFor="input-v"
+                    style={mono}
+                >
+                    <span className={labelText}>Tūris (V)</span>
+                    <span className={labelHint}>
                         l (dm<sup>3</sup>)
                     </span>
                 </label>
@@ -185,7 +206,7 @@ function ConcentrationCalculator({ initialC, initialN, initialV }) {
                     type="text"
                     inputMode="decimal"
                     step="any"
-                    className="input input-bordered w-full"
+                    className={inputClass}
                     value={formula.v}
                     onChange={handleChange}
                     placeholder="pvz., 5"
@@ -195,10 +216,10 @@ function ConcentrationCalculator({ initialC, initialN, initialV }) {
 
             {/* Error Message */}
             {error && (
-                <div role="alert" className="alert alert-error mb-4">
+                <div role="alert" className={`${errorAlert} mb-4`}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="stroke-current shrink-0 h-6 w-6"
+                        className="stroke-current shrink-0 h-5 w-5"
                         fill="none"
                         viewBox="0 0 24 24"
                     >
@@ -216,13 +237,19 @@ function ConcentrationCalculator({ initialC, initialN, initialV }) {
             {/* Action Buttons */}
             <div className="mt-4 space-x-4">
                 <button
-                    className={`btn ${!isReady ? 'btn-disabled' : 'btn-primary'}`}
+                    className={btnPrimary}
+                    style={mono}
                     onClick={calculate}
                     disabled={!isReady}
                 >
                     Skaičiuoti
                 </button>
-                <button type="button" className="btn btn-ghost" onClick={reset}>
+                <button
+                    type="button"
+                    className={btnGhost}
+                    style={mono}
+                    onClick={reset}
+                >
                     Išvalyti
                 </button>
             </div>

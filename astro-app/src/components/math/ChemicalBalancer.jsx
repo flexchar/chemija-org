@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 // Assuming the balancer logic exists and is compatible/ported to JS/TS
 import { balance, getRandom } from './chemicalEquationBalancer';
+import { mono, inputClass, btnPrimary, btnGhost } from './ui';
 
 function ChemicalBalancer({ initialEquation }) {
     const [equation, setEquation] = useState(initialEquation || '');
@@ -29,7 +30,7 @@ function ChemicalBalancer({ initialEquation }) {
             console.error('Error balancing equation:', error);
             // Display error message to the user, assuming balance might throw or return error indication
             setResult(
-                `<p class="text-error">Klaida: ${error.message || 'Nepavyko subalansuoti lygties.'}</p>`,
+                `<p class="text-[#ef4444]">Klaida: ${error.message || 'Nepavyko subalansuoti lygties.'}</p>`,
             );
         }
     }, [equation]);
@@ -45,7 +46,7 @@ function ChemicalBalancer({ initialEquation }) {
         } catch (error) {
             console.error('Error balancing random equation:', error);
             setResult(
-                `<p class="text-error">Klaida: ${error.message || 'Nepavyko subalansuoti pavyzdinės lygties.'}</p>`,
+                `<p class="text-[#ef4444]">Klaida: ${error.message || 'Nepavyko subalansuoti pavyzdinės lygties.'}</p>`,
             );
         }
     }, []);
@@ -77,7 +78,7 @@ function ChemicalBalancer({ initialEquation }) {
                 <input
                     id="equationInput"
                     type="text"
-                    className="input input-bordered w-full" // DaisyUI input class
+                    className={inputClass}
                     placeholder="pvz., Na + H2O2 = NaOH"
                     value={equation}
                     onChange={handleChange}
@@ -97,7 +98,8 @@ function ChemicalBalancer({ initialEquation }) {
                 {' '}
                 {/* Added spacing */}
                 <button
-                    className={`btn ${!equation.trim() ? 'btn-disabled' : 'btn-primary'}`} // DaisyUI button classes
+                    className={btnPrimary}
+                    style={mono}
                     onClick={handleBalance}
                     disabled={!equation.trim()}
                 >
@@ -105,14 +107,16 @@ function ChemicalBalancer({ initialEquation }) {
                 </button>
                 <button
                     type="button"
-                    className="btn btn-ghost" // DaisyUI ghost button
+                    className={btnGhost}
+                    style={mono}
                     onClick={handleProvideRandom}
                 >
                     Rodyti pavyzdį
                 </button>
                 <button
                     type="button"
-                    className="btn btn-ghost" // DaisyUI ghost button
+                    className={btnGhost}
+                    style={mono}
                     onClick={handleClear}
                 >
                     Išvalyti
