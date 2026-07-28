@@ -21,11 +21,11 @@ function balance(formulaStr: string): string {
         if (typeof e == 'string') {
             // Simple error message string
             return 'Sintaksės klaida: ' + e;
-        } else if ('start' in e) {
+        } else if (typeof e == 'object' && e !== null && 'start' in e) {
             // Error message object with start and possibly end character indices
-
-            const start: number = e.start;
-            let end: number = 'end' in e ? e.end : e.start;
+            const err = e as { start: number; end?: number; message: string };
+            const start: number = err.start;
+            let end: number = err.end ?? err.start;
             while (
                 end > start &&
                 [' ', '\t'].indexOf(formulaStr.charAt(end - 1)) != -1
@@ -45,7 +45,7 @@ function balance(formulaStr: string): string {
                 );
             } else codeOutput.appendChild(createElem('u', ' '));
 
-            output.innerHTML = `<p>${e.message}</p>`;
+            output.innerHTML = `<p>${err.message}</p>`;
             output.appendChild(codeOutput);
             return output.innerHTML;
         } else {
@@ -68,7 +68,7 @@ function balance(formulaStr: string): string {
 
         return output.innerHTML;
     } catch (e) {
-        return e.toString();
+        return String(e);
     }
 }
 

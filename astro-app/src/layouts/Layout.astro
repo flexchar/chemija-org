@@ -3,7 +3,10 @@
 import { ClientRouter } from 'astro:transitions';
 import Navigation from '@/components/Navigation.astro';
 import '@/assets/app.css';
-import Analytics from '@vercel/analytics/astro';
+// @vercel/analytics ships its Astro component behind a @ts-expect-error re-export,
+// so astro check can't see a valid component type; cast to keep safe:build green.
+import VercelAnalytics from '@vercel/analytics/astro';
+const Analytics = VercelAnalytics as unknown as (props: Record<string, never>) => unknown;
 
 interface Props {
     title: string;
