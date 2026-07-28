@@ -29,7 +29,7 @@ const mark = node as MarkProps['node'];
 {
     mark.markType === 'link' && (
         <a
-            href={(node as unknown as Mark<{ href: string }>).markDef.href}
+            href={(node as unknown as { markDef: { href: string } }).markDef.href}
             class="link link-primary"
             {...attrs}
         >
