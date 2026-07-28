@@ -9,20 +9,27 @@ const { rows = [] } = Astro.props.node as { rows: Row[] };
 {
     rows.length > 0 && (
         <div class="relative my-8 -mx-6 sm:-mx-12 lg:-mx-24 px-6 sm:px-12 lg:px-24">
-            <div class="overflow-x-auto rounded-lg border border-neutral-200 shadow-sm">
-                <table class="table table-zebra w-full text-sm px-1">
+            <div class="overflow-x-auto rounded-[4px] border border-neutral-200">
+                <table class="w-full text-sm">
                     <thead>
-                        <tr class="">
+                        <tr class="bg-neutral-50 border-b border-neutral-200">
                             {rows[0].cells.map((cell: string) => (
-                                <th class="whitespace-nowrap">{cell}</th>
+                                <th
+                                    class="whitespace-nowrap text-left px-4 py-3 text-xs font-medium tracking-wider text-neutral-500"
+                                    style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em;"
+                                >
+                                    {cell}
+                                </th>
                             ))}
                         </tr>
                     </thead>
                     <tbody>
                         {rows.slice(1).map((row: Row) => (
-                            <tr class="">
+                            <tr class="even:bg-neutral-50">
                                 {row.cells.map((cell: string) => (
-                                    <td>{cell}</td>
+                                    <td class="px-4 py-3 text-neutral-900">
+                                        {cell}
+                                    </td>
                                 ))}
                             </tr>
                         ))}

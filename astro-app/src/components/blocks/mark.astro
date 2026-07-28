@@ -7,7 +7,7 @@ const mark = node as MarkProps['node'];
 
 {
     mark.markType === 'code' && (
-        <code class="bg-base-200 px-1.5 py-0.5 rounded text-sm">
+        <code class="bg-neutral-100 px-1.5 py-0.5 rounded-[4px] text-sm">
             <slot />
         </code>
     )
@@ -29,8 +29,8 @@ const mark = node as MarkProps['node'];
 {
     mark.markType === 'link' && (
         <a
-            href={(node as unknown as { markDef: { href: string } }).markDef.href}
-            class="link link-primary"
+            href={(node as unknown as Mark<{ href: string }>).markDef.href}
+            class="text-[#3b82f6] underline hover:text-black transition-colors"
             {...attrs}
         >
             <slot />
@@ -67,7 +67,7 @@ const mark = node as MarkProps['node'];
 }
 {
     mark.markType === 'highlight' && (
-        <span class="bg-warning/30 px-1 rounded" {...attrs}>
+        <span class="bg-[#f59e0b]/30 px-1 rounded-[4px]" {...attrs}>
             <slot />
         </span>
     )
