@@ -7,6 +7,13 @@
             "runtimeArgs": ["run", "dev"],
             "cwd": "astro-app",
             "port": 4321
+        },
+        {
+            "name": "practice-app",
+            "runtimeExecutable": "bun",
+            "runtimeArgs": ["run", "dev"],
+            "cwd": "question-bank/app",
+            "port": 5173
         }
     ]
 }
