@@ -14,6 +14,37 @@ const examYears = [
             .filter((year) => year !== null),
     ),
 ].sort((a, b) => b - a); // Sort years in descending order
+
+// Since the 2025 reform the VBE has two parts. I dalis is sat in III gimnazijos klasė and is
+// delivered electronically, so it has no PDF booklet and cannot live in the Sanity `exam` schema
+// (questions/answers are file fields). NŠA publishes it through the Užduočių bankas instead, open
+// without registration since 2026-08-28. All links verified 2026-09-01.
+const vbeFirstPart = [
+    {
+        year: 2026,
+        session: 'Pagrindinė sesija',
+        tasks: 'https://smp.emokykla.lt/kategorijos/perziura/ID27332/t2026-m-chemijos-vbe-i-dalis-pagrindine-sesija',
+        answers: null,
+    },
+    {
+        year: 2026,
+        session: 'Pakartotinė sesija',
+        tasks: 'https://smp.emokykla.lt/kategorijos/perziura/ID27335/t2026-m-chemijos-vbe-i-dalis-pakartotine-sesija',
+        answers: 'https://www.nsa.smsm.lt/wp-content/uploads/2026/06/CHE-VBE-I-PK-vertinimo-instrukcija.pdf',
+    },
+    {
+        year: 2025,
+        session: 'Pagrindinė sesija',
+        tasks: 'https://smp.emokykla.lt/kategorijos/perziura/ID17946/t2025-m-chemijos-vbe-i-dalis-pagrindine-sesija',
+        answers: 'https://www.nsa.smsm.lt/old/wp-content/uploads/2025/06/Chemijos_vertinimo_instrukcija_2025_VBEI_pagr.pdf',
+    },
+    {
+        year: 2025,
+        session: 'Pakartotinė sesija',
+        tasks: 'https://smp.emokykla.lt/kategorijos/perziura/ID19821/t2025-m-chemijos-vbe-i-dalis-pakartotine-sesija',
+        answers: 'https://www.nsa.smsm.lt/old/wp-content/uploads/2025/07/Chemija_VBE_I_pakartotine_vertinimo_instrukcija.pdf',
+    },
+];
 ---
 
 <Layout title="Chemijos egzaminai">
@@ -159,6 +190,72 @@ const examYears = [
                 </table>
             </div>
         </div>
+
+        <!-- VBE I dalis: electronic exam, no PDF, so it is not in the Sanity archive above -->
+        <section class="mt-16" id="vbe-i-dalis">
+            <h2
+                class="text-lg sm:text-xl font-medium tracking-wider uppercase mb-4"
+                style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.1em;"
+            >
+                VBE I DALIS
+            </h2>
+            <div class="h-px bg-neutral-200"></div>
+            <p class="mt-6 mb-8 text-sm text-neutral-600 max-w-2xl">
+                Nuo 2025 m. chemijos valstybinis brandos egzaminas skaidomas į dvi
+                dalis. I dalis laikoma III gimnazijos klasėje elektroniniu būdu,
+                todėl jos užduočių sąsiuvinio PDF nėra – užduotys skelbiamos NŠA
+                Užduočių banke. Aukščiau esančiame archyve rasi II dalies užduotis
+                ir atsakymus.
+            </p>
+
+            <div class="grid gap-4 sm:grid-cols-2 max-w-3xl">
+                {
+                    vbeFirstPart.map((exam) => (
+                        <div
+                            class="bg-white border border-neutral-200 p-6"
+                            style="border-radius: 4px;"
+                        >
+                            <h3
+                                class="text-sm font-medium tracking-wide uppercase mb-4"
+                                style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.02em;"
+                            >
+                                <span class="text-neutral-900">{exam.year}</span>
+                                <span class="text-neutral-400 mx-2">•</span>
+                                <span class="text-neutral-900">
+                                    {exam.session}
+                                </span>
+                            </h3>
+                            <div class="flex flex-wrap gap-3">
+                                <a
+                                    href={exam.tasks}
+                                    class="text-xs font-medium tracking-wider uppercase text-black hover:text-neutral-600 underline transition-colors"
+                                    style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em;"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    UŽDUOTYS
+                                </a>
+                                {exam.answers ? (
+                                    <a
+                                        href={exam.answers}
+                                        class="text-xs font-medium tracking-wider uppercase text-black hover:text-neutral-600 underline transition-colors"
+                                        style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em;"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        ATSAKYMAI
+                                    </a>
+                                ) : (
+                                    <span class="text-xs text-neutral-400 tracking-wider uppercase" style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em;">
+                                        ATSAKYMAI —
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
     </div>
 </Layout>
 

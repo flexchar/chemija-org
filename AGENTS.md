@@ -142,6 +142,38 @@ add Node-specific environment-loading wrappers.
     - Known MCP behavior and fallback strategy (`patch_document_from_json` for full `body` replacement)
     - Portable Text decorator/list values from studio schema
 
+## Exam Data Provenance
+
+`question-bank/extracted/<year>/REPORT.md` is the SOURCE OF TRUTH for every claim about exam PDFs:
+which questions pair with which answer key, SHA-256 per file, page counts, and distributed
+question-to-rubric spot checks. Notes on each Sanity `exam` document carry the same hashes and the
+originating NSA URLs.
+
+**Never restate a REPORT's conclusion anywhere else - link to it.** A restated claim rots silently:
+a "2026 exam is mispaired and does not render" note lived in the business status doc for seven weeks
+while the 2026 REPORT sat in this repo already classifying both pairs as verified. Re-verified
+2026-09-01: the Sanity CDN bytes still hash-match the REPORT exactly, and all 65 exams render.
+
+Two different things are both called "I dalis" - read carefully before believing a pairing bug:
+
+- The published `VBE II dalies uzduotis` paper contains its OWN internal `I dalis` (20 x 1 pt) and
+  `II dalis` (4 questions, 40 pt) sections, 60 pt total, covered by ONE scoring key. This is the
+  paper the site archives. It is complete.
+- `VBE I` is a SEPARATE grade-11 exam, and it IS published - just not as a PDF. Per the official
+  exam description (https://www.nsa.smsm.lt/wp-content/uploads/2024/11/CHEM.pdf) its `Forma` is
+  `Elektronine`, 40 pts, 90 min, centrally auto-scored, so no booklet ever existed. The papers live
+  in NSA's Uzduociu bankas as QTI, open without registration only since 2026-08-28:
+  `smp.emokykla.lt/qti/player/store/data/collection/hash.<hash>` returns the full paper as JSON
+  (verified 2026-09-01: 2026 pagrindine = 40 items `I_01`..`I_40`, and 2026 pakartotine `I_01`
+  matches the `1. Krekingas` line in the key we already hold). The questions are ALSO embedded in
+  the `rezultatu-analizes` statistics PDFs, but as raster images - `pdftotext` shows nothing, use
+  `pdfimages -png`. The 2025 analysis PDF stars the correct option, so it doubles as a key.
+  None of this fits the `exam` schema's two file fields; do not force it in without a decision.
+
+To re-verify a year: fetch `questions.asset->url` / `answers.asset->url` from Sanity, `shasum -a 256`
+them against the REPORT, and check each PDF's own page-1 header declares the expected year, session
+and part. That check takes a minute and settles these reports for good.
+
 ## TypeScript Configuration
 
 - Strict mode enabled

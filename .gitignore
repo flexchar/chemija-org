@@ -30,3 +30,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# nested repo: github.com/flexchar/chemija-org-exams-module (not a submodule)
+/question-bank/
