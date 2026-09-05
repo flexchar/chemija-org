@@ -1,0 +1,3 @@
+# Project-local Sanity MCP. OAuth credentials are stored by Codex, not here.
+[mcp_servers.sanity]
+url = "https://mcp.sanity.io"
