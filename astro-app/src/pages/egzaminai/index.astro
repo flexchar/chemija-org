@@ -1,5 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import PracticePromo from '@/components/PracticePromo.astro';
 import { getExams } from '@/utils/sanity';
 
 const exams = await getExams();
@@ -63,6 +64,10 @@ const vbeFirstPart = [
                 atsakymų archyvas. Duomenys nuo 1996 metų.
             </p>
         </header>
+
+        <div class="mb-12">
+            <PracticePromo />
+        </div>
 
         <!-- Filter Controls -->
         <div class="mb-8">

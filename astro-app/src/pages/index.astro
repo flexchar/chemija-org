@@ -1,5 +1,6 @@
 ---
 import ExamCard from '@/components/ExamCard.astro';
+import PracticePromo from '@/components/PracticePromo.astro';
 import Layout from '@/layouts/Layout.astro';
 import { getLatestArticles, getLatestExams } from '@/utils/sanity';
 
@@ -61,6 +62,10 @@ const formatDate = (dateString: string) => {
                     />
                 </div>
             </div>
+        </section>
+
+        <section class="mt-20" aria-label="Egzamino praktika">
+            <PracticePromo />
         </section>
 
         <!-- Articles -->
