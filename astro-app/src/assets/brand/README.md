@@ -1,0 +1,9 @@
+# Chemija.org mark
+
+The shared mark is a simple emerald Erlenmeyer flask with a two-node bond. `chemija-mark-generated.png` is the original transparent image generated with OpenAI's built-in `image_gen.imagegen` tool. `chemija-mark.svg` is a deterministic, flat-color reproduction of that generated mark for crisp favicon rendering. It uses `#047857` and has a transparent background.
+
+Generation prompt: "Use case: logo-brand. Asset type: shared Chemija.org website and chemistry-practice favicon/logo mark. Create exactly one clean, original, flat geometric icon centered in a square. Subject: a small laboratory Erlenmeyer flask silhouette made from a bold emerald-green outline with a short narrow neck, wide triangular body, and one simple two-node molecular bond inside the lower half. The flask and bond must remain recognizable when scaled down to 16×16 pixels. Transparent background with genuine alpha. Crisp hard edges, high contrast, balanced generous transparent padding around the mark. Flat single-color emerald green (#047857 or close), no gradients, no shadows, no texture, no glow, no circle badge, no text, no letters, no watermark, no extra bubbles or decorative atoms. Aim for a vector-friendly, professional scientific symbol, visually compatible with a monochrome editorial website and a modern emerald practice app."
+
+Source generated artifact: `/Users/banana/.codex/generated_images/01a11cee-5a4f-7241-bb5b-518998f65a80/exec-5864ca17-2cab-4c52-8ebe-d504c785b2c8.png`. The project copy preserves its pixels and alpha. Favicon PNGs may be rasterized from the SVG for browsers and app icons.
+
+The public SVG at `astro-app/public/favicon.svg` is an exact copy of `chemija-mark.svg`. The 16, 32, 180 and 512 px PNGs in `astro-app/public` were rasterized from that SVG with `rsvg-convert`; `favicon.ico` contains the 16 and 32 px PNGs. Keep the SVG as the shared source for the main site and practice app.
