@@ -1,0 +1,11 @@
+{
+  "title": "Lithuanian glass joints",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "transparent_background": true,
+  "source": "/Users/banana/.codex/generated_images/01a12074-25d9-78e3-b285-b2868634ddfe/exec-cee00a70-9ce1-4305-b915-e6bef876a100.png",
+  "output": "chemija-glass-joints.png",
+  "prompt_file": "prompt.txt",
+  "model": "Tool does not expose an image model selector",
+  "inspection": "Single bold vessel outline with yellow rim, green shoulder and red lower bend. No text. Original PNG preserved unchanged. Some generated shading remains despite requested flat colors."
+}

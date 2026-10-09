@@ -1,0 +1,10 @@
+Use case: logo-brand
+Asset type: one original symbol for Chemija.org, a Lithuanian chemistry learning website; favicon-ready brand exploration.
+Primary request: Design one striking modern minimal emblem built from a SINGLE slender laboratory TEST TUBE tilted 30 degrees clockwise from vertical, mouth pointing upper right and rounded base pointing lower left. Make it feel like an expertly reduced editorial identity.
+Form: bold dark emerald silhouette, parallel sides and semicircular bottom, clean open mouth with a modest integrated lip. A single generous asymmetric transparent cut inside the tube suggests a liquid surface and a tapering drop through negative space. The liquid cue must be part of the tube, never a separate bubble or floating droplet. Use very few geometric edges and substantial masses. Strong elegant diagonal gesture and instantly recognizable test-tube proportions. No hairlines. Design must survive at 16 pixels.
+Style: flat vector-like logo, precise simple contours, confident optical balance, no texture, no lighting.
+Composition: exactly one centered mark on a square transparent canvas, filling about 75% of its height, comfortable clear margins.
+Color: one uniform solid dark emerald #064E3B only; transparent negative space.
+Text: none.
+Avoid: flask, beaker, atom, orbit, molecule, bubbles, sparkles, leaves, letters, words, gradients, shadows, three-dimensional rendering, illustrations of equipment, decorative details, border, background square, mockup, grid, multiple alternatives, watermark.
+Deliver a genuinely transparent PNG with alpha, not a checkerboard painting.

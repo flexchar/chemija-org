@@ -1,0 +1,15 @@
+{
+  "title": "Tilted Lithuanian joints",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "transparent_background": true,
+  "source": "/Users/banana/.codex/generated_images/01a12074-25d9-78e3-b285-b2868634ddfe/exec-aefd8587-2963-4916-9e1a-b5955137c80d.png",
+  "output": "chemija-tilted-joints.png",
+  "prompt_file": "prompt.txt",
+  "referenced_image_paths": [
+    "/Users/banana/banana-dev/chemija-org/astro-app/src/assets/brand/concepts/astra-2/chemija-glass-joints.png",
+    "/Users/banana/banana-dev/chemija-org/astro-app/src/assets/brand/concepts/astra-3/logo.png"
+  ],
+  "model": "Tool does not expose an image model selector",
+  "inspection": "Clear tilted test tube with single curved meniscus. Yellow lip, green right wall and red bottom bend accents. Original PNG preserved unchanged. Generated shading and capsule-like color joints remain despite flat-color request; favicon readability not validated."
+}

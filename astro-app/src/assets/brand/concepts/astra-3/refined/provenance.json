@@ -1,0 +1,14 @@
+{
+  "title": "Lithuanian liquid tube",
+  "promptAuthor": "GPT 6 Astra",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in edit with two local image references",
+  "model": "Image tool exposes neither a model selector nor a model identity",
+  "transparent_background": true,
+  "source": "/Users/banana/.codex/generated_images/01a12075-6327-7060-9b4e-d7c1ab1f8ea2/exec-803a9ff1-53d7-4c4d-975c-134b1bb6a680.png",
+  "references": [
+    "../logo.png",
+    "../../astra-2/chemija-glass-joints.png"
+  ],
+  "inspection": "Clear tilted tube with horizontal yellow, green and red lower fill. Original alpha PNG preserved. Slight tonal variation remains in generated colours despite requested flat treatment. Native 16px raster readability has not been verified."
+}

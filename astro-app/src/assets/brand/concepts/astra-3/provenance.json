@@ -1,0 +1,10 @@
+{
+  "title": "Tilted test tube",
+  "agent": "Astra concept 3",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "model": "Tool does not expose a model selector or model identity",
+  "transparent_background": true,
+  "source": "/Users/banana/.codex/generated_images/01a12075-6327-7060-9b4e-d7c1ab1f8ea2/exec-08e4acab-7cd1-428b-9423-eacd4435c18d.png",
+  "inspection": "Single emerald tilted test tube with broad contours and asymmetric interior liquid curve. No text or added symbols. Original PNG preserved without editing."
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Open Glass",
+  "tool": "built-in image_gen.imagegen",
+  "model": "Not exposed by tool",
+  "transparent_background": true,
+  "source_path": "/Users/banana/.codex/generated_images/01a12073-f475-7f31-81e1-e55cb0f79966/exec-9d570f2a-e201-4eaa-bb7e-020f0b807a07.png",
+  "deliverable": "open-glass.png",
+  "prompt_file": "prompt.txt",
+  "processing": "Original generated PNG copied without modification"
+}

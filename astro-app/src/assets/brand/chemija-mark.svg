@@ -1,10 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="Chemija.org">
-  <g fill="none" stroke="#047857" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M8.5 3.2h7M9.3 3.2v5.1L3.4 18.5a1.55 1.55 0 0 0 1.35 2.3h14.5a1.55 1.55 0 0 0 1.35-2.3L14.7 8.3V3.2" stroke-width="2.1"/>
-    <path d="m9.5 17 4-2.6" stroke-width="1.8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Chemija.org">
+  <defs>
+    <clipPath id="tube-interior">
+      <path d="M55.7 21.4 30.3 70.8c-4.6 9-0.1 14.6 6.1 14.6 5.6 0 9.8-3.3 12.6-8.9l22.8-45.8Z"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tube-interior)">
+    <path fill="#FDBF22" d="M20 50.3h65v9H20z"/>
+    <path fill="#007C59" d="M20 59.3h65v9.8H20z"/>
+    <path fill="#CE2733" d="M20 69.1h65v21H20z"/>
   </g>
-  <g fill="#047857">
-    <circle cx="9.5" cy="17" r="1.45"/>
-    <circle cx="13.5" cy="14.4" r="1.45"/>
+  <g fill="none" stroke="#064E3B" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M55.7 21.4 30.3 70.8c-4.6 9-0.1 14.6 6.1 14.6 5.6 0 9.8-3.3 12.6-8.9l22.8-45.8"/>
+    <path d="m54.4 19.8 19.5 9.3"/>
   </g>
 </svg>

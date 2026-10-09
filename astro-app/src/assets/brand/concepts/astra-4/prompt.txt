@@ -1,0 +1,9 @@
+Use case: logo-brand
+Asset type: primary symbol and 16px favicon for Chemija.org, a Lithuanian chemistry education website.
+Primary request: Create ONE radically minimal modern glass-vessel logo, a bold open U-shaped laboratory glass interpreted as a flat geometric glyph. It must feel like a distinctive contemporary app symbol with very few parts.
+Subject geometry: An upright straight-sided, wide open glass with a softly rounded bottom. Construct its upper half from two thick short vertical sidewalls and a generous open transparent center. The lower half is one chunky solid rounded-bottom liquid mass. A single horizontal transparent slot separates the upper sidewalls from this lower liquid mass. The negative space and open mouth make the glass recognizable. Strong symmetrical proportions, almost square overall, slightly taller than wide. No pouring lip. No rim ellipse.
+Style/medium: ultra-clean flat vector-like graphic, precise geometry, hard clean edges, substantial thickness, intentional optical balance. One unified icon, no enclosing app tile.
+Color palette: one solid deep emerald green, approximately #087F5B. All voids are genuinely transparent.
+Composition/framing: centered square canvas, symbol fills approximately 70 percent of the canvas with even breathing room. Single isolated icon only.
+Constraints: actual transparent background with preserved alpha. No text or letters, no wordmark, no mockup, no presentation board, no extra variants. Must remain legible when reduced to 16 pixels. Do not add small details.
+Avoid: atoms, molecules, Erlenmeyer flasks, narrow necks, tilted tubes, measurement ticks, bubbles, drops, leaves, flags, gradients, shadows, reflections, outlines around the whole icon, 3D, texture, decorative elements, checkerboard background.
