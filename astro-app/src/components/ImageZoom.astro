@@ -1,0 +1,255 @@
+<dialog id="image-zoom" aria-label="Padidintas vaizdas">
+    <div class="image-zoom-shell">
+        <div class="image-zoom-toolbar" aria-label="Vaizdo valdikliai">
+            <button type="button" data-zoom-action="fit" aria-label="Pritaikyti ekranui">Talpinti</button>
+            <button type="button" data-zoom-action="original" aria-label="Rodyti originaliu dydžiu">100 %</button>
+            <button type="button" data-zoom-action="out" aria-label="Sumažinti">−</button>
+            <button type="button" data-zoom-action="in" aria-label="Padidinti">+</button>
+            <button type="button" data-zoom-action="close" aria-label="Uždaryti">✕</button>
+        </div>
+        <div class="image-zoom-stage">
+            <img alt="" draggable="false" />
+        </div>
+    </div>
+</dialog>
+
+<style>
+    #image-zoom {
+        width: 100vw;
+        max-width: none;
+        height: 100dvh;
+        max-height: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: #111;
+        color: white;
+        overflow: hidden;
+    }
+    #image-zoom::backdrop { background: rgba(0, 0, 0, .88); }
+    .image-zoom-shell { display: flex; flex-direction: column; width: 100%; height: 100%; }
+    .image-zoom-toolbar {
+        z-index: 1;
+        display: flex;
+        justify-content: flex-end;
+        gap: 4px;
+        flex: none;
+        padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) 8px max(8px, env(safe-area-inset-left));
+        background: #111;
+        font: 500 14px 'IBM Plex Mono', monospace;
+    }
+    .image-zoom-toolbar button {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0 12px;
+        border: 1px solid #666;
+        border-radius: 4px;
+        background: #222;
+        color: white;
+        cursor: pointer;
+    }
+    .image-zoom-toolbar button:hover { background: #383838; }
+    .image-zoom-toolbar button:focus-visible { outline: 2px solid white; outline-offset: 2px; }
+    .image-zoom-stage {
+        position: relative;
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+        touch-action: none;
+        cursor: grab;
+    }
+    .image-zoom-stage:active { cursor: grabbing; }
+    .image-zoom-stage img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        max-width: none;
+        max-height: none;
+        user-select: none;
+        -webkit-user-drag: none;
+        transform-origin: center;
+        will-change: transform;
+    }
+    @media (max-width: 520px) {
+        .image-zoom-toolbar { justify-content: space-between; }
+        .image-zoom-toolbar button { padding: 0 6px; }
+    }
+</style>
+
+<script>
+    // Sources opt in with data-image-zoom; data-image-zoom-src can point to a larger original.
+    const zoomWindow = window as Window & { __imageZoomDispose?: () => void };
+    zoomWindow.__imageZoomDispose?.();
+    let activeController: AbortController | undefined;
+    const setupImageZoom = () => {
+    activeController?.abort();
+    activeController = new AbortController();
+    const { signal } = activeController;
+    const dialog = document.querySelector<HTMLDialogElement>('#image-zoom');
+    if (dialog) {
+        const stage = dialog.querySelector<HTMLElement>('.image-zoom-stage')!;
+        const image = stage.querySelector<HTMLImageElement>('img')!;
+        const pointers = new Map<number, { x: number; y: number }>();
+        const pointerStarts = new Map<number, { x: number; y: number }>();
+        let source: HTMLImageElement | null = null;
+        let previousOverflow = '';
+        let fitScale = 1;
+        let scale = 1;
+        let x = 0;
+        let y = 0;
+        let gestureDistance = 0;
+        let gestureScale = 1;
+        let gestureX = 0;
+        let gestureY = 0;
+        let gestureCenter = { x: 0, y: 0 };
+        let moved = false;
+
+        const maxScale = () => Math.max(4, 2 / fitScale);
+        const clampScale = (value: number) => Math.min(maxScale(), Math.max(1, value));
+        const zoomAround = (nextScale: number, clientX: number, clientY: number) => {
+            const bounds = stage.getBoundingClientRect();
+            const anchorX = clientX - bounds.left - bounds.width / 2;
+            const anchorY = clientY - bounds.top - bounds.height / 2;
+            const ratio = clampScale(nextScale) / scale;
+            x = anchorX - (anchorX - x) * ratio;
+            y = anchorY - (anchorY - y) * ratio;
+            scale *= ratio;
+            render();
+        };
+        const render = () => {
+            const maxX = Math.max(0, (image.width * scale - stage.clientWidth) / 2);
+            const maxY = Math.max(0, (image.height * scale - stage.clientHeight) / 2);
+            x = Math.max(-maxX, Math.min(maxX, x));
+            y = Math.max(-maxY, Math.min(maxY, y));
+            image.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(${scale})`;
+        };
+        const fit = () => {
+            if (!image.naturalWidth || !image.naturalHeight) return;
+            fitScale = Math.min(1, stage.clientWidth / image.naturalWidth, stage.clientHeight / image.naturalHeight);
+            image.width = Math.round(image.naturalWidth * fitScale);
+            image.height = Math.round(image.naturalHeight * fitScale);
+            scale = 1;
+            x = 0;
+            y = 0;
+            render();
+        };
+        const open = (target: HTMLImageElement) => {
+            if (dialog.open) return;
+            source = target;
+            image.alt = target.alt;
+            image.onload = fit;
+            image.src = target.dataset.imageZoomSrc || target.currentSrc || target.src;
+            previousOverflow = document.body.style.overflow;
+            document.body.style.overflow = 'hidden';
+            dialog.showModal();
+            dialog.querySelector<HTMLButtonElement>('[data-zoom-action="close"]')?.focus();
+            if (image.complete) fit();
+        };
+        const close = () => dialog.close();
+        dialog.addEventListener('close', () => {
+            document.body.style.overflow = previousOverflow;
+            pointers.clear();
+            pointerStarts.clear();
+            image.removeAttribute('src');
+            source?.focus();
+            source = null;
+        }, { signal });
+        document.addEventListener('astro:before-swap', () => {
+            if (dialog.open) {
+                close();
+                document.body.style.overflow = previousOverflow;
+            }
+        }, { signal });
+        document.addEventListener('click', (event) => {
+            const target = event.target;
+            if (!(target instanceof Element)) return;
+            const action = target.closest<HTMLElement>('[data-zoom-action]')?.dataset.zoomAction;
+            if (dialog.open && action) {
+                if (action === 'close') close();
+                if (action === 'fit') fit();
+                if (action === 'original') { scale = clampScale(1 / fitScale); x = 0; y = 0; render(); }
+                if (action === 'in' || action === 'out') {
+                    const bounds = stage.getBoundingClientRect();
+                    zoomAround(scale * (action === 'in' ? 1.5 : 1 / 1.5), bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
+                }
+                return;
+            }
+            if (dialog.open && (target === dialog || target === stage)) {
+                const bounds = image.getBoundingClientRect();
+                const outsideImage = event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom;
+                if (!moved && outsideImage) close();
+                moved = false;
+                return;
+            }
+            const eligible = target.closest<HTMLImageElement>('img[data-image-zoom]');
+            if (eligible && !eligible.closest('a, button')) open(eligible);
+        }, { signal });
+        document.addEventListener('keydown', (event) => {
+            const target = event.target;
+            if (!dialog.open && (event.key === 'Enter' || event.key === ' ') && target instanceof HTMLImageElement && target.matches('[data-image-zoom]')) {
+                event.preventDefault();
+                open(target);
+            }
+            if (dialog.open && (event.key === '+' || event.key === '=' || event.key === '-')) {
+                event.preventDefault();
+                const bounds = stage.getBoundingClientRect();
+                zoomAround(scale * (event.key === '-' ? 1 / 1.5 : 1.5), bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
+            }
+        }, { signal });
+        window.addEventListener('resize', () => { if (dialog.open) fit(); }, { signal });
+        stage.addEventListener('wheel', (event) => {
+            event.preventDefault();
+            zoomAround(scale * (event.deltaY < 0 ? 1.15 : 1 / 1.15), event.clientX, event.clientY);
+        }, { passive: false, signal });
+        const beginGesture = () => {
+            const points = [...pointers.values()];
+            if (points.length !== 2) return;
+            gestureDistance = Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
+            gestureCenter = { x: (points[0].x + points[1].x) / 2, y: (points[0].y + points[1].y) / 2 };
+            gestureScale = scale;
+            gestureX = x;
+            gestureY = y;
+        };
+        stage.addEventListener('pointerdown', (event) => {
+            if (pointers.size === 0) moved = false;
+            else moved = true;
+            stage.setPointerCapture(event.pointerId);
+            pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+            pointerStarts.set(event.pointerId, { x: event.clientX, y: event.clientY });
+            beginGesture();
+        }, { signal });
+        stage.addEventListener('pointermove', (event) => {
+            const previous = pointers.get(event.pointerId);
+            if (!previous) return;
+            const start = pointerStarts.get(event.pointerId)!;
+            if (Math.hypot(event.clientX - start.x, event.clientY - start.y) > 5) moved = true;
+            pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+            if (pointers.size === 1 && scale > 1) {
+                x += event.clientX - previous.x;
+                y += event.clientY - previous.y;
+            } else if (pointers.size === 2 && gestureDistance) {
+                const points = [...pointers.values()];
+                const center = { x: (points[0].x + points[1].x) / 2, y: (points[0].y + points[1].y) / 2 };
+                const nextScale = clampScale(gestureScale * Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y) / gestureDistance);
+                const ratio = nextScale / gestureScale;
+                const bounds = stage.getBoundingClientRect();
+                const stageCenterX = bounds.left + bounds.width / 2;
+                const stageCenterY = bounds.top + bounds.height / 2;
+                x = center.x - stageCenterX - (gestureCenter.x - stageCenterX - gestureX) * ratio;
+                y = center.y - stageCenterY - (gestureCenter.y - stageCenterY - gestureY) * ratio;
+                scale = nextScale;
+            }
+            render();
+        }, { signal });
+        const release = (event: PointerEvent) => { pointers.delete(event.pointerId); pointerStarts.delete(event.pointerId); beginGesture(); };
+        stage.addEventListener('pointerup', release, { signal });
+        stage.addEventListener('pointercancel', release, { signal });
+    }
+    };
+    document.addEventListener('astro:page-load', setupImageZoom);
+    zoomWindow.__imageZoomDispose = () => {
+        activeController?.abort();
+        document.removeEventListener('astro:page-load', setupImageZoom);
+    };
+    setupImageZoom();
+</script>

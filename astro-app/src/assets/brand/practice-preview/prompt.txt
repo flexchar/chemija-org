@@ -1,0 +1,6 @@
+Use case: product-mockup
+Asset type: transparent website promotional device frame
+Primary request: one realistic modern smartphone viewed perfectly straight on, portrait orientation, with a completely empty transparent display opening so a real app screenshot can be placed beneath it later. The phone has a slim matte charcoal aluminum bezel, softly rounded corners, a tiny top camera cutout, and understated studio reflections on the edge only.
+Composition/framing: centered isolated device, no perspective tilt, no hand, entire phone visible with even narrow transparent margin. Screen window must be unobstructed and have crisp simple geometry suitable for precise overlay.
+Lighting/mood: soft neutral studio light; restrained, credible, technical.
+Constraints: true alpha transparent canvas outside device and INSIDE display opening. No UI, no text, no logo, no content, no wallpaper, no shadow behind phone, no extra objects. Front facing flat view only.

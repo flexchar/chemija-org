@@ -87,8 +87,13 @@ const articleData = article;
                         src={urlFor(articleData.mainImage?.asset)
                             .width(900)
                             .url()}
+                        data-image-zoom
+                        data-image-zoom-src={urlFor(articleData.mainImage.asset).url()}
+                        role="button"
+                        tabindex="0"
+                        aria-label={`Atidaryti didesnį vaizdą: ${articleData.title || 'iliustracija'}`}
                         alt={articleData.title || 'Article image'}
-                        class="w-full h-auto object-cover"
+                        class="w-full h-auto object-cover cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-900"
                     />
                 </div>
             )

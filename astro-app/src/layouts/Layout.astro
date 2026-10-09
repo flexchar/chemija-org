@@ -2,6 +2,7 @@
 // https://docs.astro.build/en/guides/view-transitions/
 import { ClientRouter } from 'astro:transitions';
 import Navigation from '@/components/Navigation.astro';
+import ImageZoom from '@/components/ImageZoom.astro';
 import '@/assets/app.css';
 // @vercel/analytics ships its Astro component behind a @ts-expect-error re-export,
 // so astro check can't see a valid component type; cast to keep safe:build green.
@@ -49,6 +50,7 @@ const { title, description, schema } = Astro.props;
         <Analytics />
     </head>
     <body>
+        <ImageZoom />
         <div class="min-h-screen flex flex-col bg-white">
             <Navigation />
             <main class="flex-grow">

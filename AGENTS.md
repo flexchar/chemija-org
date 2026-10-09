@@ -109,6 +109,10 @@ Located in `studio/src/schemaTypes/`:
 - Custom components in `astro-app/src/components/blocks/`
 - Main component: `PortableText.astro`
 
+### Image previews
+
+`ImageZoom.astro` is mounted once in `Layout.astro`. Content images opt in with `data-image-zoom`, keyboard focus and a button label; optional `data-image-zoom-src` points to the full-resolution original. Keep logos, navigation icons and linked card images out of the viewer. Verify pinch, pan, close/focus restoration and scroll cleanup when changing it.
+
 ## Deployment
 
 - **Platform**: Vercel
