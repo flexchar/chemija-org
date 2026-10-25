@@ -3,6 +3,7 @@
 import { ClientRouter } from 'astro:transitions';
 import Navigation from '@/components/Navigation.astro';
 import ImageZoom from '@/components/ImageZoom.astro';
+import AnalyticsConsent from '@/components/AnalyticsConsent.astro';
 import '@/assets/app.css';
 // @vercel/analytics ships its Astro component behind a @ts-expect-error re-export,
 // so astro check can't see a valid component type; cast to keep safe:build green.
@@ -50,6 +51,7 @@ const { title, description, schema } = Astro.props;
         <Analytics />
     </head>
     <body>
+        <AnalyticsConsent />
         <ImageZoom />
         <div class="min-h-screen flex flex-col bg-white">
             <Navigation />
@@ -72,6 +74,7 @@ const { title, description, schema } = Astro.props;
                         </p>
                     </div>
                     <div class="flex flex-col items-start sm:items-end gap-2">
+                        <button type="button" data-analytics-settings class="text-xs text-neutral-500 underline">Analizės nustatymai</button>
                         <p
                             class="text-xs font-medium tracking-wider uppercase text-neutral-500"
                             style="font-family: 'IBM Plex Mono', 'Space Mono', monospace; letter-spacing: 0.05em;"

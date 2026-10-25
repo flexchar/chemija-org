@@ -1,3 +1,6 @@
+---
+const source = Astro.url.pathname.startsWith('/egzaminai') ? 'exams' : 'home';
+---
 <aside class="overflow-hidden rounded-sm border border-neutral-200 bg-neutral-50 p-6 sm:p-8" aria-labelledby="practice-promo-title">
     <div class="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(260px,340px)] lg:gap-12">
         <div>
@@ -11,10 +14,10 @@
                 Spręsk egzamino klausimus ir iškart matyk, kodėl atsakymas teisingas. Rašytines užduotis gali spręsti savaip ir palyginti su paaiškinimu.
             </p>
             <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4">
-                <a href="https://praktika.chemija.org/" class="inline-flex items-center justify-center gap-2 bg-black px-6 py-3 text-xs font-medium tracking-wider uppercase text-white transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black" style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em; border-radius: 4px;">
+                <a href={`https://praktika.chemija.org/?source=${source}`} data-analytics-source={source} class="inline-flex items-center justify-center gap-2 bg-black px-6 py-3 text-xs font-medium tracking-wider uppercase text-white transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black" style="font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em; border-radius: 4px;">
                     PRADĖTI PRAKTIKĄ <span aria-hidden="true">→</span>
                 </a>
-                <a href="https://praktika.chemija.org/egzaminai/2024#bandymas" class="text-sm font-medium text-neutral-700 underline underline-offset-4 hover:text-black">
+                <a href={`https://praktika.chemija.org/egzaminai/2024?source=${source}#bandymas`} data-analytics-source={source} class="text-sm font-medium text-neutral-700 underline underline-offset-4 hover:text-black">
                     Išbandyti 3 klausimus be registracijos
                 </a>
             </div>
