@@ -50,6 +50,7 @@ async function analytics(): Promise<PostHog | null> {
                 }
                 event.properties = {
                     ...protocol,
+                    ...(props.token === token ? { token } : {}),
                     ...(typeof props.source === 'string' && ['nav', 'home', 'exams', 'direct'].includes(props.source) ? { source: props.source } : {}),
                     ...(cleanUrl(props.$current_url) ? { $current_url: cleanUrl(props.$current_url) } : {}),
                     $process_person_profile: false,
